@@ -31,6 +31,8 @@ dependencies:
   flex_color_scheme: ^4.2.0
   flutter:
     sdk: flutter
+  flutter_map: ^0.14.0
+  flutter_map_marker_cluster: ^0.4.4
 
 dev_dependencies:
   flutter_lints: ^1.0.0

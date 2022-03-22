@@ -1,8 +1,16 @@
+import 'package:desktop_visualizer/city.dart';
 import 'package:desktop_visualizer/leaflet_map.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+late List<City> cities;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cities = await loadCities();
+
   runApp(const MyApp());
 }
 
@@ -12,6 +20,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final fontFamily = GoogleFonts.notoSansMono().fontFamily;
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
@@ -28,8 +38,7 @@ class MyApp extends StatelessWidget {
         lightIsWhite: false,
         useSubThemes: true,
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        // To use playground font, add GoogleFonts package and uncomment:
-        // fontFamily: GoogleFonts.notoSans().fontFamily,
+        fontFamily: fontFamily,
         subThemesData: const FlexSubThemesData(
           useTextTheme: true,
           fabUseShape: true,
@@ -61,8 +70,7 @@ class MyApp extends StatelessWidget {
         darkIsTrueBlack: false,
         useSubThemes: true,
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        // To use playground font, add GoogleFonts package and uncomment:
-        // fontFamily: GoogleFonts.notoSans().fontFamily,
+        fontFamily: fontFamily,
         subThemesData: const FlexSubThemesData(
           useTextTheme: true,
           fabUseShape: true,
@@ -109,7 +117,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -119,6 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -139,7 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const LeafletMap(),
+                    builder: (context) => LeafletMap(
+                      cities: cities,
+                    ),
                   ),
                 );
               },

@@ -1,45 +1,46 @@
+import 'package:desktop_visualizer/city.dart';
+import 'package:desktop_visualizer/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 
-class LeafletMap extends StatelessWidget {
-  const LeafletMap({Key? key}) : super(key: key);
+class LeafletMap extends StatefulWidget {
+  final List<City> cities;
+  const LeafletMap({required this.cities, Key? key}) : super(key: key);
+
+  @override
+  State<LeafletMap> createState() => LeafletMapState();
+}
+
+class LeafletMapState extends State<LeafletMap> {
+  Set<City> polygons = {};
+  Set<City> markers = {};
+
+  void addPolygon(City city) {
+    polygons.add(city);
+  }
+
+  void removePolygon(City city) {
+    polygons.remove(city);
+  }
+
+  void addMarker(City city) {
+    markers.add(city);
+  }
+
+  void removeMarker(City city) {
+    markers.remove(city);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    markers.addAll(cities);
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Marker> markers = [
-      Marker(
-        anchorPos: AnchorPos.align(AnchorAlign.center),
-        point: LatLng(38, -97),
-        builder: (context) => IconButton(
-          icon: const Icon(Icons.pin_drop),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return SimpleDialog(
-                    title: Text(
-                      'Simple dialog',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'Close',
-                            style: Theme.of(context).textTheme.headline6,
-                          ))
-                    ],
-                  );
-                });
-          },
-        ),
-      )
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Map'),
@@ -47,7 +48,7 @@ class LeafletMap extends StatelessWidget {
       body: FlutterMap(
         options: MapOptions(
           center: LatLng(38, -97),
-          zoom: 5,
+          zoom: 4,
           plugins: [MarkerClusterPlugin()],
         ),
         children: [
@@ -57,11 +58,23 @@ class LeafletMap extends StatelessWidget {
               subdomains: ['a', 'b', 'c'],
             ),
           ),
+          PolygonLayerWidget(
+            options: PolygonLayerOptions(
+              polygons: List.generate(polygons.length,
+                  (index) => polygons.elementAt(index).getPolygon(context)),
+            ),
+          ),
           MarkerClusterLayerWidget(
             options: MarkerClusterLayerOptions(
-              size: const Size(40, 40),
+              onMarkerTap: (p0) {
+                print(p0.key);
+              },
+              showPolygon: false,
               maxClusterRadius: 120,
-              markers: markers,
+              markers: List.generate(markers.length, (index) {
+                City city = markers.elementAt(index);
+                return city.makeMarker(context, this);
+              }),
               builder: (context, localMarkers) {
                 return Container(
                   decoration: BoxDecoration(
@@ -78,7 +91,7 @@ class LeafletMap extends StatelessWidget {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

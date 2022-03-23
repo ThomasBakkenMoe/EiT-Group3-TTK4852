@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:desktop_visualizer/constants/us_states_map.dart';
 import 'package:desktop_visualizer/leaflet_map.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,20 @@ class City {
     this.emoPhysRank = emoPhysRank;
     this.incomeEmpRank = incomeEmpRank;
     this.communityEnvRank = communityEnvRank;
+  }
+
+  String getName() {
+    return name.split(',')[0];
+  }
+
+  String getStateShort() {
+    return name.split(', ')[1];
+  }
+
+  String getStateLong() {
+    // Add state map
+    final abbr = name.split(', ')[1];
+    return usStates[abbr] ?? abbr;
   }
 
   Future<void> _fromJSON(String path) async {
@@ -100,7 +115,7 @@ class City {
               builder: (context) {
                 return SimpleDialog(
                   title: Text(
-                    name,
+                    getName() + ' in ' + getStateLong(),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   children: [

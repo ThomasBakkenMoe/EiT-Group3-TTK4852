@@ -11,9 +11,27 @@ class City {
   late String name;
   late Polygon polygon;
   late LatLng centroid;
+  late double vegFrac;
+  late double happyScore;
+  late int emoPhysRank;
+  late int incomeEmpRank;
+  late int communityEnvRank;
 
   City.fromJSON(String path) {
     _fromJSON(path);
+  }
+
+  void setData(
+      {required double vegFrac,
+      required double happyScore,
+      required int emoPhysRank,
+      required int incomeEmpRank,
+      required int communityEnvRank}) {
+    this.vegFrac = vegFrac;
+    this.happyScore = happyScore;
+    this.emoPhysRank = emoPhysRank;
+    this.incomeEmpRank = incomeEmpRank;
+    this.communityEnvRank = communityEnvRank;
   }
 
   Future<void> _fromJSON(String path) async {
@@ -110,6 +128,9 @@ class City {
 }
 
 Future<List<City>> loadCities() async {
+  final dataFile = await rootBundle.loadString('assets/city_data.json');
+  List<dynamic> data = await jsonDecode(dataFile);
+
   List<City> cities = [];
   final manifest = await rootBundle.loadString('AssetManifest.json');
 
@@ -133,7 +154,20 @@ Future<List<City>> loadCities() async {
   for (String file in assetMap.keys.where(
     (element) => element.contains('.json'),
   )) {
-    cities.add(City.fromJSON(file));
+    City city = City.fromJSON(file);
+    for (Map<String, dynamic> cityData in data) {
+      if (cityData['City'] == city.name) {
+        city.setData(
+            vegFrac: cityData['Vegetation %'],
+            happyScore: cityData['Total Score'],
+            emoPhysRank: cityData['Emotional and Physical Well-Being Rank'],
+            incomeEmpRank: cityData['Income and Employment Rank'],
+            communityEnvRank: cityData['Community and Environment Rank']);
+      }
+    }
+
+    cities.add(city);
   }
+
   return cities;
 }

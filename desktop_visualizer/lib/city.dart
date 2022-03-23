@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:desktop_visualizer/leaflet_map.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -43,7 +44,9 @@ class City {
       isDotted: true,
     );
     centroid = LatLngBounds.fromPoints(polygon.points).center;
-    print(path);
+    if (kDebugMode) {
+      print(path);
+    }
   }
 
   Polygon getPolygon(BuildContext context) {
@@ -67,6 +70,8 @@ class City {
           color: Theme.of(context).colorScheme.primary,
         ),
         onPressed: () {
+          // Dirty setState, pulling from the state of ancestor widget, should be changed
+          // to a valueChangeNotifier or similar
           state.setState(() {
             state.addPolygon(this);
             state.removeMarker(this);
@@ -84,6 +89,8 @@ class City {
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
+                          // Dirty setState, pulling from the state of ancestor widget, should be changed
+                          // to a valueChangeNotifier or similar
                           state.setState(() {
                             state.removePolygon(this);
                             state.addMarker(this);
@@ -105,7 +112,24 @@ class City {
 Future<List<City>> loadCities() async {
   List<City> cities = [];
   final manifest = await rootBundle.loadString('AssetManifest.json');
+
   Map<String, dynamic> assetMap = jsonDecode(manifest);
+
+  if (kDebugMode) {
+    const int citiesToRead = 5;
+    Map<String, dynamic> newMap = {};
+    newMap.addEntries(
+      assetMap.entries
+          .where(
+            (element) => element.key.contains('.json'),
+          )
+          .takeWhile(
+            (value) => newMap.length < citiesToRead,
+          ),
+    );
+    assetMap = newMap;
+  }
+
   for (String file in assetMap.keys.where(
     (element) => element.contains('.json'),
   )) {

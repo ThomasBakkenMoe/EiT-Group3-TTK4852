@@ -1,3 +1,4 @@
+import 'package:desktop_visualizer/stat_dashboard.dart';
 import 'package:desktop_visualizer/visualization_widgets/stat_card.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
       home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: StatCard(),
+        body: Center(
+          child: StatDashboard(title: "Hello"),
+        ),
       ),
     );
   }

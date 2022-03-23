@@ -6,9 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:graphic/graphic.dart';
 
 class StatCard extends StatefulWidget {
-  StatCard({
-    Key? key,
+  const StatCard({Key? key,
+  this.city = "Akron, OH", 
   }) : super(key: key);
+
+  final String city;
+
   @override
   _StatCard createState() => _StatCard();
 }
@@ -24,42 +27,56 @@ class _StatCard extends State<StatCard> {
     {'category': 'Heels', 'sales': 10},
     {'category': 'Socks', 'sales': 20},
   ];
-  static const double height = 500;
+  static const double HeiWid = 200;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
-      width: height,
-      child: Card(
-        child: Chart(
-          data: data,
-          variables: {
-            'category': Variable(
-              accessor: (Map map) => map['category'] as String,
-            ),
-            'sales': Variable(
-              accessor: (Map map) => map['sales'] as num,
-            ),
-          },
-          elements: [
-            IntervalElement(
-              color: ColorAttr(
-                variable: 'category',
-                values: Defaults.colors10,
-              ),
-              label: LabelAttr(
-                encoder: (tuple) => Label(
-                  tuple['category'].toString(),
+      padding: EdgeInsets.all(16.0),
+      height: HeiWid,
+      width: HeiWid,
+      decoration: BoxDecoration(
+        color: Colors.green.shade300,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Text('Hello'),
+          ),
+          Expanded(
+            flex: 10,
+            child: Chart(
+              data: data,
+              variables: {
+                'category': Variable(
+                  accessor: (Map map) => map['category'] as String,
                 ),
-              ),
-            )
-          ],
-          coord: PolarCoord(),
-          axes: [
-            Defaults.horizontalAxis,
-            Defaults.verticalAxis,
-          ],
-        ),
+                'sales': Variable(
+                  accessor: (Map map) => map['sales'] as num,
+                ),
+              },
+              elements: [
+                IntervalElement(
+                  color: ColorAttr(
+                    variable: 'category',
+                    values: Defaults.colors10,
+                  ),
+                  label: LabelAttr(
+                    encoder: (tuple) => Label(
+                      tuple['category'].toString(),
+                    ),
+                  ),
+                )
+              ],
+              coord: PolarCoord(),
+              axes: [
+                Defaults.horizontalAxis,
+                Defaults.verticalAxis,
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

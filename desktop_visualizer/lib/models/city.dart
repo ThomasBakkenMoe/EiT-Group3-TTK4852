@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:desktop_visualizer/constants/us_states_map.dart';
-import 'package:desktop_visualizer/leaflet_map.dart';
+import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -115,7 +115,7 @@ class City {
               builder: (context) {
                 return SimpleDialog(
                   title: Text(
-                    getName() + ' in ' + getStateLong(),
+                    getName() + ', ' + getStateLong(),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   children: [

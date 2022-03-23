@@ -1,5 +1,5 @@
-import 'package:desktop_visualizer/city.dart';
-import 'package:desktop_visualizer/leaflet_map.dart';
+import 'package:desktop_visualizer/models/city.dart';
+import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

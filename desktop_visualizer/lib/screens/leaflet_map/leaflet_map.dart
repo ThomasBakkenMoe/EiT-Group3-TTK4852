@@ -1,4 +1,4 @@
-import 'package:desktop_visualizer/city.dart';
+import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';

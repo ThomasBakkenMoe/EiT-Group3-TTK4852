@@ -21,11 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fontFamily = GoogleFonts.notoSansMono().fontFamily;
+    final scheme = FlexScheme.green;
 
     return MaterialApp(
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
-        scheme: FlexScheme.blueWhale,
+        scheme: scheme,
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 18,
         appBarStyle: FlexAppBarStyle.primary,
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.blueWhale,
+        scheme: scheme,
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 18,
         appBarStyle: FlexAppBarStyle.background,

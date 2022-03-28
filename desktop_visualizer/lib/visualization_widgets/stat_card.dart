@@ -1,13 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:graphic/graphic.dart';
 
 class StatCard extends StatefulWidget {
-  const StatCard({Key? key,
-  this.city = "Akron, OH", 
+  const StatCard({
+    Key? key,
+    this.city = "Akron, OH",
   }) : super(key: key);
 
   final String city;
@@ -31,7 +28,7 @@ class _StatCard extends State<StatCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       height: HeiWid,
       width: HeiWid,
       decoration: BoxDecoration(
@@ -40,7 +37,7 @@ class _StatCard extends State<StatCard> {
       ),
       child: Column(
         children: <Widget>[
-          Expanded(
+          const Expanded(
             flex: 1,
             child: Text('Hello'),
           ),

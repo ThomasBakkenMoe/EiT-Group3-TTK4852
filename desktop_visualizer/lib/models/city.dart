@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:desktop_visualizer/constants/us_states_map.dart';
-import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,31 +8,24 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class City {
-  late String name;
-  late Polygon polygon;
-  late LatLng centroid;
-  late double vegFrac;
-  late double happyScore;
-  late int emoPhysRank;
-  late int incomeEmpRank;
-  late int communityEnvRank;
+  final String name;
+  final Polygon polygon;
+  final LatLng centroid;
+  final double vegFrac;
+  final double happyScore;
+  final int emoPhysRank;
+  final int incomeEmpRank;
+  final int communityEnvRank;
 
-  City.fromJSON(String path) {
-    _fromJSON(path);
-  }
-
-  void setData(
-      {required double vegFrac,
-      required double happyScore,
-      required int emoPhysRank,
-      required int incomeEmpRank,
-      required int communityEnvRank}) {
-    this.vegFrac = vegFrac;
-    this.happyScore = happyScore;
-    this.emoPhysRank = emoPhysRank;
-    this.incomeEmpRank = incomeEmpRank;
-    this.communityEnvRank = communityEnvRank;
-  }
+  City(
+      {required this.name,
+      required this.vegFrac,
+      required this.happyScore,
+      required this.emoPhysRank,
+      required this.incomeEmpRank,
+      required this.communityEnvRank,
+      required this.polygon,
+      required this.centroid});
 
   String getName() {
     return name.split(',')[0];
@@ -44,42 +36,9 @@ class City {
   }
 
   String getStateLong() {
-    // Add state map
+    // Finds the abbreviation for the state
     final abbr = name.split(', ')[1];
     return usStates[abbr] ?? abbr;
-  }
-
-  Future<void> _fromJSON(String path) async {
-    path = path.replaceAll('%20', ' ');
-    name = path.split('american_cities/').last.split('.json').first;
-    final string = await rootBundle.loadString(path);
-    final Map<String, dynamic> jsonMap = jsonDecode(string);
-    List pointList = [];
-    if (jsonMap.containsKey('geometries')) {
-      pointList = jsonMap['geometries'][0]['coordinates'][0][0];
-    } else {
-      pointList = jsonMap['coordinates'][0][0];
-    }
-    List<LatLng> points = List.generate(
-      pointList.length,
-      (index) {
-        final point = pointList[index];
-        double lat = point[1] + 0.0;
-        double lon = point[0] + 0.0;
-        return LatLng(lat, lon);
-      },
-    );
-    polygon = Polygon(
-      points: points,
-      color: Colors.grey.withAlpha(100),
-      borderColor: Colors.black,
-      borderStrokeWidth: 10,
-      isDotted: true,
-    );
-    centroid = LatLngBounds.fromPoints(polygon.points).center;
-    if (kDebugMode) {
-      print(path);
-    }
   }
 
   Polygon getPolygon(BuildContext context) {
@@ -92,53 +51,35 @@ class City {
     );
   }
 
-  Marker makeMarker(BuildContext context, LeafletMapState state) {
-    return Marker(
-      anchorPos: AnchorPos.align(AnchorAlign.center),
-      key: ValueKey(name),
-      point: centroid,
-      builder: (context) => IconButton(
-        icon: Icon(
-          Icons.pin_drop,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        onPressed: () {
-          // Dirty setState, pulling from the state of ancestor widget, should be changed
-          // to a valueChangeNotifier or similar
-          state.setState(() {
-            state.addPolygon(this);
-            state.removeMarker(this);
-          });
-          showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (context) {
-                return SimpleDialog(
-                  title: Text(
-                    getName() + ', ' + getStateLong(),
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          // Dirty setState, pulling from the state of ancestor widget, should be changed
-                          // to a valueChangeNotifier or similar
-                          state.setState(() {
-                            state.removePolygon(this);
-                            state.addMarker(this);
-                          });
-                        },
-                        child: Text(
-                          'Close',
-                          style: Theme.of(context).textTheme.headline6,
-                        ))
-                  ],
-                );
-              });
-        },
-      ),
+  Future<OverlayImage> getImage() async {
+    String path = 'assets/images_hl_veg_only/' + name + ' hl_veg_only.png';
+    final manifest = await rootBundle.loadString('AssetManifest.json');
+    Map<String, dynamic> assetMap = jsonDecode(manifest);
+    if (!assetMap.containsKey(path.replaceAll(' ', '%20'))) {
+      path = 'assets/transparent.png';
+    }
+    return OverlayImage(
+      bounds: LatLngBounds.fromPoints(polygon.points),
+      opacity: 0.5,
+      imageProvider: AssetImage(path),
     );
+  }
+
+  String toJson() {
+    Map<String, dynamic> jsonMap = {};
+    jsonMap['name'] = name;
+    jsonMap['vegFrac'] = vegFrac;
+    jsonMap['happyScore'] = happyScore;
+    jsonMap['emoPhysRank'] = emoPhysRank;
+    jsonMap['incomeEmpRank'] = incomeEmpRank;
+    jsonMap['communityEnvRank'] = communityEnvRank;
+    jsonMap['centroid'] = centroid.toJson();
+    jsonMap['polygon'] = List.generate(
+      polygon.points.length,
+      (index) => polygon.points[index].toJson(),
+    );
+    const encoder = JsonEncoder.withIndent('    ');
+    return encoder.convert(jsonMap);
   }
 }
 
@@ -152,12 +93,12 @@ Future<List<City>> loadCities() async {
   Map<String, dynamic> assetMap = jsonDecode(manifest);
 
   if (kDebugMode) {
-    const int citiesToRead = 5;
+    const int citiesToRead = 182;
     Map<String, dynamic> newMap = {};
     newMap.addEntries(
       assetMap.entries
           .where(
-            (element) => element.key.contains('.json'),
+            (element) => element.key.contains('american_cities'),
           )
           .takeWhile(
             (value) => newMap.length < citiesToRead,
@@ -167,21 +108,64 @@ Future<List<City>> loadCities() async {
   }
 
   for (String file in assetMap.keys.where(
-    (element) => element.contains('.json'),
+    (element) => element.contains('american_cities'),
   )) {
-    City city = City.fromJSON(file);
+    final path = file.replaceAll('%20', ' ');
+    final name = path.split('american_cities/').last.split('.json').first;
     for (Map<String, dynamic> cityData in data) {
-      if (cityData['City'] == city.name) {
-        city.setData(
+      if (cityData['City'] == name) {
+        final polygonString = await rootBundle.loadString(path);
+        final Map<String, dynamic> jsonMap = jsonDecode(polygonString);
+        List<dynamic> polygonList = [];
+        if (jsonMap.containsKey('geometries')) {
+          polygonList = jsonMap['geometries'][0]['coordinates'];
+        } else {
+          polygonList = jsonMap['coordinates'];
+        }
+        /* if (polygonList.length > 1) {
+          print(name + ', Polygons: ' + polygonList.length.toString());
+        } */
+        List pointList = [];
+        for (List polygon in polygonList) {
+          for (List points in polygon) {
+            pointList.addAll(points);
+          }
+        }
+        List<LatLng> points = List.generate(
+          pointList.length,
+          (index) {
+            final point = pointList[index];
+            double lat = point[1].toDouble();
+            double lon = point[0].toDouble();
+            return LatLng(lat, lon);
+          },
+        );
+
+        final polygon = Polygon(
+          points: points,
+          color: Colors.grey.withAlpha(100),
+          borderColor: Colors.black,
+          borderStrokeWidth: 10,
+          isDotted: true,
+        );
+        final centroid = LatLngBounds.fromPoints(points).center;
+        /* if (kDebugMode) {
+          print(path);
+        } */
+
+        final city = City(
+            name: name,
             vegFrac: cityData['Vegetation %'],
-            happyScore: cityData['Total Score'],
+            happyScore: cityData['Total Score'].toDouble(),
             emoPhysRank: cityData['Emotional and Physical Well-Being Rank'],
             incomeEmpRank: cityData['Income and Employment Rank'],
-            communityEnvRank: cityData['Community and Environment Rank']);
+            communityEnvRank: cityData['Community and Environment Rank'],
+            polygon: polygon,
+            centroid: centroid);
+        cities.add(city);
+        break;
       }
     }
-
-    cities.add(city);
   }
 
   return cities;

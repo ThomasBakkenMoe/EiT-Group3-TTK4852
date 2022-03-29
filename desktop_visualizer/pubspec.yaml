@@ -34,6 +34,8 @@ dependencies:
   flutter_map: ^0.14.0
   flutter_map_marker_cluster: ^0.4.4
   google_fonts: ^2.3.1
+  map_controller:
+    git: https://github.com/mpinkard/map_controller.git
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -52,6 +54,7 @@ flutter:
   assets:
     - assets/
     - assets/american_cities/
+    - assets/images_hl_veg_only/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

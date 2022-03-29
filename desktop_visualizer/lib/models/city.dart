@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:desktop_visualizer/constants/us_states_map.dart';
+import 'package:desktop_visualizer/main.dart';
 import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
 import 'package:desktop_visualizer/widgets/stat_popup.dart';
 import 'package:flutter/foundation.dart';
@@ -42,6 +43,10 @@ class City {
 
   String getStateShort() {
     return name.split(', ')[1];
+  }
+
+  double getVegFrac() {
+    return vegFrac;
   }
 
   String getStateLong() {
@@ -120,7 +125,7 @@ class City {
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   children: [
-                    const StatPopup(),
+                    StatPopup(vegFrac: getVegFrac()),
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);

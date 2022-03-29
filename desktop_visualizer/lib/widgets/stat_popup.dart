@@ -1,8 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:desktop_visualizer/models/city.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class StatPopup extends StatefulWidget {
-  const StatPopup({Key? key}) : super(key: key);
+  const StatPopup({required this.vegFrac, Key? key}) : super(key: key);
+
+  final double vegFrac;
 
   @override
   State<StatefulWidget> createState() => _StatPopup();
@@ -11,6 +14,7 @@ class StatPopup extends StatefulWidget {
 class _StatPopup extends State<StatPopup> {
   @override
   Widget build(BuildContext context) {
+    Color cardColor = Color.fromARGB(31, 199, 184, 152);
     var screenSize = MediaQuery.of(context).size;
     return Center(
       child: SizedBox(
@@ -22,23 +26,40 @@ class _StatPopup extends State<StatPopup> {
               Container(
                 height: screenSize.height * 0.58,
                 width: screenSize.width * 0.52,
-                color: Colors.blueGrey,
+                color: cardColor,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
-                    color: Colors.blueGrey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Text("Vegetation Percent:"),
+                        ),
+                        CircularPercentIndicator(
+                          radius: screenSize.height * 0.05,
+                          lineWidth: 15.0,
+                          percent: widget.vegFrac,
+                          center: Text(
+                              (widget.vegFrac * 100).toStringAsFixed(2) + "%"),
+                          progressColor: Colors.blueGrey,
+                        ),
+                      ],
+                    ),
+                    color: cardColor,
                     height: screenSize.height * 0.185,
                     width: screenSize.width * 0.15,
                   ),
                   Container(
-                    color: Colors.blueGrey,
+                    color: cardColor,
                     height: screenSize.height * 0.185,
                     width: screenSize.width * 0.15,
                   ),
                   Container(
-                    color: Colors.blueGrey,
+                    color: cardColor,
                     height: screenSize.height * 0.185,
                     width: screenSize.width * 0.15,
                   ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:desktop_visualizer/constants/us_states_map.dart';
 import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
+import 'package:desktop_visualizer/widgets/stat_popup.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -119,6 +120,7 @@ class City {
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   children: [
+                    const StatPopup(),
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);

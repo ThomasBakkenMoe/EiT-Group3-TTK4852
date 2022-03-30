@@ -40,7 +40,7 @@ class _LeafletMapState extends State<LeafletMap> {
           Icons.pin_drop,
           color: state['active']
               ? Colors.transparent
-              : Theme.of(context).scaffoldBackgroundColor,
+              : Theme.of(context).primaryColor,
           size: markerSize,
         ),
         anchorAlign: AnchorAlign.center,

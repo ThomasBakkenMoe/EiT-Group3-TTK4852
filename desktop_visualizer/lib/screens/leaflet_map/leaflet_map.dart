@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/main.dart';
+import 'package:desktop_visualizer/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -102,83 +103,83 @@ class _LeafletMapState extends State<LeafletMap> {
           ),
           MarkerClusterLayerWidget(
             options: MarkerClusterLayerOptions(
-                showPolygon: false,
-                maxClusterRadius: 120,
-                size: Size(MediaQuery.of(context).textScaleFactor * 55,
-                    MediaQuery.of(context).textScaleFactor * 30),
-                markers: statefulMapController.markers,
-                builder: (context, localMarkers) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    child: Center(
-                      child: Text(localMarkers.length.toString(),
-                          style: Theme.of(context).textTheme.headline6),
-                    ),
-                  );
-                },
-                popupOptions: PopupOptions(
-                  markerTapBehavior: MarkerTapBehavior.custom(
-                    (marker, popupController) async {
-                      City city = statefulMapController.statefulMarkers.values
-                          .firstWhere(
-                              (element) => element.marker.point == marker.point)
-                          .state['city'];
-
-                      if (!popupController.selectedMarkers.contains(marker)) {
-                        if (!overlayImages.containsKey(city)) {
-                          overlayImages[city] = await city.getImage();
-                        }
-                        setState(() {
-                          statefulMapController.addPolygon(
-                            name: city.name,
-                            points: city.polygon.points,
-                            color: Colors.grey.withAlpha(100),
-                            borderColor: Colors.black.withAlpha(100),
-                            borderWidth: 1,
-                          );
-
-                          statefulMapController.mutateMarker(
-                              name: city.name, property: 'active', value: true);
-                        });
-                        statefulMapController.zoomTo(11);
-                      } else {
-                        setState(() {
-                          statefulMapController.namedPolygons.remove(city.name);
-                          overlayImages.remove(city);
-                        });
-                        statefulMapController.mutateMarker(
-                            name: city.name, property: 'active', value: false);
-                      }
-
-                      popupController.togglePopup(marker);
-                    },
+              showPolygon: false,
+              maxClusterRadius: 120,
+              size: Size(MediaQuery.of(context).textScaleFactor * 55,
+                  MediaQuery.of(context).textScaleFactor * 30),
+              markers: statefulMapController.markers,
+              builder: (context, localMarkers) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
-                  popupSnap: PopupSnap.markerTop,
-                  popupAnimation: const PopupAnimation.fade(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeIn,
+                  child: Center(
+                    child: Text(localMarkers.length.toString(),
+                        style: Theme.of(context).textTheme.headline6),
                   ),
-                  popupController: popupController,
-                  popupBuilder: (context, marker) {
+                );
+              },
+              popupOptions: PopupOptions(
+                markerTapBehavior: MarkerTapBehavior.custom(
+                  (marker, popupController) async {
                     City city = statefulMapController.statefulMarkers.values
                         .firstWhere(
                             (element) => element.marker.point == marker.point)
                         .state['city'];
-                    // TODO: Replace with our visualization
-                    return Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(8),
-                          color: Theme.of(context).scaffoldBackgroundColor),
-                      padding: const EdgeInsets.all(8),
-                      child: Text(city.getName() + ' in ' + city.getStateLong(),
-                          style: Theme.of(context).textTheme.headline6),
-                    );
+
+                    if (!popupController.selectedMarkers.contains(marker)) {
+                      if (!overlayImages.containsKey(city)) {
+                        overlayImages[city] = await city.getImage();
+                      }
+                      setState(() {
+                        statefulMapController.addPolygon(
+                          name: city.name,
+                          points: city.polygon.points,
+                          color: Colors.grey.withAlpha(100),
+                          borderColor: Colors.black.withAlpha(100),
+                          borderWidth: 1,
+                        );
+
+                        statefulMapController.mutateMarker(
+                            name: city.name, property: 'active', value: true);
+                      });
+                      statefulMapController.zoomTo(11);
+                    } else {
+                      setState(() {
+                        statefulMapController.namedPolygons.remove(city.name);
+                        overlayImages.remove(city);
+                      });
+                      statefulMapController.mutateMarker(
+                          name: city.name, property: 'active', value: false);
+                    }
+
+                    popupController.togglePopup(marker);
                   },
-                )),
+                ),
+                popupSnap: PopupSnap.mapRight,
+                popupAnimation: const PopupAnimation.fade(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                ),
+                popupController: popupController,
+                popupBuilder: (context, marker) {
+                  City city = statefulMapController.statefulMarkers.values
+                      .firstWhere(
+                          (element) => element.marker.point == marker.point)
+                      .state['city'];
+                  // TODO: Replace with our visualization
+                  return Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context).scaffoldBackgroundColor),
+                    padding: const EdgeInsets.all(8),
+                    child: StatPopup(city: city),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),

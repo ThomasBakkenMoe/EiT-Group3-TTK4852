@@ -35,6 +35,10 @@ class City {
     return name.split(', ')[1];
   }
 
+  double getVegFrac() {
+    return vegFrac;
+  }
+
   String getStateLong() {
     // Finds the abbreviation for the state
     final abbr = name.split(', ')[1];

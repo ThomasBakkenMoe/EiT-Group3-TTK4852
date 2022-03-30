@@ -1,5 +1,4 @@
 import 'package:desktop_visualizer/models/city.dart';
-import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
 import 'package:desktop_visualizer/screens/splash/spalsh_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +22,8 @@ Future<void> main() async {
   );
 }
 
+// Helpful website for theming
+// https://rydmike.com/flexcolorschemeV4Tut5/#/
 class ThemeModeNotifier extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
   ThemeMode get themeMode => _themeMode;
@@ -55,9 +56,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Helpful website for theming
-    // https://rydmike.com/flexcolorschemeV4Tut5/#/
-
     final FlexScheme scheme = ref.watch(schemeProvider).scheme;
     final ThemeMode themeMode = ref.watch(themeModeProvider).themeMode;
     return MaterialApp(

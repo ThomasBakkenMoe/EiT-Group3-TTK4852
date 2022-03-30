@@ -29,6 +29,7 @@ class _LeafletMapState extends State<LeafletMap> {
   @override
   void initState() {
     super.initState();
+
     for (final city in cities) {
       double markerSize = 40;
       final marker = StatefulMarker(
@@ -40,7 +41,9 @@ class _LeafletMapState extends State<LeafletMap> {
           Icons.pin_drop,
           color: state['active']
               ? Colors.transparent
-              : Theme.of(context).primaryColor,
+              : Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).scaffoldBackgroundColor
+                  : Theme.of(context).primaryColor,
           size: markerSize,
         ),
         anchorAlign: AnchorAlign.center,

@@ -33,25 +33,24 @@ class _StatPopup extends State<StatPopup> {
                 children: <Widget>[
                   Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            "Vegetation Percent:",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ),
                         CircularPercentIndicator(
-                          radius: screenSize.height * 0.055,
-                          lineWidth: 15.0,
+                          radius: screenSize.height * 0.08,
+                          lineWidth: 16.0,
                           percent: widget.city.vegFrac,
-                          center: Text(
-                              (widget.city.vegFrac * 100).toStringAsFixed(1) +
+                          center: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text((widget.city.vegFrac * 100)
+                                      .toStringAsFixed(1) +
                                   "%"),
+                              Text(
+                                "Vegetation",
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
                           progressColor: Theme.of(context).primaryColor,
                         ),
                       ],

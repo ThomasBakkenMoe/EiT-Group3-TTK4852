@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/main.dart';
+import 'package:desktop_visualizer/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -153,7 +154,7 @@ class _LeafletMapState extends State<LeafletMap> {
                       popupController.togglePopup(marker);
                     },
                   ),
-                  popupSnap: PopupSnap.markerTop,
+                  popupSnap: PopupSnap.mapRight,
                   popupAnimation: const PopupAnimation.fade(
                     duration: Duration(milliseconds: 500),
                     curve: Curves.easeIn,
@@ -171,8 +172,7 @@ class _LeafletMapState extends State<LeafletMap> {
                           borderRadius: BorderRadius.circular(8),
                           color: Theme.of(context).scaffoldBackgroundColor),
                       padding: const EdgeInsets.all(8),
-                      child: Text(city.getName() + ' in ' + city.getStateLong(),
-                          style: Theme.of(context).textTheme.headline6),
+                      child: StatPopup(city: city),
                     );
                   },
                 )),

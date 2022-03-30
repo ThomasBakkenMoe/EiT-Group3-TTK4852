@@ -56,6 +56,7 @@ flutter:
   assets:
     - assets/
     - assets/american_cities/
+    - assets/graphics/
     - assets/images_hl_veg_only/
     - assets/images/happiness-reaction/
   # An image asset can refer to one or more resolution-specific "variants", see

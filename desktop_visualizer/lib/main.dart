@@ -1,5 +1,6 @@
 import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
+import 'package:desktop_visualizer/screens/splash/spalsh_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -93,7 +94,7 @@ class MyApp extends StatelessWidget {
       // to let the device system mode control the theme mode:
       themeMode: ThemeMode.light,
 
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashPage(cities: cities),
     );
   }
 }

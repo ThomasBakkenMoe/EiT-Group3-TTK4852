@@ -33,18 +33,18 @@ class _StatPopup extends State<StatPopup> {
                 children: <Widget>[
                   Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Padding(
                           padding: EdgeInsets.all(15),
                           child: Text("Vegetation Percent:"),
                         ),
                         CircularPercentIndicator(
-                          radius: screenSize.height * 0.05,
+                          radius: screenSize.height * 0.055,
                           lineWidth: 15.0,
                           percent: widget.vegFrac,
                           center: Text(
-                              (widget.vegFrac * 100).toStringAsFixed(2) + "%"),
+                              (widget.vegFrac * 100).toStringAsFixed(1) + "%"),
                           progressColor: Colors.blueGrey,
                         ),
                       ],
@@ -62,6 +62,21 @@ class _StatPopup extends State<StatPopup> {
                     color: cardColor,
                     height: screenSize.height * 0.185,
                     width: screenSize.width * 0.15,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(children: const <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text("72"),
+                          ),
+                        ]),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text("Total Happiness Score", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               )

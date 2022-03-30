@@ -9,7 +9,6 @@ late List<City> cities;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   cities = await loadCities();
 
   runApp(const MyApp());
@@ -25,6 +24,7 @@ class MyApp extends StatelessWidget {
     final scheme = FlexScheme.green;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
         scheme: scheme,

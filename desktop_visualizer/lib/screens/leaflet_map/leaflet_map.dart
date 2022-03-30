@@ -165,15 +165,29 @@ class _LeafletMapState extends State<LeafletMap> {
                       .firstWhere(
                           (element) => element.marker.point == marker.point)
                       .state['city'];
-                  // TODO: Replace with our visualization
-                  return Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context).scaffoldBackgroundColor),
-                    padding: const EdgeInsets.all(8),
-                    child: StatPopup(city: city),
+                  return SimpleDialog(
+                    children: <Widget>[
+                      Center(
+                        child: Text(
+                          city.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Center(child: StatPopup(city: city)),
+                    ],
                   );
+                  // TODO: Replace with our visualization
+                  // return Container(
+                  //   decoration: BoxDecoration(
+                  //       shape: BoxShape.rectangle,
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       color: Theme.of(context).scaffoldBackgroundColor),
+                  //   padding: const EdgeInsets.all(8),
+                  //   child: StatPopup(city: city),
+                  // );
                 },
               ),
             ),

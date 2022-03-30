@@ -2,27 +2,63 @@ import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 late List<City> cities;
+
+final themeModeProvider = ChangeNotifierProvider((ref) => ThemeModeNotifier());
+final schemeProvider = ChangeNotifierProvider((ref) => SchemeNotifier());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   cities = await loadCities();
 
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ThemeModeNotifier extends ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode get themeMode => _themeMode;
 
+  void setThemeMode(ThemeMode themeMode) {
+    _themeMode = themeMode;
+    notifyListeners();
+  }
+}
+
+class SchemeNotifier extends ChangeNotifier {
+  FlexScheme _scheme = FlexScheme.green;
+  FlexScheme get scheme => _scheme;
+
+  void setThemeMode(FlexScheme scheme) {
+    _scheme = scheme;
+    notifyListeners();
+  }
+
+  void setThemeModeIndex(int index) {
+    _scheme = FlexScheme.values[index];
+    notifyListeners();
+  }
+}
+
+class MyApp extends ConsumerWidget {
+  MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    final fontFamily = GoogleFonts.notoSansMono().fontFamily;
-    final scheme = FlexScheme.green;
+  final fontFamily = GoogleFonts.notoSansMono().fontFamily;
 
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Helpful website for theming
+    // https://rydmike.com/flexcolorschemeV4Tut5/#/
+
+    final FlexScheme scheme = ref.watch(schemeProvider).scheme;
+    final ThemeMode themeMode = ref.watch(themeModeProvider).themeMode;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: FlexThemeData.light(
@@ -91,7 +127,7 @@ class MyApp extends StatelessWidget {
       ),
       // If you do not have a themeMode switch, uncomment this line
       // to let the device system mode control the theme mode:
-      // themeMode: ThemeMode.system,
+      themeMode: themeMode,
 
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );

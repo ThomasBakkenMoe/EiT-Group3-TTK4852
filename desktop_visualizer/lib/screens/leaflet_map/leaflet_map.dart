@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/main.dart';
+import 'package:desktop_visualizer/screens/leaflet_map/components/osm_contribution.dart';
 import 'package:desktop_visualizer/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -17,40 +19,62 @@ class LeafletMap extends StatefulWidget {
   State<LeafletMap> createState() => _LeafletMapState();
 }
 
-class _LeafletMapState extends State<LeafletMap> {
-  Map<String, StatefulMarker> markers = {};
-  Map<City, OverlayImage> overlayImages = {};
-
+class _LeafletMapState extends State<LeafletMap>
+    with SingleTickerProviderStateMixin {
+  bool enabled = true;
+  double initZoom = 3;
+  double endZoom = 4;
+  final LatLng usaCenter = LatLng(38, -97);
   MapController mapController = MapController();
+  Map<String, StatefulMarker> markers = {};
+
   late StatefulMapController statefulMapController;
   late StreamSubscription<StatefulMapControllerStateChange> mapStateChange;
+  late AnimationController animationController;
 
-  PopupController popupController = PopupController();
+  void initAnim() {
+    animationController = AnimationController(
+      vsync: this,
+      lowerBound: 0,
+      upperBound: 1,
+      duration: const Duration(
+        milliseconds: 500,
+      ),
+    );
+    final initZoomAnim = CurvedAnimation(
+        parent: animationController, curve: Curves.fastOutSlowIn);
+    initZoomAnim.addListener(() {
+      mapController.move(
+          usaCenter, initZoomAnim.value * (endZoom - initZoom) + initZoom);
+    });
+  }
 
-  @override
-  void initState() {
-    super.initState();
-
+  void setMarkers() {
     for (final city in cities) {
       double markerSize = 40;
       final marker = StatefulMarker(
         state: {'city': city, 'active': false},
-        point: city.centroid,
+        point: city.center,
         height: markerSize,
         width: markerSize,
         builder: (context, state) => Icon(
           Icons.pin_drop,
-          color: state['active']
-              ? Colors.transparent
-              : Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).scaffoldBackgroundColor
-                  : Theme.of(context).primaryColor,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).scaffoldBackgroundColor
+              : Theme.of(context).primaryColor,
           size: markerSize,
         ),
         anchorAlign: AnchorAlign.center,
       );
-      markers[city.name] = marker;
+      markers[city.nameAndState] = marker;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initAnim();
+    setMarkers();
     statefulMapController = StatefulMapController(mapController: mapController);
     mapStateChange = statefulMapController.changeFeed.listen((event) {
       setState(() {});
@@ -60,6 +84,9 @@ class _LeafletMapState extends State<LeafletMap> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      animationController.forward();
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Map'),
@@ -67,21 +94,19 @@ class _LeafletMapState extends State<LeafletMap> {
       body: FlutterMap(
         mapController: mapController,
         options: MapOptions(
-            center: LatLng(38, -97),
-            zoom: 4,
+            interactiveFlags:
+                enabled ? InteractiveFlag.all : InteractiveFlag.none,
+            enableScrollWheel: enabled,
+            center: usaCenter,
+            zoom: initZoom,
+            maxZoom: 18.25,
             plugins: [
               MarkerClusterPlugin(),
             ],
             slideOnBoundaries: true,
             onTap: (tapPos, latLng) {
-              popupController.hideAllPopups();
               setState(() {
-                overlayImages.clear();
-                for (City city in cities) {
-                  statefulMapController.mutateMarker(
-                      name: city.name, property: 'active', value: false);
-                }
-                statefulMapController.namedPolygons.clear();
+                enabled = true;
               });
             }),
         children: [
@@ -89,16 +114,7 @@ class _LeafletMapState extends State<LeafletMap> {
             options: TileLayerOptions(
               urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               subdomains: ['a', 'b', 'c'],
-            ),
-          ),
-          PolygonLayerWidget(
-            options: PolygonLayerOptions(
-              polygons: statefulMapController.polygons,
-            ),
-          ),
-          OverlayImageLayerWidget(
-            options: OverlayImageLayerOptions(
-              overlayImages: overlayImages.values.toList(),
+              attributionBuilder: (context) => const OSMContribution(),
             ),
           ),
           MarkerClusterLayerWidget(
@@ -120,65 +136,46 @@ class _LeafletMapState extends State<LeafletMap> {
                   ),
                 );
               },
-              popupOptions: PopupOptions(
-                markerTapBehavior: MarkerTapBehavior.custom(
-                  (marker, popupController) async {
-                    City city = statefulMapController.statefulMarkers.values
-                        .firstWhere(
-                            (element) => element.marker.point == marker.point)
-                        .state['city'];
+              zoomToBoundsOnClick: true,
+              centerMarkerOnClick: false,
+              onMarkerTap: (marker) {
+                setState(() {
+                  enabled = false;
+                });
 
-                    if (!popupController.selectedMarkers.contains(marker)) {
-                      if (!overlayImages.containsKey(city)) {
-                        overlayImages[city] = await city.getImage();
-                      }
-                      setState(() {
-                        statefulMapController.addPolygon(
-                          name: city.name,
-                          points: city.polygon.points,
-                          color: Colors.grey.withAlpha(100),
-                          borderColor: Colors.black.withAlpha(100),
-                          borderWidth: 1,
-                        );
-
-                        statefulMapController.mutateMarker(
-                            name: city.name, property: 'active', value: true);
-                      });
-                      statefulMapController.zoomTo(11);
-                    } else {
-                      setState(() {
-                        statefulMapController.namedPolygons.remove(city.name);
-                        overlayImages.remove(city);
-                      });
-                      statefulMapController.mutateMarker(
-                          name: city.name, property: 'active', value: false);
-                    }
-
-                    popupController.togglePopup(marker);
+                City city = statefulMapController.statefulMarkers.values
+                    .firstWhere(
+                        (element) => element.marker.point == marker.point)
+                    .state['city'];
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                      child: SimpleDialog(
+                        title: Row(
+                          children: [
+                            Text(
+                              city.name + ', ' + city.stateLong,
+                              style: Theme.of(context).textTheme.headline4,
+                            ),
+                            CloseButton(
+                              onPressed: (() {
+                                setState(() {
+                                  enabled = true;
+                                });
+                                Navigator.of(context).pop();
+                              }),
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        children: [StatPopup(city: city)],
+                      ),
+                    );
                   },
-                ),
-                popupSnap: PopupSnap.mapRight,
-                popupAnimation: const PopupAnimation.fade(
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.easeIn,
-                ),
-                popupController: popupController,
-                popupBuilder: (context, marker) {
-                  City city = statefulMapController.statefulMarkers.values
-                      .firstWhere(
-                          (element) => element.marker.point == marker.point)
-                      .state['city'];
-                  // TODO: Replace with our visualization
-                  return Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(8),
-                        color: Theme.of(context).scaffoldBackgroundColor),
-                    padding: const EdgeInsets.all(8),
-                    child: StatPopup(city: city),
-                  );
-                },
-              ),
+                );
+              },
             ),
           ),
         ],

@@ -101,8 +101,12 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Fantastic name of application',
-                    style: Theme.of(context).textTheme.headline1,
+                    'SaTreeLight',
+                    style: Theme.of(context).textTheme.headline1?.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Theme.of(context).primaryColorDark
+                              : null,
+                        ),
                   ),
                   Divider(indent: 300, endIndent: 300),
                   ElevatedButton(

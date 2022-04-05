@@ -8,44 +8,55 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class City {
-  final String name;
-  final Polygon polygon;
-  final LatLng centroid;
+  final String nameAndState;
+  final List<LatLng> combinedPolygonPoints;
+  final List<List<LatLng>> polygonsPoints;
+  final Map<int, List<List<LatLng>>> polygonHolesPoints;
   final double vegFrac;
   final double happyScore;
   final int emoPhysRank;
   final int incomeEmpRank;
   final int communityEnvRank;
 
-  City(
-      {required this.name,
-      required this.vegFrac,
-      required this.happyScore,
-      required this.emoPhysRank,
-      required this.incomeEmpRank,
-      required this.communityEnvRank,
-      required this.polygon,
-      required this.centroid});
+  City({
+    required this.nameAndState,
+    required this.vegFrac,
+    required this.happyScore,
+    required this.emoPhysRank,
+    required this.incomeEmpRank,
+    required this.communityEnvRank,
+    required this.combinedPolygonPoints,
+    required this.polygonsPoints,
+    required this.polygonHolesPoints,
+  });
 
-  String getName() {
-    return name.split(',')[0];
+  String get name {
+    return nameAndState.split(',')[0];
   }
 
-  String getStateShort() {
-    return name.split(', ')[1];
+  String get stateShort {
+    return nameAndState.split(', ')[1];
   }
 
-  double getVegFrac() {
-    return vegFrac;
-  }
-
-  String getStateLong() {
+  String get stateLong {
     // Finds the abbreviation for the state
-    final abbr = name.split(', ')[1];
+    final abbr = nameAndState.split(', ')[1];
     return usStates[abbr] ?? abbr;
   }
 
-  Polygon getPolygon(BuildContext context) {
+  LatLng get center {
+    return LatLngBounds.fromPoints(combinedPolygonPoints).center;
+  }
+
+  LatLng? get northEast {
+    return LatLngBounds.fromPoints(combinedPolygonPoints).northEast;
+  }
+
+  LatLng? get southWest {
+    return LatLngBounds.fromPoints(combinedPolygonPoints).southWest;
+  }
+
+  Polygon get polygon {
     return Polygon(
       points: polygon.points,
       color: Colors.grey.withAlpha(100),
@@ -55,35 +66,41 @@ class City {
     );
   }
 
-  Future<OverlayImage> getImage() async {
-    String path = 'assets/images_hl_veg_only/' + name + ' hl_veg_only.png';
+  List<Polygon> get polygons {
+    return List<Polygon>.generate(
+      polygonsPoints.length,
+      (index) => Polygon(
+        points: polygonsPoints[index],
+        holePointsList: polygonHolesPoints[index] ?? [],
+        color: Colors.grey.withAlpha(100),
+        borderColor: Colors.black,
+        borderStrokeWidth: 1,
+        isDotted: true,
+      ),
+    );
+  }
+
+  LatLngBounds get bounds {
+    return LatLngBounds.fromPoints(combinedPolygonPoints);
+  }
+
+  CenterZoom centerZoom(MapController mapController) {
+    return mapController.centerZoomFitBounds(bounds);
+  }
+
+  Future<OverlayImage> getImage({String type = 'veg_overlay'}) async {
+    String path =
+        'assets/images_hl_veg_only/' + nameAndState + ' hl_veg_only.png';
     final manifest = await rootBundle.loadString('AssetManifest.json');
     Map<String, dynamic> assetMap = jsonDecode(manifest);
     if (!assetMap.containsKey(path.replaceAll(' ', '%20'))) {
       path = 'assets/transparent.png';
     }
     return OverlayImage(
-      bounds: LatLngBounds.fromPoints(polygon.points),
+      bounds: bounds,
       opacity: 0.5,
       imageProvider: AssetImage(path),
     );
-  }
-
-  String toJson() {
-    Map<String, dynamic> jsonMap = {};
-    jsonMap['name'] = name;
-    jsonMap['vegFrac'] = vegFrac;
-    jsonMap['happyScore'] = happyScore;
-    jsonMap['emoPhysRank'] = emoPhysRank;
-    jsonMap['incomeEmpRank'] = incomeEmpRank;
-    jsonMap['communityEnvRank'] = communityEnvRank;
-    jsonMap['centroid'] = centroid.toJson();
-    jsonMap['polygon'] = List.generate(
-      polygon.points.length,
-      (index) => polygon.points[index].toJson(),
-    );
-    const encoder = JsonEncoder.withIndent('    ');
-    return encoder.convert(jsonMap);
   }
 }
 
@@ -115,9 +132,10 @@ Future<List<City>> loadCities() async {
     (element) => element.contains('american_cities'),
   )) {
     final path = file.replaceAll('%20', ' ');
-    final name = path.split('american_cities/').last.split('.json').first;
+    final nameAndState =
+        path.split('american_cities/').last.split('.json').first;
     for (Map<String, dynamic> cityData in data) {
-      if (cityData['City'] == name) {
+      if (cityData['City'] == nameAndState) {
         final polygonString = await rootBundle.loadString(path);
         final Map<String, dynamic> jsonMap = jsonDecode(polygonString);
         List<dynamic> polygonList = [];
@@ -126,46 +144,52 @@ Future<List<City>> loadCities() async {
         } else {
           polygonList = jsonMap['coordinates'];
         }
-        /* if (polygonList.length > 1) {
-          print(name + ', Polygons: ' + polygonList.length.toString());
-        } */
-        List pointList = [];
-        for (List polygon in polygonList) {
-          for (List points in polygon) {
-            pointList.addAll(points);
-          }
-        }
-        List<LatLng> points = List.generate(
-          pointList.length,
-          (index) {
-            final point = pointList[index];
-            double lat = point[1].toDouble();
-            double lon = point[0].toDouble();
-            return LatLng(lat, lon);
-          },
-        );
+        List<List<LatLng>> polygonsPoints = [];
+        Map<int, List<List<LatLng>>> polygonHolesPoints = {};
+        List<LatLng> combinedPolygonPoints = [];
 
-        final polygon = Polygon(
-          points: points,
-          color: Colors.grey.withAlpha(100),
-          borderColor: Colors.black,
-          borderStrokeWidth: 10,
-          isDotted: true,
-        );
-        final centroid = LatLngBounds.fromPoints(points).center;
-        /* if (kDebugMode) {
-          print(path);
-        } */
+        int index = 0;
+        for (List polygon in polygonList) {
+          List polygonPoints = [];
+          int subIndex = 0;
+          for (List points in polygon) {
+            polygonPoints.addAll(points);
+
+            List<LatLng> polygonLatLngs = List.generate(
+              polygonPoints.length,
+              (index) {
+                final point = polygonPoints[index];
+                double lat = point[1].toDouble();
+                double lon = point[0].toDouble();
+                return LatLng(lat, lon);
+              },
+            );
+            if (subIndex == 0) {
+              polygonsPoints.add(polygonLatLngs);
+            } else {
+              polygonHolesPoints.update(
+                index,
+                (value) => [...value, polygonLatLngs],
+                ifAbsent: () => [polygonLatLngs],
+              );
+            }
+            combinedPolygonPoints.addAll(polygonLatLngs);
+            subIndex++;
+          }
+          index++;
+        }
 
         final city = City(
-            name: name,
-            vegFrac: cityData['Vegetation %'],
-            happyScore: cityData['Total Score'].toDouble(),
-            emoPhysRank: cityData['Emotional and Physical Well-Being Rank'],
-            incomeEmpRank: cityData['Income and Employment Rank'],
-            communityEnvRank: cityData['Community and Environment Rank'],
-            polygon: polygon,
-            centroid: centroid);
+          nameAndState: nameAndState,
+          vegFrac: cityData['Vegetation %'],
+          happyScore: cityData['Total Score'].toDouble(),
+          emoPhysRank: cityData['Emotional and Physical Well-Being Rank'],
+          incomeEmpRank: cityData['Income and Employment Rank'],
+          communityEnvRank: cityData['Community and Environment Rank'],
+          combinedPolygonPoints: combinedPolygonPoints,
+          polygonsPoints: polygonsPoints,
+          polygonHolesPoints: polygonHolesPoints,
+        );
         cities.add(city);
         break;
       }

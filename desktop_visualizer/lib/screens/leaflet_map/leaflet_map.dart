@@ -138,7 +138,7 @@ class _LeafletMapState extends State<LeafletMap>
               },
               zoomToBoundsOnClick: true,
               centerMarkerOnClick: false,
-              onMarkerTap: (marker) {
+              onMarkerTap: (marker) async {
                 setState(() {
                   enabled = false;
                 });
@@ -147,6 +147,7 @@ class _LeafletMapState extends State<LeafletMap>
                     .firstWhere(
                         (element) => element.marker.point == marker.point)
                     .state['city'];
+                await city.loadData();
                 showDialog(
                   context: context,
                   builder: (context) {

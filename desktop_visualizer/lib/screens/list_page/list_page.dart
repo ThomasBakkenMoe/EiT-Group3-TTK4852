@@ -139,7 +139,8 @@ class _ListPageState extends State<ListPage> {
           final buttonText = city.nameAndState + sortByText;
           return ElevatedButton(
             key: UniqueKey(),
-            onPressed: () {
+            onPressed: () async {
+              await city.loadData();
               showDialog(
                   context: context,
                   builder: (context) {

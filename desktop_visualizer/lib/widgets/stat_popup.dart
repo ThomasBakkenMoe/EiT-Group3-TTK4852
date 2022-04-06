@@ -1,4 +1,5 @@
 import 'package:desktop_visualizer/models/city.dart';
+import 'package:desktop_visualizer/screens/leaflet_map/components/osm_contribution.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -61,6 +62,8 @@ class _StatPopup extends State<StatPopup> {
                                   urlTemplate:
                                       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                                   subdomains: ['a', 'b', 'c'],
+                                  attributionBuilder: (context) =>
+                                      const OSMContribution(),
                                 ),
                               ),
                               PolygonLayerWidget(

@@ -33,7 +33,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
 
         actions: [
           IconButton(
@@ -110,7 +110,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                               : null,
                         ),
                   ),
-                  Divider(indent: 300, endIndent: 300),
+                  const Divider(indent: 300, endIndent: 300),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -122,18 +122,18 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                         ),
                       );
                     },
-                    child: Text('Start'),
+                    child: const Text('Start'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HowToPage(),
+                          builder: (context) => const HowToPage(),
                         ),
                       );
                     },
-                    child: Text('How it works'),
+                    child: const Text('How it works'),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -151,11 +151,11 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CreditsPage(),
+                          builder: (context) => const CreditsPage(),
                         ),
                       );
                     },
-                    child: Text('Credits'),
+                    child: const Text('Credits'),
                   ),
                 ],
               ),

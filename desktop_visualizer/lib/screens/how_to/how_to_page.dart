@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HowToPage extends StatelessWidget {
@@ -8,7 +7,7 @@ class HowToPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('How it works'),
+        title: const Text('How it works'),
       ),
     );
   }

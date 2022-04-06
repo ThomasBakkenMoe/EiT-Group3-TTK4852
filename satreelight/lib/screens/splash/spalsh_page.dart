@@ -105,57 +105,98 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                   Text(
                     'SaTreeLight',
                     style: Theme.of(context).textTheme.headline1?.copyWith(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Theme.of(context).primaryColorDark
-                              : null,
+                      shadows: [
+                        const Shadow(
+                          offset: Offset(1, 1),
+                          blurRadius: 4,
                         ),
+                      ],
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Theme.of(context).primaryColorDark
+                          : null,
+                    ),
                   ),
-                  const Divider(indent: 300, endIndent: 300),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LeafletMap(
-                            cities: widget.cities,
+                  Align(
+                    alignment: Alignment.center,
+                    child: ConstrainedBox(
+                      constraints:
+                          const BoxConstraints(maxWidth: 250, maxHeight: 400),
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'Open and explore the map',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('Start'),
+                                leading: const Icon(Icons.map),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) =>
+                                        LeafletMap(cities: cities)),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: const Text('Start'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HowToPage(),
-                        ),
-                      );
-                    },
-                    child: const Text('How it works'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ListPage(cities: cities),
-                        ),
-                      );
-                    },
-                    child: const Text('City list'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CreditsPage(),
-                        ),
-                      );
-                    },
-                    child: const Text('Credits'),
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'How to use the app',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('How it works'),
+                                leading: const Icon(Icons.help),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) => const HowToPage()),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'Browse a sortable list of cities',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('City list'),
+                                leading: const Icon(Icons.list_alt),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) =>
+                                        ListPage(cities: cities)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'View the honourable contributors',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('Credits'),
+                                leading: const Icon(Icons.people),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) => const CreditsPage()),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -5,6 +5,7 @@ import 'package:desktop_visualizer/models/city.dart';
 import 'package:desktop_visualizer/screens/credits/credits_page.dart';
 import 'package:desktop_visualizer/screens/how_to/how_to_page.dart';
 import 'package:desktop_visualizer/screens/leaflet_map/leaflet_map.dart';
+import 'package:desktop_visualizer/screens/list_page/list_page.dart';
 import 'package:desktop_visualizer/screens/splash/components/background_map.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +41,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             tooltip: 'Light/Dark mode',
             onPressed: () {
               ref.read(themeModeProvider).setThemeMode(
-                  Theme.of(context).brightness == Brightness.light
-                      ? ThemeMode.dark
-                      : ThemeMode.light);
+                    Theme.of(context).brightness == Brightness.light
+                        ? ThemeMode.dark
+                        : ThemeMode.light,
+                  );
             },
             icon: Icon(Theme.of(context).brightness == Brightness.light
                 ? Icons.light_mode
@@ -132,6 +134,17 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                       );
                     },
                     child: Text('How it works'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ListPage(cities: cities),
+                        ),
+                      );
+                    },
+                    child: const Text('City list'),
                   ),
                   ElevatedButton(
                     onPressed: () {

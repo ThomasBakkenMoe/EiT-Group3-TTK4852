@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:satreelight/main.dart';
 import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
@@ -11,29 +12,31 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_controller/map_controller.dart';
 
-class LeafletMap extends StatefulWidget {
+class LeafletMap extends ConsumerStatefulWidget {
   final List<City> cities;
   const LeafletMap({required this.cities, Key? key}) : super(key: key);
 
   @override
-  State<LeafletMap> createState() => _LeafletMapState();
+  ConsumerState<LeafletMap> createState() => _LeafletMapState();
 }
 
-class _LeafletMapState extends State<LeafletMap>
-    with SingleTickerProviderStateMixin {
+class _LeafletMapState extends ConsumerState<LeafletMap>
+    with TickerProviderStateMixin {
+  bool mapReady = false;
+  bool inBackground = true;
   bool enabled = true;
   double initZoom = 3;
   double endZoom = 4;
   final LatLng usaCenter = LatLng(38, -97);
   MapController mapController = MapController();
-  Map<String, StatefulMarker> markers = {};
+  List<Marker> markers = [];
 
   late StatefulMapController statefulMapController;
   late StreamSubscription<StatefulMapControllerStateChange> mapStateChange;
-  late AnimationController animationController;
+  late AnimationController zoomController;
 
-  void initAnim() {
-    animationController = AnimationController(
+  void initZoomAnim({bool zoomOut = false}) {
+    zoomController = AnimationController(
       vsync: this,
       lowerBound: 0,
       upperBound: 1,
@@ -41,62 +44,96 @@ class _LeafletMapState extends State<LeafletMap>
         milliseconds: 500,
       ),
     );
-    final initZoomAnim = CurvedAnimation(
-        parent: animationController, curve: Curves.fastOutSlowIn);
-    initZoomAnim.addListener(() {
-      mapController.move(
-          usaCenter, initZoomAnim.value * (endZoom - initZoom) + initZoom);
+    final zoomAnim = CurvedAnimation(
+        parent: zoomController,
+        curve: zoomOut ? Curves.fastOutSlowIn.flipped : Curves.fastOutSlowIn);
+    zoomAnim.addListener(() {
+      if (zoomOut) {
+        final pos = LatLng(
+            usaCenter.latitude -
+                (1 - zoomAnim.value) *
+                    (usaCenter.latitude - mapController.center.latitude),
+            usaCenter.longitude -
+                (1 - zoomAnim.value) *
+                    (usaCenter.longitude - mapController.center.longitude));
+        final zoom =
+            initZoom + (1 - zoomAnim.value) * (mapController.zoom - initZoom);
+        mapController.move(pos, zoom);
+      } else {
+        mapController.move(
+            usaCenter, initZoom + zoomAnim.value * (endZoom - initZoom));
+      }
     });
   }
 
   void setMarkers() {
-    for (final city in cities) {
+    for (final city in widget.cities) {
       double markerSize = 40;
-      final marker = StatefulMarker(
-        state: {'city': city, 'active': false},
+      final marker = Marker(
         point: city.center,
+        anchorPos: AnchorPos.align(AnchorAlign.center),
         height: markerSize,
         width: markerSize,
-        builder: (context, state) => Icon(
+        builder: (context) => Icon(
           Icons.pin_drop,
           color: Theme.of(context).brightness == Brightness.dark
               ? Theme.of(context).scaffoldBackgroundColor
               : Theme.of(context).primaryColor,
           size: markerSize,
         ),
-        anchorAlign: AnchorAlign.center,
       );
-      markers[city.nameAndState] = marker;
+      markers.add(marker);
     }
+  }
+
+  void toBackground() {
+    zoomController.dispose();
+    initZoomAnim(zoomOut: true);
+    zoomController.forward();
+  }
+
+  void toForeground() {
+    zoomController.dispose();
+    initZoomAnim();
+    zoomController.forward();
   }
 
   @override
   void initState() {
     super.initState();
-    initAnim();
     setMarkers();
+    initZoomAnim();
     statefulMapController = StatefulMapController(mapController: mapController);
     mapStateChange = statefulMapController.changeFeed.listen((event) {
       setState(() {});
     });
-    statefulMapController.addStatefulMarkers(markers);
+  }
+
+  @override
+  void dispose() {
+    zoomController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      animationController.forward();
+    inBackground = ref.watch(mapInBackgroundProvider).mapInBackground;
+    ref.listen(mapZoomInProvider, (_old, _new) {
+      toForeground();
     });
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Map'),
-      ),
-      body: FlutterMap(
-        mapController: mapController,
-        options: MapOptions(
-            interactiveFlags:
-                enabled ? InteractiveFlag.all : InteractiveFlag.none,
-            enableScrollWheel: enabled,
+    ref.listen(mapZoomOutProvider, (_old, _new) {
+      toBackground();
+    });
+
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: mapController,
+          options: MapOptions(
+            interactiveFlags: enabled && !inBackground
+                ? InteractiveFlag.all
+                : InteractiveFlag.none,
+            enableScrollWheel: enabled && !inBackground,
             center: usaCenter,
             zoom: initZoom,
             maxZoom: 18.25,
@@ -104,83 +141,94 @@ class _LeafletMapState extends State<LeafletMap>
               MarkerClusterPlugin(),
             ],
             slideOnBoundaries: true,
-            onTap: (tapPos, latLng) {
-              setState(() {
-                enabled = true;
-              });
-            }),
-        children: [
-          TileLayerWidget(
-            options: TileLayerOptions(
-              urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-              subdomains: ['a', 'b', 'c'],
-              attributionBuilder: (context) => const OSMContribution(),
-            ),
           ),
-          MarkerClusterLayerWidget(
-            options: MarkerClusterLayerOptions(
-              showPolygon: false,
-              maxClusterRadius: 120,
-              size: Size(MediaQuery.of(context).textScaleFactor * 55,
-                  MediaQuery.of(context).textScaleFactor * 30),
-              markers: statefulMapController.markers,
-              builder: (context, localMarkers) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                  child: Center(
-                    child: Text(localMarkers.length.toString(),
-                        style: Theme.of(context).textTheme.headline6),
-                  ),
-                );
-              },
-              zoomToBoundsOnClick: true,
-              centerMarkerOnClick: false,
-              onMarkerTap: (marker) async {
-                setState(() {
-                  enabled = false;
-                });
-
-                City city = statefulMapController.statefulMarkers.values
-                    .firstWhere(
-                        (element) => element.marker.point == marker.point)
-                    .state['city'];
-                await city.loadData();
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                      child: SimpleDialog(
-                        title: Row(
-                          children: [
-                            Text(
-                              city.name + ', ' + city.stateLong,
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                            CloseButton(
-                              onPressed: (() {
-                                setState(() {
-                                  enabled = true;
-                                });
-                                Navigator.of(context).pop();
-                              }),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ),
-                        children: [StatPopup(city: city)],
+          children: [
+            TileLayerWidget(
+              options: TileLayerOptions(
+                urlTemplate:
+                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                subdomains: ['a', 'b', 'c'],
+              ),
+            ),
+            if (enabled && !inBackground)
+              MarkerClusterLayerWidget(
+                options: MarkerClusterLayerOptions(
+                  showPolygon: false,
+                  maxClusterRadius: 120,
+                  size: Size(MediaQuery.of(context).textScaleFactor * 55,
+                      MediaQuery.of(context).textScaleFactor * 30),
+                  markers: markers,
+                  builder: (context, localMarkers) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                      child: Center(
+                        child: Text(localMarkers.length.toString(),
+                            style: Theme.of(context).textTheme.headline6),
                       ),
                     );
                   },
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+                  fitBoundsOptions: const FitBoundsOptions(
+                    padding: EdgeInsets.all(200),
+                  ),
+                  zoomToBoundsOnClick: true,
+                  centerMarkerOnClick: true,
+                  onMarkerTap: (marker) async {
+                    City city = widget.cities[markers.indexOf(marker)];
+                    await city.loadData();
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                          child: WillPopScope(
+                            onWillPop: () async {
+                              setState(() {
+                                enabled = true;
+                              });
+                              return enabled;
+                            },
+                            child: SimpleDialog(
+                              title: Row(
+                                children: [
+                                  Text(
+                                    city.name + ', ' + city.stateLong,
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  CloseButton(
+                                    onPressed: (() {
+                                      setState(() {
+                                        enabled = true;
+                                      });
+                                      Navigator.of(context).pop();
+                                    }),
+                                  ),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                              ),
+                              children: [StatPopup(city: city)],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                    setState(() {
+                      enabled = false;
+                    });
+                  },
+                ),
+              ),
+          ],
+        ),
+        const Align(
+          alignment: Alignment.bottomRight,
+          child: OSMContribution(),
+        )
+      ],
     );
   }
 }

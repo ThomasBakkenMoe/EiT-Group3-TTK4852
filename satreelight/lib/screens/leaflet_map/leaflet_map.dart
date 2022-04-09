@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:satreelight/main.dart';
 import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
+import 'package:satreelight/screens/leaflet_map/components/themed_tiles_container.dart';
 import 'package:satreelight/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -74,12 +76,17 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
         anchorPos: AnchorPos.align(AnchorAlign.center),
         height: markerSize,
         width: markerSize,
-        builder: (context) => Icon(
+        builder: (context) => DecoratedIcon(
           Icons.pin_drop,
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Theme.of(context).scaffoldBackgroundColor
-              : Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColor,
           size: markerSize,
+          shadows: [
+            Shadow(
+              offset: const Offset(1, 1),
+              blurRadius:
+                  Theme.of(context).brightness == Brightness.dark ? 2 : 1,
+            ),
+          ],
         ),
       );
       markers.add(marker);
@@ -148,6 +155,9 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
                 urlTemplate:
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 subdomains: ['a', 'b', 'c'],
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                tilesContainerBuilder: (context, tilesContainer, tiles) =>
+                    ThemedTilesContainer(tilesContainer: tilesContainer),
               ),
             ),
             if (enabled && !inBackground)

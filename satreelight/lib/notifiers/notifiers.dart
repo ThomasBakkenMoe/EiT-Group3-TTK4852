@@ -25,3 +25,25 @@ class SchemeNotifier extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class MapBackgroundNotifier extends ChangeNotifier {
+  bool _mapInBackground = true;
+  bool get mapInBackground => _mapInBackground;
+
+  void setMapInBackground(bool inBG) {
+    _mapInBackground = inBG;
+    notifyListeners();
+  }
+}
+
+class MapZoomInNotifier extends ChangeNotifier {
+  void start() {
+    notifyListeners();
+  }
+}
+
+class MapZoomOutNotifier extends ChangeNotifier {
+  void start() {
+    notifyListeners();
+  }
+}

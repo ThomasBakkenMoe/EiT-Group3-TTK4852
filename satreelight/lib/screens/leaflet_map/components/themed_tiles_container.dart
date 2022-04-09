@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:themed/themed.dart';
 
@@ -8,7 +9,7 @@ class ThemedTilesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
+    return Theme.of(context).brightness == Brightness.dark && !kIsWeb
         ? ChangeColors(
             brightness: 0.5,
             hue: 1,

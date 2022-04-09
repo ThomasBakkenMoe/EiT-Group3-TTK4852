@@ -6,7 +6,6 @@ import 'package:satreelight/screens/credits/credits_page.dart';
 import 'package:satreelight/screens/how_to/how_to_page.dart';
 import 'package:satreelight/screens/leaflet_map/leaflet_map.dart';
 import 'package:satreelight/screens/list_page/list_page.dart';
-import 'package:satreelight/screens/splash/components/background_map.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,12 +28,18 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mapInBackground = ref.watch(mapInBackgroundProvider).mapInBackground;
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text('Home Page'),
-
+        title: !mapInBackground ? const Text('Map') : const Text('Home Page'),
+        leading: !mapInBackground
+            ? BackButton(onPressed: () {
+                ref.read(mapInBackgroundProvider).setMapInBackground(true);
+                ref.read(mapZoomOutProvider).start();
+              })
+            : null,
         actions: [
           IconButton(
             padding: const EdgeInsets.all(8),
@@ -95,112 +100,112 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         alignment: Alignment.center,
         child: Stack(
           children: [
-            const BackgroundMap(),
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'SaTreeLight',
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
-                      shadows: [
-                        const Shadow(
-                          offset: Offset(1, 1),
-                          blurRadius: 4,
-                        ),
-                      ],
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Theme.of(context).primaryColorDark
-                          : null,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: ConstrainedBox(
-                      constraints:
-                          const BoxConstraints(maxWidth: 250, maxHeight: 400),
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            child: Tooltip(
-                              message: 'Open and explore the map',
-                              waitDuration: const Duration(milliseconds: 250),
-                              child: ListTile(
-                                title: const Text('Start'),
-                                leading: const Icon(Icons.map),
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) =>
-                                        LeafletMap(cities: cities)),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Card(
-                            elevation: 10,
-                            child: Tooltip(
-                              message: 'How to use the app',
-                              waitDuration: const Duration(milliseconds: 250),
-                              child: ListTile(
-                                title: const Text('How it works'),
-                                leading: const Icon(Icons.help),
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) => const HowToPage()),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Card(
-                            elevation: 10,
-                            child: Tooltip(
-                              message: 'Browse a sortable list of cities',
-                              waitDuration: const Duration(milliseconds: 250),
-                              child: ListTile(
-                                title: const Text('City list'),
-                                leading: const Icon(Icons.list_alt),
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) =>
-                                        ListPage(cities: cities)),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Card(
-                            elevation: 10,
-                            child: Tooltip(
-                              message: 'View the honourable contributors',
-                              waitDuration: const Duration(milliseconds: 250),
-                              child: ListTile(
-                                title: const Text('Credits'),
-                                leading: const Icon(Icons.people),
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) => const CreditsPage()),
-                                  ),
-                                ),
-                              ),
-                            ),
+            LeafletMap(cities: cities),
+            if (mapInBackground)
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'SaTreeLight',
+                      style: Theme.of(context).textTheme.headline1?.copyWith(
+                        shadows: [
+                          const Shadow(
+                            offset: Offset(1, 1),
+                            blurRadius: 4,
                           ),
                         ],
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).primaryColorDark
+                            : null,
                       ),
                     ),
-                  ),
-                ],
+                    Align(
+                      alignment: Alignment.center,
+                      child: ConstrainedBox(
+                        constraints:
+                            const BoxConstraints(maxWidth: 250, maxHeight: 400),
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            Card(
+                              elevation: 10,
+                              child: Tooltip(
+                                message: 'Open and explore the map',
+                                waitDuration: const Duration(milliseconds: 250),
+                                child: ListTile(
+                                    title: const Text('Start'),
+                                    leading: const Icon(Icons.map),
+                                    onTap: () {
+                                      ref
+                                          .read(mapInBackgroundProvider)
+                                          .setMapInBackground(false);
+                                      ref.read(mapZoomInProvider).start();
+                                    }),
+                              ),
+                            ),
+                            Card(
+                              elevation: 10,
+                              child: Tooltip(
+                                message: 'How to use the app',
+                                waitDuration: const Duration(milliseconds: 250),
+                                child: ListTile(
+                                  title: const Text('How it works'),
+                                  leading: const Icon(Icons.help),
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) => const HowToPage()),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Card(
+                              elevation: 10,
+                              child: Tooltip(
+                                message: 'Browse a sortable list of cities',
+                                waitDuration: const Duration(milliseconds: 250),
+                                child: ListTile(
+                                  title: const Text('City list'),
+                                  leading: const Icon(Icons.list_alt),
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) =>
+                                          ListPage(cities: cities)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Card(
+                              elevation: 10,
+                              child: Tooltip(
+                                message: 'View the honourable contributors',
+                                waitDuration: const Duration(milliseconds: 250),
+                                child: ListTile(
+                                  title: const Text('Credits'),
+                                  leading: const Icon(Icons.people),
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) =>
+                                          const CreditsPage()),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),

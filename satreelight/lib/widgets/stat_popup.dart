@@ -1,8 +1,8 @@
 import 'package:satreelight/models/city.dart';
-import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
 
 class StatPopup extends StatefulWidget {
   const StatPopup({required this.city, Key? key}) : super(key: key);
@@ -46,38 +46,43 @@ class _StatPopup extends State<StatPopup> {
                     children: <Widget>[
                       Card(
                         child: Container(
-                          child: FlutterMap(
-                            mapController: mapController,
-                            options: MapOptions(
-                              center: widget.city.center,
-                              zoom: 10,
-                              minZoom: minZoom,
-                              maxZoom: 18.25,
-                              swPanBoundary: widget.city.southWest,
-                              nePanBoundary: widget.city.northEast,
-                            ),
+                          child: Stack(
                             children: [
-                              TileLayerWidget(
-                                options: TileLayerOptions(
-                                  urlTemplate:
-                                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                  subdomains: ['a', 'b', 'c'],
-                                  attributionBuilder: (context) =>
-                                      const OSMContribution(),
+                              FlutterMap(
+                                mapController: mapController,
+                                options: MapOptions(
+                                  center: widget.city.center,
+                                  zoom: 10,
+                                  minZoom: minZoom,
+                                  maxZoom: 18.25,
+                                  swPanBoundary: widget.city.southWest,
+                                  nePanBoundary: widget.city.northEast,
                                 ),
+                                children: [
+                                  TileLayerWidget(
+                                    options: TileLayerOptions(
+                                      urlTemplate:
+                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                      subdomains: ['a', 'b', 'c'],
+                                    ),
+                                  ),
+                                  PolygonLayerWidget(
+                                    options: PolygonLayerOptions(
+                                      polygons: widget.city.polygons,
+                                    ),
+                                  ),
+                                  OverlayImageLayerWidget(
+                                    options: OverlayImageLayerOptions(
+                                      overlayImages: [
+                                        snapshot.data ?? placeholderImage,
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              PolygonLayerWidget(
-                                options: PolygonLayerOptions(
-                                  polygons: widget.city.polygons,
-                                ),
-                              ),
-                              OverlayImageLayerWidget(
-                                options: OverlayImageLayerOptions(
-                                  overlayImages: [
-                                    snapshot.data ?? placeholderImage,
-                                  ],
-                                ),
-                              ),
+                              const Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: OSMContribution()),
                             ],
                           ),
                           height: screenSize.height * 0.58,

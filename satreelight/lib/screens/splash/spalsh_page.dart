@@ -20,6 +20,11 @@ class SplashPage extends ConsumerStatefulWidget {
 }
 
 class _SplashPageState extends ConsumerState<SplashPage> {
+  final logo = Image.asset(
+    'assets/graphics/satreelight_logo.png',
+    height: 300,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -108,6 +113,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    logo,
                     Text(
                       'SaTreeLight',
                       style: Theme.of(context).textTheme.headline1?.copyWith(

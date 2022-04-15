@@ -117,15 +117,12 @@ class City {
 
         int index = 0;
         for (List polygon in polygonList) {
-          List polygonPoints = [];
           int subIndex = 0;
           for (List points in polygon) {
-            polygonPoints.addAll(points);
-
             List<LatLng> polygonLatLngs = List.generate(
-              polygonPoints.length,
+              points.length,
               (index) {
-                final point = polygonPoints[index];
+                final point = points[index];
                 double lat = point[1].toDouble();
                 double lon = point[0].toDouble();
                 return LatLng(lat, lon);

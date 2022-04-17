@@ -13,14 +13,14 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  List<City> cities = [];
+  List<City> _cities = [];
   List<String> sortings = ['Vegetation', 'Happiness', 'Alphabetically'];
   String sortedBy = 'Alphabetically';
 
   void sortByVeg() {
     setState(() {
       sortedBy = 'Vegetation';
-      cities.sort(
+      _cities.sort(
         (a, b) => b.vegFrac.compareTo(a.vegFrac),
       );
     });
@@ -29,7 +29,7 @@ class _ListPageState extends State<ListPage> {
   void sortAlphabetically() {
     setState(() {
       sortedBy = 'Alphabetically';
-      cities.sort(
+      _cities.sort(
         (a, b) => a.name.compareTo(b.name),
       );
     });
@@ -38,7 +38,7 @@ class _ListPageState extends State<ListPage> {
   void sortByHappiness() {
     setState(() {
       sortedBy = 'Happiness';
-      cities.sort(
+      _cities.sort(
         (a, b) => b.happyScore.compareTo(a.happyScore),
       );
     });
@@ -54,14 +54,14 @@ class _ListPageState extends State<ListPage> {
 
   void reverse() {
     setState(() {
-      cities = cities.reversed.toList();
+      _cities = _cities.reversed.toList();
     });
   }
 
   @override
   void initState() {
     super.initState();
-    cities = widget.cities;
+    _cities.addAll(widget.cities);
   }
 
   @override
@@ -126,9 +126,9 @@ class _ListPageState extends State<ListPage> {
       body: GridView.builder(
         shrinkWrap: true,
         padding: const EdgeInsets.all(8),
-        itemCount: cities.length,
+        itemCount: _cities.length,
         itemBuilder: (context, index) {
-          final city = cities[index];
+          final city = _cities[index];
           final sortByText = sortedBy == 'Vegetation'
               ? '\nVegetation: ' +
                   (100 * city.vegFrac).toStringAsPrecision(3) +

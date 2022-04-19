@@ -25,7 +25,26 @@ class CreditsPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1),
             Text('Thomas Bakken Moe',
                 style: Theme.of(context).textTheme.bodyText1),
-            Text('Sofie Trovik', style: Theme.of(context).textTheme.bodyText1)
+            Text('Sofie Trovik', style: Theme.of(context).textTheme.bodyText1),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: const Text('Software licenses'),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LicensePage(
+                      applicationName: 'SaTreeLight',
+                      applicationIcon: Image(
+                        image:
+                            AssetImage('assets/graphics/satreelight_logo.png'),
+                      ),
+                      applicationVersion: '1.0',
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

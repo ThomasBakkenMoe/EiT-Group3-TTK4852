@@ -99,10 +99,12 @@ class _ListPageState extends State<ListPage> {
               controller: searchController,
               maxLines: 1,
               maxLength: 27,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.white,
+                  ),
+              cursorColor: Theme.of(context).brightness == Brightness.light
+                  ? Colors.white
+                  : null,
               decoration: InputDecoration(
                 label: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -16,6 +16,8 @@ class _ListPageState extends State<ListPage> {
   List<City> _cities = [];
   List<String> sortings = ['Vegetation', 'Happiness', 'Alphabetically'];
   String sortedBy = 'Alphabetically';
+  String searchString = '';
+  final searchController = TextEditingController();
 
   void sortByVeg() {
     setState(() {
@@ -66,12 +68,82 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final citiesToList = searchString == ''
+        ? _cities
+        : _cities
+            .where(
+              (city) =>
+                  city.nameAndState.toLowerCase().contains(
+                        searchString.toLowerCase(),
+                      ) ||
+                  city.stateLong.toLowerCase().contains(
+                        searchString.toLowerCase(),
+                      ),
+            )
+            .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           'City List',
         ),
         actions: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: TextField(
+              onChanged: (value) => setState(
+                () {
+                  searchString = value;
+                },
+              ),
+              controller: searchController,
+              maxLines: 1,
+              maxLength: 27,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Colors.white),
+              decoration: InputDecoration(
+                label: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.search,
+                    ),
+                    Text(
+                      'Search',
+                      style: Theme.of(context).brightness == Brightness.light
+                          ? Theme.of(context).primaryTextTheme.bodyLarge
+                          : null,
+                    ),
+                  ],
+                ),
+                fillColor: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).primaryColor
+                    : null,
+                counterText: '',
+                constraints: const BoxConstraints(maxWidth: 300),
+                suffixIcon: searchString != ''
+                    ? IconButton(
+                        onPressed: () {
+                          searchController.clear();
+                          setState(() {
+                            searchString = '';
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                        ),
+                        splashRadius: 20,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Theme.of(context).primaryIconTheme.color
+                            : null,
+                      )
+                    : null,
+              ),
+              textAlignVertical: TextAlignVertical.top,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Center(
@@ -105,15 +177,27 @@ class _ListPageState extends State<ListPage> {
                       : null,
               onPressed: (index) => sort(index),
               children: const [
-                Icon(Icons.grass),
-                Icon(Icons.sentiment_satisfied),
-                Icon(Icons.sort_by_alpha),
+                Tooltip(
+                  message: 'Vegetation',
+                  child: Icon(Icons.grass),
+                ),
+                Tooltip(
+                  message: 'Happiness',
+                  child: Icon(Icons.sentiment_satisfied),
+                ),
+                Tooltip(
+                  message: 'Alphabetically',
+                  child: Icon(Icons.sort_by_alpha),
+                ),
               ],
               isSelected: List.generate(
-                  sortings.length, (index) => sortedBy == sortings[index]),
+                sortings.length,
+                (index) => sortedBy == sortings[index],
+              ),
             ),
           ),
           IconButton(
+            tooltip: 'Reverse list',
             onPressed: reverse,
             icon: const Icon(Icons.import_export),
             color: Theme.of(context).brightness == Brightness.light
@@ -126,9 +210,9 @@ class _ListPageState extends State<ListPage> {
       body: GridView.builder(
         shrinkWrap: true,
         padding: const EdgeInsets.all(8),
-        itemCount: _cities.length,
+        itemCount: citiesToList.length,
         itemBuilder: (context, index) {
-          final city = _cities[index];
+          final city = citiesToList[index];
           final sortByText = sortedBy == 'Vegetation'
               ? '\nVegetation: ' +
                   (100 * city.vegFrac).toStringAsPrecision(3) +
@@ -142,29 +226,30 @@ class _ListPageState extends State<ListPage> {
             onPressed: () async {
               await city.loadData();
               showDialog(
-                  context: context,
-                  builder: (context) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                      child: SimpleDialog(
-                        title: Row(
-                          children: [
-                            Text(
-                              city.name + ', ' + city.stateLong,
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                            CloseButton(
-                              onPressed: (() {
-                                Navigator.of(context).pop();
-                              }),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ),
-                        children: [StatPopup(city: city)],
+                context: context,
+                builder: (context) {
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                    child: SimpleDialog(
+                      title: Row(
+                        children: [
+                          Text(
+                            city.name + ', ' + city.stateLong,
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          CloseButton(
+                            onPressed: (() {
+                              Navigator.of(context).pop();
+                            }),
+                          ),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       ),
-                    );
-                  });
+                      children: [StatPopup(city: city)],
+                    ),
+                  );
+                },
+              );
             },
             child: Text(buttonText),
           );

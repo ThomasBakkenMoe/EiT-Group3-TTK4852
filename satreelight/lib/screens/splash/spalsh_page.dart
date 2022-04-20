@@ -163,7 +163,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                                   onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: ((context) => const HowToPage()),
+                                      builder: ((context) => HowToPage(city: cities.firstWhere((element) => element.name == "Los Angeles"))),
                                     ),
                                   ),
                                 ),

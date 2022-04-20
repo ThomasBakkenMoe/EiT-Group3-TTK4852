@@ -163,7 +163,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                                   onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: ((context) => HowToPage(city: cities.firstWhere((element) => element.name == "Los Angeles"))),
+                                      builder: (context) => HowToPage(
+                                        city: cities.firstWhere((element) =>
+                                            element.name == "Los Angeles"),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -180,8 +183,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                                   onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: ((context) =>
-                                          ListPage(cities: cities)),
+                                      builder: (context) =>
+                                          ListPage(cities: cities),
                                     ),
                                   ),
                                 ),
@@ -198,8 +201,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                                   onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const CreditsPage()),
+                                      builder: (context) => const CreditsPage(),
                                     ),
                                   ),
                                 ),

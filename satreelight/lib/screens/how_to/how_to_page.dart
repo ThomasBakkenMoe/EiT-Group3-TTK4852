@@ -1,19 +1,9 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:decorated_icon/decorated_icon.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:satreelight/models/city.dart';
-import 'package:satreelight/main.dart';
-import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
-import 'package:satreelight/screens/leaflet_map/components/themed_tiles_container.dart';
-import 'package:satreelight/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:map_controller/map_controller.dart';
-
+import 'package:satreelight/models/city.dart';
+import 'package:satreelight/widgets/stat_popup.dart';
 
 class HowToPage extends StatelessWidget {
   final City city;
@@ -31,9 +21,12 @@ class HowToPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Click on the location pin', style: Theme.of(context).textTheme.headline3),
+            Text('Click on the location pin',
+                style: Theme.of(context).textTheme.headline3),
             const SizedBox(height: 100),
-            FlatButton(   
+            IconButton(
+              iconSize: 60,
+              alignment: Alignment.center,
               onPressed: () async {
                 await city.loadData();
                 showDialog(
@@ -42,13 +35,13 @@ class HowToPage extends StatelessWidget {
                     return BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                       child: SimpleDialog(
-                        backgroundColor: Theme.of(context).dialogBackgroundColor,
+                        backgroundColor:
+                            Theme.of(context).dialogBackgroundColor,
                         title: Row(
                           children: [
                             Text(
                               city.name + ', ' + city.stateLong,
-                              style:
-                                  Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline4,
                             ),
                             CloseButton(
                               onPressed: (() {
@@ -56,8 +49,7 @@ class HowToPage extends StatelessWidget {
                               }),
                             ),
                           ],
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         ),
                         children: [StatPopup(city: city)],
                       ),
@@ -65,16 +57,14 @@ class HowToPage extends StatelessWidget {
                   },
                 );
               },
-              shape: const CircleBorder(),
-              hoverColor: const Color(0x00000000),
-              child: DecoratedIcon(
+              icon: DecoratedIcon(
                 Icons.pin_drop,
                 color: Theme.of(context).primaryColor,
-                size: 60.0,
                 shadows: [
                   Shadow(
                     offset: const Offset(1, 1),
-                    blurRadius: Theme.of(context).brightness == Brightness.dark ? 2 : 1,
+                    blurRadius:
+                        Theme.of(context).brightness == Brightness.dark ? 2 : 1,
                   ),
                 ],
               ),
@@ -86,15 +76,3 @@ class HowToPage extends StatelessWidget {
     );
   }
 }
-/*
-            DecoratedIcon(  
-              Icons.pin_drop,
-              color: Theme.of(context).primaryColor,
-              size: markerSize,
-              shadows: [
-                Shadow(
-                  offset: const Offset(1, 1),
-                  blurRadius: Theme.of(context).brightness == Brightness.dark ? 2 : 1,
-                ),
-              ],
-            ),*/

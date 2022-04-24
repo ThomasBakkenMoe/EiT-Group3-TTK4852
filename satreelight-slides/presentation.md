@@ -7,7 +7,7 @@ theme: "sky"
 
 # SaTreeLight
 
----
+----------
 
 ### Presentasjon - Gruppe 3
 
@@ -41,7 +41,7 @@ Thomas, Gaute, Sofie, Victor, Trym
         - Mål: Måle varmetap fra hus med IR bilder fra satellitt
         <br>
         - Komplikasjon: For lav oppøsning (100m per pixel)
-        - Byttet oppgave på landsbydag
+        - Byttet oppgave på landsbydag 5
     </p>
 </div>
 <div class="col">

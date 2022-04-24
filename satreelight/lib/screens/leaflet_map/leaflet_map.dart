@@ -203,10 +203,20 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
                             child: SimpleDialog(
                               title: Row(
                                 children: [
-                                  Text(
-                                    city.name + ', ' + city.stateLong,
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
+                                  RichText(
+                                    text: TextSpan(
+                                      text: city.name + '\n',
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                      children: [
+                                        TextSpan(
+                                          text: city.stateLong,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   CloseButton(
                                     onPressed: (() {

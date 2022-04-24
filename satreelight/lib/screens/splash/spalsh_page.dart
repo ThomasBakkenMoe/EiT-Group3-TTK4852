@@ -101,121 +101,124 @@ class _SplashPageState extends ConsumerState<SplashPage> {
           ),
         ],
       ),
-      body: Container(
+      body: Stack(
         alignment: Alignment.center,
-        child: Stack(
-          children: [
-            LeafletMap(cities: cities),
-            if (mapInBackground)
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    logo,
-                    Text(
-                      'SaTreeLight',
-                      style: Theme.of(context).textTheme.headline1?.copyWith(
-                        shadows: [
-                          const Shadow(
-                            offset: Offset(1, 1),
-                            blurRadius: 4,
+        children: [
+          LeafletMap(cities: cities),
+          if (mapInBackground)
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: ListView(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 50),
+                  ),
+                  logo,
+                  Text(
+                    'SaTreeLight',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline1?.copyWith(
+                      shadows: [
+                        const Shadow(
+                          offset: Offset(1, 1),
+                          blurRadius: 4,
+                        ),
+                      ],
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Theme.of(context).primaryColorDark
+                          : null,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ConstrainedBox(
+                      constraints:
+                          const BoxConstraints(maxWidth: 250, maxHeight: 400),
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'Open and explore the map',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                  title: const Text('Start'),
+                                  leading: const Icon(Icons.map),
+                                  onTap: () {
+                                    ref
+                                        .read(mapInBackgroundProvider)
+                                        .setMapInBackground(false);
+                                    ref.read(mapZoomInProvider).start();
+                                  }),
+                            ),
+                          ),
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'How to use the app',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('How it works'),
+                                leading: const Icon(Icons.help),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HowToPage(
+                                      city: cities.firstWhere((element) =>
+                                          element.name == "Los Angeles"),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'Browse a sortable list of cities',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('City list'),
+                                leading: const Icon(Icons.list_alt),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ListPage(cities: cities),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            elevation: 10,
+                            child: Tooltip(
+                              message: 'View the honourable contributors',
+                              waitDuration: const Duration(milliseconds: 250),
+                              child: ListTile(
+                                title: const Text('Credits'),
+                                leading: const Icon(Icons.people),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const CreditsPage(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 50),
                           ),
                         ],
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Theme.of(context).primaryColorDark
-                            : null,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: ConstrainedBox(
-                        constraints:
-                            const BoxConstraints(maxWidth: 250, maxHeight: 400),
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Card(
-                              elevation: 10,
-                              child: Tooltip(
-                                message: 'Open and explore the map',
-                                waitDuration: const Duration(milliseconds: 250),
-                                child: ListTile(
-                                    title: const Text('Start'),
-                                    leading: const Icon(Icons.map),
-                                    onTap: () {
-                                      ref
-                                          .read(mapInBackgroundProvider)
-                                          .setMapInBackground(false);
-                                      ref.read(mapZoomInProvider).start();
-                                    }),
-                              ),
-                            ),
-                            Card(
-                              elevation: 10,
-                              child: Tooltip(
-                                message: 'How to use the app',
-                                waitDuration: const Duration(milliseconds: 250),
-                                child: ListTile(
-                                  title: const Text('How it works'),
-                                  leading: const Icon(Icons.help),
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HowToPage(
-                                        city: cities.firstWhere((element) =>
-                                            element.name == "Los Angeles"),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              elevation: 10,
-                              child: Tooltip(
-                                message: 'Browse a sortable list of cities',
-                                waitDuration: const Duration(milliseconds: 250),
-                                child: ListTile(
-                                  title: const Text('City list'),
-                                  leading: const Icon(Icons.list_alt),
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ListPage(cities: cities),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              elevation: 10,
-                              child: Tooltip(
-                                message: 'View the honourable contributors',
-                                waitDuration: const Duration(milliseconds: 250),
-                                child: ListTile(
-                                  title: const Text('Credits'),
-                                  leading: const Icon(Icons.people),
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const CreditsPage(),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }

@@ -64,6 +64,7 @@ class _ListPageState extends State<ListPage> {
   void initState() {
     super.initState();
     _cities.addAll(widget.cities);
+    sortAlphabetically();
   }
 
   @override
@@ -235,9 +236,17 @@ class _ListPageState extends State<ListPage> {
                     child: SimpleDialog(
                       title: Row(
                         children: [
-                          Text(
-                            city.name + ', ' + city.stateLong,
-                            style: Theme.of(context).textTheme.headline4,
+                          RichText(
+                            text: TextSpan(
+                              text: city.name + '\n',
+                              style: Theme.of(context).textTheme.headline4,
+                              children: [
+                                TextSpan(
+                                  text: city.stateLong,
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              ],
+                            ),
                           ),
                           CloseButton(
                             onPressed: (() {

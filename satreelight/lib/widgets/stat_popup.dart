@@ -1,3 +1,4 @@
+import 'package:satreelight/constants/size_breakpoints.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -38,258 +39,186 @@ class _StatPopup extends State<StatPopup> {
       return FutureBuilder<OverlayImage>(
         future: widget.city.getImage(),
         initialData: placeholderImage,
-        builder: ((context, snapshot) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Card(
-                        child: Container(
-                          child: Stack(
-                            children: [
-                              FlutterMap(
-                                mapController: mapController,
-                                options: MapOptions(
-                                  center: widget.city.center,
-                                  zoom: 10,
-                                  minZoom: minZoom,
-                                  maxZoom: 18.25,
-                                  swPanBoundary: widget.city.southWest,
-                                  nePanBoundary: widget.city.northEast,
-                                ),
-                                children: [
-                                  TileLayerWidget(
-                                    options: TileLayerOptions(
-                                      urlTemplate:
-                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                      subdomains: ['a', 'b', 'c'],
-                                      tilesContainerBuilder: (context,
-                                              tilesContainer, tiles) =>
-                                          ThemedTilesContainer(
-                                              tilesContainer: tilesContainer),
-                                    ),
-                                  ),
-                                  PolygonLayerWidget(
-                                    options: PolygonLayerOptions(
-                                      polygons: widget.city.polygons,
-                                    ),
-                                  ),
-                                  OverlayImageLayerWidget(
-                                    options: OverlayImageLayerOptions(
-                                      overlayImages: [
-                                        snapshot.data ?? placeholderImage,
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: OSMContribution()),
-                            ],
-                          ),
-                          height: screenSize.height * 0.58,
-                          width: screenSize.width * 0.52,
-                          color: cardColor,
+        builder: (context, snapshot) {
+          final map = Card(
+            elevation: 4,
+            child: Container(
+              child: Stack(
+                children: [
+                  FlutterMap(
+                    mapController: mapController,
+                    options: MapOptions(
+                      center: widget.city.center,
+                      zoom: 10,
+                      minZoom: minZoom,
+                      maxZoom: 18.25,
+                      swPanBoundary: widget.city.southWest,
+                      nePanBoundary: widget.city.northEast,
+                    ),
+                    children: [
+                      TileLayerWidget(
+                        options: TileLayerOptions(
+                          urlTemplate:
+                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          subdomains: ['a', 'b', 'c'],
+                          tilesContainerBuilder: (context, tilesContainer,
+                                  tiles) =>
+                              ThemedTilesContainer(
+                                  tilesContainer: tilesContainer),
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      PolygonLayerWidget(
+                        options: PolygonLayerOptions(
+                          polygons: widget.city.polygons,
+                        ),
+                      ),
+                      OverlayImageLayerWidget(
+                        options: OverlayImageLayerOptions(
+                          overlayImages: [
+                            snapshot.data ?? placeholderImage,
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Align(
+                      alignment: Alignment.bottomRight,
+                      child: OSMContribution()),
+                ],
+              ),
+              height: screenSize.height * 0.58,
+              width: screenSize.width < slimWidthBreakpoint
+                  ? screenSize.width * 0.8
+                  : screenSize.width < mediumWidthBreakpoint
+                      ? screenSize.width * 0.7
+                      : screenSize.width * 0.52,
+              color: cardColor,
+            ),
+          );
+          final widgets = <Widget>[
+            Card(
+              elevation: 4,
+              child: Container(
+                color: cardColor,
+                height: screenSize.height * 0.185,
+                width: screenSize.width < slimWidthBreakpoint
+                    ? screenSize.width * 0.8
+                    : screenSize.width * 0.15,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularPercentIndicator(
+                    curve: Curves.easeInOutSine,
+                    animation: true,
+                    animationDuration: 1000,
+                    radius: screenSize.width > slimWidthBreakpoint &&
+                            screenSize.width < mediumWidthBreakpoint
+                        ? screenSize.width * 0.07
+                        : screenSize.height * 0.08,
+                    lineWidth: 16.0,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    percent: widget.city.vegFrac,
+                    center: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text((widget.city.vegFrac * 100).toStringAsFixed(1) +
+                            "%"),
+                        Text(
+                          "Vegetation",
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    ),
+                    progressColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).dialogBackgroundColor,
+                  ),
+                ),
+              ),
+            ),
+            Card(
+              elevation: 4,
+              child: Container(
+                color: cardColor,
+                height: screenSize.height * 0.185,
+                width: screenSize.width < slimWidthBreakpoint
+                    ? screenSize.width * 0.8
+                    : screenSize.width < mediumWidthBreakpoint
+                        ? screenSize.width * 0.25
+                        : screenSize.width * 0.15,
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              "Happiness Rank: ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Text(
+                            "#" + widget.city.happinessRank.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Row(
                         children: <Widget>[
-                          Card(
-                            child: SizedBox(
-                              height: screenSize.height * 0.185,
-                              width: screenSize.width * 0.15,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircularPercentIndicator(
-                                    curve: Curves.easeInOutSine,
-                                    animation: true,
-                                    animationDuration: 1000,
-                                    radius: screenSize.height * 0.08,
-                                    lineWidth: 16.0,
-                                    circularStrokeCap: CircularStrokeCap.round,
-                                    percent: widget.city.vegFrac,
-                                    center: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text((widget.city.vegFrac * 100)
-                                                .toStringAsFixed(1) +
-                                            "%"),
-                                        Text(
-                                          "Vegetation",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption,
-                                        ),
-                                      ],
-                                    ),
-                                    progressColor:
-                                        Theme.of(context).primaryColor,
-                                    backgroundColor:
-                                        Theme.of(context).dialogBackgroundColor,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            color: cardColor,
-                          ),
-                          Card(
-                            child: Container(
-                              color: cardColor,
-                              height: screenSize.height * 0.185,
-                              width: screenSize.width * 0.15,
-                              child: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Text(
-                                      "Happiness Rank:",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            "Emotional and Physical Well-being Rank",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .overline,
-                                          ),
-                                        ),
-                                        Text(
-                                          "#" +
-                                              widget.city.emoPhysRank
-                                                  .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            "Income and Employment Rank",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .overline,
-                                          ),
-                                        ),
-                                        Text(
-                                          "#" +
-                                              widget.city.incomeEmpRank
-                                                  .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Text(
-                                            "Community and Enviorment Rank",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .overline,
-                                          ),
-                                        ),
-                                        Text(
-                                          "#" +
-                                              widget.city.communityEnvRank
-                                                  .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          Flexible(
+                            child: Text(
+                              "Emotional and Physical Well-being Rank ",
+                              style: Theme.of(context).textTheme.overline,
                             ),
                           ),
-                          Card(
-                            child: Container(
-                              color: cardColor,
-                              height: screenSize.height * 0.185,
-                              width: screenSize.width * 0.15,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text("Total Happiness Score:",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold)),
-                                  ),
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            widget.city.happyScore.toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge,
-                                          ),
-                                        ),
-                                        Icon(
-                                          widget.city.happyScore > 64
-                                              ? Icons
-                                                  .sentiment_very_satisfied_rounded
-                                              : widget.city.happyScore > 57
-                                                  ? Icons
-                                                      .sentiment_satisfied_alt_rounded
-                                                  : widget.city.happyScore > 47
-                                                      ? Icons
-                                                          .sentiment_neutral_rounded
-                                                      : widget.city.happyScore >
-                                                              40
-                                                          ? Icons
-                                                              .sentiment_dissatisfied
-                                                          : Icons
-                                                              .sentiment_very_dissatisfied_rounded,
-                                          size: 50,
-                                          color: widget.city.happyScore > 64
-                                              ? Colors.green
-                                              : widget.city.happyScore > 57
-                                                  ? Colors.lightGreen
-                                                  : widget.city.happyScore > 47
-                                                      ? Colors.yellow
-                                                      : widget.city.happyScore >
-                                                              40
-                                                          ? Colors.orange
-                                                          : Colors.red,
-                                        ),
-                                      ]),
-                                ],
-                              ),
+                          Text(
+                            "#" + widget.city.emoPhysRank.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              "Income and Employment Rank ",
+                              style: Theme.of(context).textTheme.overline,
+                            ),
+                          ),
+                          Text(
+                            "#" + widget.city.incomeEmpRank.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              "Community and Enviorment Rank ",
+                              style: Theme.of(context).textTheme.overline,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "#" + widget.city.communityEnvRank.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -298,7 +227,91 @@ class _StatPopup extends State<StatPopup> {
                   ),
                 ),
               ),
-            )),
+            ),
+            Card(
+              elevation: 4,
+              child: Container(
+                color: cardColor,
+                height: screenSize.height * 0.185,
+                width: screenSize.width < slimWidthBreakpoint
+                    ? screenSize.width * 0.8
+                    : screenSize.width < mediumWidthBreakpoint
+                        ? screenSize.width * 0.25
+                        : screenSize.width * 0.15,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text("Total Happiness Score",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.bold)),
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              widget.city.happyScore.toString(),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          Icon(
+                            widget.city.happyScore > 64
+                                ? Icons.sentiment_very_satisfied_rounded
+                                : widget.city.happyScore > 57
+                                    ? Icons.sentiment_satisfied_alt_rounded
+                                    : widget.city.happyScore > 47
+                                        ? Icons.sentiment_neutral_rounded
+                                        : widget.city.happyScore > 40
+                                            ? Icons.sentiment_dissatisfied
+                                            : Icons
+                                                .sentiment_very_dissatisfied_rounded,
+                            size: 50,
+                            color: widget.city.happyScore > 64
+                                ? Colors.green
+                                : widget.city.happyScore > 57
+                                    ? Colors.lightGreen
+                                    : widget.city.happyScore > 47
+                                        ? Colors.yellow
+                                        : widget.city.happyScore > 40
+                                            ? Colors.orange
+                                            : Colors.red,
+                          ),
+                        ]),
+                  ],
+                ),
+              ),
+            ),
+          ];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Flex(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              direction: screenSize.width < mediumWidthBreakpoint
+                  ? Axis.vertical
+                  : Axis.horizontal,
+              children: [
+                map,
+                if (screenSize.width < slimWidthBreakpoint)
+                  ...widgets
+                else if (screenSize.width < mediumWidthBreakpoint)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: widgets,
+                  )
+                else
+                  Column(
+                    children: widgets,
+                  ),
+              ],
+            ),
+          );
+        },
       );
     });
   }

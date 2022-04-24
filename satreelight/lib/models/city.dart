@@ -15,6 +15,7 @@ class City {
   final int incomeEmpRank;
   final int communityEnvRank;
   final LatLng center;
+  int? happinessRank;
   bool loaded = false;
   List<LatLng> combinedPolygonPoints = [];
   List<List<LatLng>> polygonsPoints = [];
@@ -29,6 +30,10 @@ class City {
     required this.communityEnvRank,
     required this.center,
   });
+
+  set rank(int rank) {
+    happinessRank = rank;
+  }
 
   String get name {
     return nameAndState.split(',')[0];
@@ -178,6 +183,14 @@ Future<List<City>> loadCities() async {
     cities.add(city);
   }
 
+  cities.sort(
+    (a, b) => b.happyScore.compareTo(a.happyScore),
+  );
+
+  for (final city in cities) {
+    city.rank = cities.indexOf(city) + 1;
+  }
+
   return cities;
 }
 
@@ -284,6 +297,16 @@ Future<List<City>> loadAllCities() async {
       }
     }
   }
+  cities.sort(
+    (a, b) => b.happyScore.compareTo(a.happyScore),
+  );
 
+  for (final city in cities) {
+    city.rank = cities.indexOf(city) + 1;
+  }
+
+  cities.sort(
+    (a, b) => a.name.compareTo(b.name),
+  );
   return cities;
 }

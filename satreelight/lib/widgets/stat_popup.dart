@@ -1,3 +1,4 @@
+import 'package:decorated_icon/decorated_icon.dart';
 import 'package:satreelight/constants/size_breakpoints.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,7 @@ class _StatPopup extends State<StatPopup> {
                       child: OSMContribution()),
                 ],
               ),
-              height: screenSize.height * 0.58,
+              height: screenSize.height * 0.6 + 16,
               width: screenSize.width < slimWidthBreakpoint
                   ? screenSize.width * 0.8
                   : screenSize.width < mediumWidthBreakpoint
@@ -100,7 +101,7 @@ class _StatPopup extends State<StatPopup> {
               elevation: 4,
               child: Container(
                 color: cardColor,
-                height: screenSize.height * 0.185,
+                height: screenSize.height * 0.2,
                 width: screenSize.width < slimWidthBreakpoint
                     ? screenSize.width * 0.8
                     : screenSize.width * 0.15,
@@ -138,7 +139,7 @@ class _StatPopup extends State<StatPopup> {
               elevation: 4,
               child: Container(
                 color: cardColor,
-                height: screenSize.height * 0.185,
+                height: screenSize.height * 0.2,
                 width: screenSize.width < slimWidthBreakpoint
                     ? screenSize.width * 0.8
                     : screenSize.width < mediumWidthBreakpoint
@@ -171,9 +172,17 @@ class _StatPopup extends State<StatPopup> {
                       ),
                       Row(
                         children: <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(right: 6.0),
+                            child: ImageIcon(
+                              AssetImage(
+                                  'assets/graphics/Emotional and Physical Well-Being.png'),
+                              size: 35,
+                            ),
+                          ),
                           Flexible(
                             child: Text(
-                              "Emotional and Physical Well-being Rank ",
+                              "Emotional and Physical \nWell-being Rank ",
                               style: Theme.of(context).textTheme.overline,
                             ),
                           ),
@@ -188,6 +197,14 @@ class _StatPopup extends State<StatPopup> {
                       ),
                       Row(
                         children: <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(right: 6.0),
+                            child: ImageIcon(
+                              AssetImage(
+                                  'assets/graphics/Income and Employer.png'),
+                              size: 35,
+                            ),
+                          ),
                           Flexible(
                             child: Text(
                               "Income and Employment Rank ",
@@ -205,6 +222,14 @@ class _StatPopup extends State<StatPopup> {
                       ),
                       Row(
                         children: <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(right: 6.0),
+                            child: ImageIcon(
+                              AssetImage(
+                                  'assets/graphics/Community and Environment.png'),
+                              size: 35,
+                            ),
+                          ),
                           Flexible(
                             child: Text(
                               "Community and Enviorment Rank ",
@@ -232,7 +257,7 @@ class _StatPopup extends State<StatPopup> {
               elevation: 4,
               child: Container(
                 color: cardColor,
-                height: screenSize.height * 0.185,
+                height: screenSize.height * 0.2,
                 width: screenSize.width < slimWidthBreakpoint
                     ? screenSize.width * 0.8
                     : screenSize.width < mediumWidthBreakpoint
@@ -251,38 +276,46 @@ class _StatPopup extends State<StatPopup> {
                               ?.copyWith(fontWeight: FontWeight.bold)),
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              widget.city.happyScore.toString(),
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            widget.city.happyScore.toString(),
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                          Icon(
-                            widget.city.happyScore > 64
-                                ? Icons.sentiment_very_satisfied_rounded
-                                : widget.city.happyScore > 57
-                                    ? Icons.sentiment_satisfied_alt_rounded
-                                    : widget.city.happyScore > 47
-                                        ? Icons.sentiment_neutral_rounded
-                                        : widget.city.happyScore > 40
-                                            ? Icons.sentiment_dissatisfied
-                                            : Icons
-                                                .sentiment_very_dissatisfied_rounded,
-                            size: 50,
-                            color: widget.city.happyScore > 64
-                                ? Colors.green
-                                : widget.city.happyScore > 57
-                                    ? Colors.lightGreen
-                                    : widget.city.happyScore > 47
-                                        ? Colors.yellow
-                                        : widget.city.happyScore > 40
-                                            ? Colors.orange
-                                            : Colors.red,
-                          ),
-                        ]),
+                        ),
+                        DecoratedIcon(
+                          widget.city.happyScore > 64
+                              ? Icons.sentiment_very_satisfied_rounded
+                              : widget.city.happyScore > 57
+                                  ? Icons.sentiment_satisfied_alt_rounded
+                                  : widget.city.happyScore > 47
+                                      ? Icons.sentiment_neutral_rounded
+                                      : widget.city.happyScore > 40
+                                          ? Icons.sentiment_dissatisfied
+                                          : Icons
+                                              .sentiment_very_dissatisfied_rounded,
+                          size: 50,
+                          color: widget.city.happyScore > 64
+                              ? Colors.green
+                              : widget.city.happyScore > 57
+                                  ? Colors.lightGreen
+                                  : widget.city.happyScore > 47
+                                      ? Colors.yellow
+                                      : widget.city.happyScore > 40
+                                          ? Colors.orange
+                                          : Colors.red,
+                          shadows: const [
+                            Shadow(
+                              color: Colors.black,
+                              offset: Offset(0, 1),
+                              blurRadius: 1,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -302,7 +335,12 @@ class _StatPopup extends State<StatPopup> {
                 else if (screenSize.width < mediumWidthBreakpoint)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: widgets,
+                    children: List.generate(
+                      widgets.length,
+                      (index) => index == 1
+                          ? Expanded(child: widgets[index])
+                          : widgets[index],
+                    ),
                   )
                 else
                   Column(

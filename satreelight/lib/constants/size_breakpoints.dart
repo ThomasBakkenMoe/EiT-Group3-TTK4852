@@ -1,2 +1,2 @@
-const mediumWidthBreakpoint = 1040;
-const slimWidthBreakpoint = 750;
+const mediumWidthBreakpoint = 1294;
+const slimWidthBreakpoint = 776;

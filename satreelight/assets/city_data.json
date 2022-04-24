@@ -7,10 +7,7 @@
         "Income and Employment Rank": 168,
         "Community and Environment Rank": 112,
         "Center": {
-            "coordinates": [
-                -81.51312058740336,
-                41.08440965266472
-            ]
+            "coordinates": [-81.51312058740336, 41.08440965266472]
         }
     },
     {
@@ -21,10 +18,7 @@
         "Income and Employment Rank": 101,
         "Community and Environment Rank": 176,
         "Center": {
-            "coordinates": [
-                -106.67694226300259,
-                35.08267350132187
-            ]
+            "coordinates": [-106.67694226300259, 35.08267350132187]
         }
     },
     {
@@ -35,10 +29,7 @@
         "Income and Employment Rank": 76,
         "Community and Environment Rank": 70,
         "Center": {
-            "coordinates": [
-                -101.80518968569588,
-                35.1983347115954
-            ]
+            "coordinates": [-101.80518968569588, 35.1983347115954]
         }
     },
     {
@@ -49,10 +40,7 @@
         "Income and Employment Rank": 75,
         "Community and Environment Rank": 33,
         "Center": {
-            "coordinates": [
-                -117.84571652605983,
-                33.834109718891696
-            ]
+            "coordinates": [-117.84571652605983, 33.834109718891696]
         }
     },
     {
@@ -63,10 +51,7 @@
         "Income and Employment Rank": 102,
         "Community and Environment Rank": 54,
         "Center": {
-            "coordinates": [
-                -149.45194167606928,
-                61.11241004674333
-            ]
+            "coordinates": [-149.45194167606928, 61.11241004674333]
         }
     },
     {
@@ -77,10 +62,7 @@
         "Income and Employment Rank": 122,
         "Community and Environment Rank": 118,
         "Center": {
-            "coordinates": [
-                -97.1355401658211,
-                32.70188136849549
-            ]
+            "coordinates": [-97.1355401658211, 32.70188136849549]
         }
     },
     {
@@ -91,10 +73,7 @@
         "Income and Employment Rank": 87,
         "Community and Environment Rank": 115,
         "Center": {
-            "coordinates": [
-                -84.42049639984823,
-                33.76738433674008
-            ]
+            "coordinates": [-84.42049639984823, 33.76738433674008]
         }
     },
     {
@@ -105,10 +84,7 @@
         "Income and Employment Rank": 162,
         "Community and Environment Rank": 135,
         "Center": {
-            "coordinates": [
-                -82.09147699722044,
-                33.386370627868516
-            ]
+            "coordinates": [-82.09147699722044, 33.386370627868516]
         }
     },
     {
@@ -119,10 +95,7 @@
         "Income and Employment Rank": 154,
         "Community and Environment Rank": 69,
         "Center": {
-            "coordinates": [
-                -104.68839777140083,
-                39.68916983086493
-            ]
+            "coordinates": [-104.68839777140083, 39.68916983086493]
         }
     },
     {
@@ -133,24 +106,18 @@
         "Income and Employment Rank": 144,
         "Community and Environment Rank": 8,
         "Center": {
-            "coordinates": [
-                -88.30674298396714,
-                41.75107482373766
-            ]
+            "coordinates": [-88.30674298396714, 41.75107482373766]
         }
     },
     {
         "City": "Austin, TX",
-        "Vegetation Fraction": 0.585332628469639,
+        "Vegetation Fraction": 0.47894650401458816,
         "Happiness Score": 62.04,
         "Emotional and Physical Well-Being Rank": 35,
         "Income and Employment Rank": 5,
         "Community and Environment Rank": 109,
         "Center": {
-            "coordinates": [
-                -97.74940181706519,
-                30.307634375855205
-            ]
+            "coordinates": [-97.74940181706519, 30.307634375855205]
         }
     },
     {
@@ -161,10 +128,7 @@
         "Income and Employment Rank": 103,
         "Community and Environment Rank": 100,
         "Center": {
-            "coordinates": [
-                -119.01913677255904,
-                35.321249630122
-            ]
+            "coordinates": [-119.01913677255904, 35.321249630122]
         }
     },
     {
@@ -175,10 +139,7 @@
         "Income and Employment Rank": 178,
         "Community and Environment Rank": 84,
         "Center": {
-            "coordinates": [
-                -76.62060002393359,
-                39.284671618992725
-            ]
+            "coordinates": [-76.62060002393359, 39.284671618992725]
         }
     },
     {
@@ -189,10 +150,7 @@
         "Income and Employment Rank": 90,
         "Community and Environment Rank": 152,
         "Center": {
-            "coordinates": [
-                -91.11732340991676,
-                30.448730396341794
-            ]
+            "coordinates": [-91.11732340991676, 30.448730396341794]
         }
     },
     {
@@ -203,10 +161,7 @@
         "Income and Employment Rank": 26,
         "Community and Environment Rank": 107,
         "Center": {
-            "coordinates": [
-                -108.56386310613418,
-                45.78177135039922
-            ]
+            "coordinates": [-108.56386310613418, 45.78177135039922]
         }
     },
     {
@@ -217,10 +172,7 @@
         "Income and Employment Rank": 158,
         "Community and Environment Rank": 162,
         "Center": {
-            "coordinates": [
-                -86.8506009302999,
-                33.531534663631824
-            ]
+            "coordinates": [-86.8506009302999, 33.531534663631824]
         }
     },
     {
@@ -231,10 +183,7 @@
         "Income and Employment Rank": 32,
         "Community and Environment Rank": 4,
         "Center": {
-            "coordinates": [
-                -100.76713915227295,
-                46.809102762651115
-            ]
+            "coordinates": [-100.76713915227295, 46.809102762651115]
         }
     },
     {
@@ -245,10 +194,7 @@
         "Income and Employment Rank": 13,
         "Community and Environment Rank": 119,
         "Center": {
-            "coordinates": [
-                -116.23020683025092,
-                43.60058060763869
-            ]
+            "coordinates": [-116.23020683025092, 43.60058060763869]
         }
     },
     {
@@ -259,10 +205,7 @@
         "Income and Employment Rank": 15,
         "Community and Environment Rank": 89,
         "Center": {
-            "coordinates": [
-                -70.99812587352308,
-                42.31260674934849
-            ]
+            "coordinates": [-70.99812587352308, 42.31260674934849]
         }
     },
     {
@@ -273,10 +216,7 @@
         "Income and Employment Rank": 165,
         "Community and Environment Rank": 91,
         "Center": {
-            "coordinates": [
-                -73.19892674809199,
-                41.18477002608424
-            ]
+            "coordinates": [-73.19892674809199, 41.18477002608424]
         }
     },
     {
@@ -287,10 +227,7 @@
         "Income and Employment Rank": 73,
         "Community and Environment Rank": 122,
         "Center": {
-            "coordinates": [
-                -97.45939512457598,
-                26.028970701293076
-            ]
+            "coordinates": [-97.45939512457598, 26.028970701293076]
         }
     },
     {
@@ -301,10 +238,7 @@
         "Income and Employment Rank": 136,
         "Community and Environment Rank": 157,
         "Center": {
-            "coordinates": [
-                -78.85738105793055,
-                42.89627045437245
-            ]
+            "coordinates": [-78.85738105793055, 42.89627045437245]
         }
     },
     {
@@ -315,10 +249,7 @@
         "Income and Employment Rank": 9,
         "Community and Environment Rank": 170,
         "Center": {
-            "coordinates": [
-                -73.22662505626624,
-                44.49290665788952
-            ]
+            "coordinates": [-73.22662505626624, 44.49290665788952]
         }
     },
     {
@@ -329,10 +260,7 @@
         "Income and Employment Rank": 45,
         "Community and Environment Rank": 9,
         "Center": {
-            "coordinates": [
-                -81.99608555504636,
-                26.64760747171993
-            ]
+            "coordinates": [-81.99608555504636, 26.64760747171993]
         }
     },
     {
@@ -343,10 +271,7 @@
         "Income and Employment Rank": 123,
         "Community and Environment Rank": 1,
         "Center": {
-            "coordinates": [
-                -106.32564613347625,
-                42.8255521666375
-            ]
+            "coordinates": [-106.32564613347625, 42.8255521666375]
         }
     },
     {
@@ -357,10 +282,7 @@
         "Income and Employment Rank": 83,
         "Community and Environment Rank": 40,
         "Center": {
-            "coordinates": [
-                -91.66300162565581,
-                41.96530594447163
-            ]
+            "coordinates": [-91.66300162565581, 41.96530594447163]
         }
     },
     {
@@ -371,10 +293,7 @@
         "Income and Employment Rank": 60,
         "Community and Environment Rank": 38,
         "Center": {
-            "coordinates": [
-                -111.863597582659,
-                33.2825471290405
-            ]
+            "coordinates": [-111.863597582659, 33.2825471290405]
         }
     },
     {
@@ -385,10 +304,7 @@
         "Income and Employment Rank": 3,
         "Community and Environment Rank": 31,
         "Center": {
-            "coordinates": [
-                -79.97029699339197,
-                32.8216189664818
-            ]
+            "coordinates": [-79.97029699339197, 32.8216189664818]
         }
     },
     {
@@ -399,10 +315,7 @@
         "Income and Employment Rank": 81,
         "Community and Environment Rank": 173,
         "Center": {
-            "coordinates": [
-                -81.64368852581912,
-                38.3427324242795
-            ]
+            "coordinates": [-81.64368852581912, 38.3427324242795]
         }
     },
     {
@@ -413,10 +326,7 @@
         "Income and Employment Rank": 78,
         "Community and Environment Rank": 68,
         "Center": {
-            "coordinates": [
-                -80.84038994771826,
-                35.20361601945333
-            ]
+            "coordinates": [-80.84038994771826, 35.20361601945333]
         }
     },
     {
@@ -427,10 +337,7 @@
         "Income and Employment Rank": 141,
         "Community and Environment Rank": 120,
         "Center": {
-            "coordinates": [
-                -85.23884027355209,
-                35.09880763960308
-            ]
+            "coordinates": [-85.23884027355209, 35.09880763960308]
         }
     },
     {
@@ -441,10 +348,7 @@
         "Income and Employment Rank": 145,
         "Community and Environment Rank": 7,
         "Center": {
-            "coordinates": [
-                -76.27873658315197,
-                36.70899675187123
-            ]
+            "coordinates": [-76.27873658315197, 36.70899675187123]
         }
     },
     {
@@ -455,10 +359,7 @@
         "Income and Employment Rank": 47,
         "Community and Environment Rank": 3,
         "Center": {
-            "coordinates": [
-                -104.76810974862782,
-                41.133098374792496
-            ]
+            "coordinates": [-104.76810974862782, 41.133098374792496]
         }
     },
     {
@@ -469,10 +370,7 @@
         "Income and Employment Rank": 166,
         "Community and Environment Rank": 46,
         "Center": {
-            "coordinates": [
-                -87.73270615452114,
-                41.83397293973816
-            ]
+            "coordinates": [-87.73270615452114, 41.83397293973816]
         }
     },
     {
@@ -483,10 +381,7 @@
         "Income and Employment Rank": 113,
         "Community and Environment Rank": 30,
         "Center": {
-            "coordinates": [
-                -117.02448659929098,
-                32.631805735691685
-            ]
+            "coordinates": [-117.02448659929098, 32.631805735691685]
         }
     },
     {
@@ -497,10 +392,7 @@
         "Income and Employment Rank": 147,
         "Community and Environment Rank": 163,
         "Center": {
-            "coordinates": [
-                -84.54118938222027,
-                39.136672119412886
-            ]
+            "coordinates": [-84.54118938222027, 39.136672119412886]
         }
     },
     {
@@ -511,10 +403,7 @@
         "Income and Employment Rank": 156,
         "Community and Environment Rank": 180,
         "Center": {
-            "coordinates": [
-                -81.7062046936176,
-                41.497661827143936
-            ]
+            "coordinates": [-81.7062046936176, 41.497661827143936]
         }
     },
     {
@@ -525,10 +414,7 @@
         "Income and Employment Rank": 97,
         "Community and Environment Rank": 59,
         "Center": {
-            "coordinates": [
-                -104.75885682876428,
-                38.8751071202854
-            ]
+            "coordinates": [-104.75885682876428, 38.8751071202854]
         }
     },
     {
@@ -539,10 +425,7 @@
         "Income and Employment Rank": 161,
         "Community and Environment Rank": 5,
         "Center": {
-            "coordinates": [
-                -76.86699464944881,
-                39.19386113167661
-            ]
+            "coordinates": [-76.86699464944881, 39.19386113167661]
         }
     },
     {
@@ -553,10 +436,7 @@
         "Income and Employment Rank": 4,
         "Community and Environment Rank": 37,
         "Center": {
-            "coordinates": [
-                -80.93776013528924,
-                34.03772069251061
-            ]
+            "coordinates": [-80.93776013528924, 34.03772069251061]
         }
     },
     {
@@ -567,10 +447,7 @@
         "Income and Employment Rank": 131,
         "Community and Environment Rank": 65,
         "Center": {
-            "coordinates": [
-                -84.873603114396,
-                32.49116703100644
-            ]
+            "coordinates": [-84.873603114396, 32.49116703100644]
         }
     },
     {
@@ -581,10 +458,7 @@
         "Income and Employment Rank": 138,
         "Community and Environment Rank": 145,
         "Center": {
-            "coordinates": [
-                -82.99105900594354,
-                39.98320700979083
-            ]
+            "coordinates": [-82.99105900594354, 39.98320700979083]
         }
     },
     {
@@ -595,10 +469,7 @@
         "Income and Employment Rank": 62,
         "Community and Environment Rank": 159,
         "Center": {
-            "coordinates": [
-                -97.3226126776138,
-                27.692070897238253
-            ]
+            "coordinates": [-97.3226126776138, 27.692070897238253]
         }
     },
     {
@@ -609,10 +480,7 @@
         "Income and Employment Rank": 93,
         "Community and Environment Rank": 154,
         "Center": {
-            "coordinates": [
-                -96.73267103452794,
-                32.818836657256504
-            ]
+            "coordinates": [-96.73267103452794, 32.818836657256504]
         }
     },
     {
@@ -623,10 +491,7 @@
         "Income and Employment Rank": 134,
         "Community and Environment Rank": 153,
         "Center": {
-            "coordinates": [
-                -104.85534222896476,
-                39.76454126368994
-            ]
+            "coordinates": [-104.85534222896476, 39.76454126368994]
         }
     },
     {
@@ -637,10 +502,7 @@
         "Income and Employment Rank": 68,
         "Community and Environment Rank": 81,
         "Center": {
-            "coordinates": [
-                -93.60156556614196,
-                41.56932502223753
-            ]
+            "coordinates": [-93.60156556614196, 41.56932502223753]
         }
     },
     {
@@ -651,10 +513,7 @@
         "Income and Employment Rank": 179,
         "Community and Environment Rank": 177,
         "Center": {
-            "coordinates": [
-                -83.09949194941152,
-                42.35287240323484
-            ]
+            "coordinates": [-83.09949194941152, 42.35287240323484]
         }
     },
     {
@@ -665,10 +524,7 @@
         "Income and Employment Rank": 92,
         "Community and Environment Rank": 155,
         "Center": {
-            "coordinates": [
-                -75.51350627291058,
-                39.15647267661055
-            ]
+            "coordinates": [-75.51350627291058, 39.15647267661055]
         }
     },
     {
@@ -679,10 +535,7 @@
         "Income and Employment Rank": 69,
         "Community and Environment Rank": 123,
         "Center": {
-            "coordinates": [
-                -78.883712212056,
-                36.001563294243674
-            ]
+            "coordinates": [-78.883712212056, 36.001563294243674]
         }
     },
     {
@@ -693,10 +546,7 @@
         "Income and Employment Rank": 130,
         "Community and Environment Rank": 132,
         "Center": {
-            "coordinates": [
-                -106.41794831698157,
-                31.812186458033693
-            ]
+            "coordinates": [-106.41794831698157, 31.812186458033693]
         }
     },
     {
@@ -707,24 +557,18 @@
         "Income and Employment Rank": 24,
         "Community and Environment Rank": 23,
         "Center": {
-            "coordinates": [
-                -96.82846663538118,
-                46.84721424861173
-            ]
+            "coordinates": [-96.82846663538118, 46.84721424861173]
         }
     },
     {
         "City": "Fayetteville, NC",
-        "Vegetation Fraction": 0.6741404109324212,
+        "Vegetation Fraction": 0.5328136641184713,
         "Happiness Score": 40.83,
         "Emotional and Physical Well-Being Rank": 161,
         "Income and Employment Rank": 155,
         "Community and Environment Rank": 171,
         "Center": {
-            "coordinates": [
-                -78.95239301776735,
-                35.07581586084649
-            ]
+            "coordinates": [-78.95239301776735, 35.07581586084649]
         }
     },
     {
@@ -735,10 +579,7 @@
         "Income and Employment Rank": 95,
         "Community and Environment Rank": 34,
         "Center": {
-            "coordinates": [
-                -117.46274370929716,
-                34.10895288957812
-            ]
+            "coordinates": [-117.46274370929716, 34.10895288957812]
         }
     },
     {
@@ -749,10 +590,7 @@
         "Income and Employment Rank": 84,
         "Community and Environment Rank": 62,
         "Center": {
-            "coordinates": [
-                -80.14549815379742,
-                26.14577523946602
-            ]
+            "coordinates": [-80.14549815379742, 26.14577523946602]
         }
     },
     {
@@ -763,10 +601,7 @@
         "Income and Employment Rank": 61,
         "Community and Environment Rank": 158,
         "Center": {
-            "coordinates": [
-                -94.34427744407392,
-                35.354847816428006
-            ]
+            "coordinates": [-94.34427744407392, 35.354847816428006]
         }
     },
     {
@@ -777,10 +612,7 @@
         "Income and Employment Rank": 149,
         "Community and Environment Rank": 117,
         "Center": {
-            "coordinates": [
-                -85.15237658387232,
-                41.082907453092126
-            ]
+            "coordinates": [-85.15237658387232, 41.082907453092126]
         }
     },
     {
@@ -791,10 +623,7 @@
         "Income and Employment Rank": 124,
         "Community and Environment Rank": 83,
         "Center": {
-            "coordinates": [
-                -97.31376636998789,
-                32.800708006602804
-            ]
+            "coordinates": [-97.31376636998789, 32.800708006602804]
         }
     },
     {
@@ -805,10 +634,7 @@
         "Income and Employment Rank": 46,
         "Community and Environment Rank": 2,
         "Center": {
-            "coordinates": [
-                -122.00965496590563,
-                37.53039387296432
-            ]
+            "coordinates": [-122.00965496590563, 37.53039387296432]
         }
     },
     {
@@ -819,10 +645,7 @@
         "Income and Employment Rank": 86,
         "Community and Environment Rank": 136,
         "Center": {
-            "coordinates": [
-                -119.79497522967374,
-                36.78558173658895
-            ]
+            "coordinates": [-119.79497522967374, 36.78558173658895]
         }
     },
     {
@@ -833,10 +656,7 @@
         "Income and Employment Rank": 80,
         "Community and Environment Rank": 52,
         "Center": {
-            "coordinates": [
-                -117.96856566951291,
-                33.769105634109955
-            ]
+            "coordinates": [-117.96856566951291, 33.769105634109955]
         }
     },
     {
@@ -847,10 +667,7 @@
         "Income and Employment Rank": 108,
         "Community and Environment Rank": 67,
         "Center": {
-            "coordinates": [
-                -96.60572588773105,
-                32.907905298368654
-            ]
+            "coordinates": [-96.60572588773105, 32.907905298368654]
         }
     },
     {
@@ -861,10 +678,7 @@
         "Income and Employment Rank": 34,
         "Community and Environment Rank": 17,
         "Center": {
-            "coordinates": [
-                -111.7640809153742,
-                33.295524361463976
-            ]
+            "coordinates": [-111.7640809153742, 33.295524361463976]
         }
     },
     {
@@ -875,10 +689,7 @@
         "Income and Employment Rank": 112,
         "Community and Environment Rank": 114,
         "Center": {
-            "coordinates": [
-                -112.30677114919858,
-                33.602946766692455
-            ]
+            "coordinates": [-112.30677114919858, 33.602946766692455]
         }
     },
     {
@@ -889,10 +700,7 @@
         "Income and Employment Rank": 91,
         "Community and Environment Rank": 11,
         "Center": {
-            "coordinates": [
-                -118.2447778725606,
-                34.19299157575292
-            ]
+            "coordinates": [-118.2447778725606, 34.19299157575292]
         }
     },
     {
@@ -903,10 +711,7 @@
         "Income and Employment Rank": 89,
         "Community and Environment Rank": 42,
         "Center": {
-            "coordinates": [
-                -97.00273316208968,
-                32.657612228322755
-            ]
+            "coordinates": [-97.00273316208968, 32.657612228322755]
         }
     },
     {
@@ -917,10 +722,7 @@
         "Income and Employment Rank": 53,
         "Community and Environment Rank": 66,
         "Center": {
-            "coordinates": [
-                -85.66019708191537,
-                42.95638389246215
-            ]
+            "coordinates": [-85.66019708191537, 42.95638389246215]
         }
     },
     {
@@ -931,10 +733,7 @@
         "Income and Employment Rank": 70,
         "Community and Environment Rank": 167,
         "Center": {
-            "coordinates": [
-                -79.81978927291486,
-                36.10066369565391
-            ]
+            "coordinates": [-79.81978927291486, 36.10066369565391]
         }
     },
     {
@@ -945,10 +744,7 @@
         "Income and Employment Rank": 153,
         "Community and Environment Rank": 151,
         "Center": {
-            "coordinates": [
-                -89.06901370768836,
-                30.42016718963039
-            ]
+            "coordinates": [-89.06901370768836, 30.42016718963039]
         }
     },
     {
@@ -959,10 +755,7 @@
         "Income and Employment Rank": 143,
         "Community and Environment Rank": 58,
         "Center": {
-            "coordinates": [
-                -115.06101810019811,
-                36.00850286599059
-            ]
+            "coordinates": [-115.06101810019811, 36.00850286599059]
         }
     },
     {
@@ -973,10 +766,7 @@
         "Income and Employment Rank": 157,
         "Community and Environment Rank": 110,
         "Center": {
-            "coordinates": [
-                -80.3133909686846,
-                25.867023288717533
-            ]
+            "coordinates": [-80.3133909686846, 25.867023288717533]
         }
     },
     {
@@ -987,10 +777,7 @@
         "Income and Employment Rank": 72,
         "Community and Environment Rank": 21,
         "Center": {
-            "coordinates": [
-                -157.80118136991857,
-                21.328573389465234
-            ]
+            "coordinates": [-157.80118136991857, 21.328573389465234]
         }
     },
     {
@@ -1001,10 +788,7 @@
         "Income and Employment Rank": 140,
         "Community and Environment Rank": 164,
         "Center": {
-            "coordinates": [
-                -95.46218770063712,
-                29.82445874772668
-            ]
+            "coordinates": [-95.46218770063712, 29.82445874772668]
         }
     },
     {
@@ -1015,10 +799,7 @@
         "Income and Employment Rank": 51,
         "Community and Environment Rank": 43,
         "Center": {
-            "coordinates": [
-                -118.02948823663426,
-                33.672397860995744
-            ]
+            "coordinates": [-118.02948823663426, 33.672397860995744]
         }
     },
     {
@@ -1029,10 +810,7 @@
         "Income and Employment Rank": 39,
         "Community and Environment Rank": 141,
         "Center": {
-            "coordinates": [
-                -82.44252875891799,
-                38.40787892540224
-            ]
+            "coordinates": [-82.44252875891799, 38.40787892540224]
         }
     },
     {
@@ -1043,10 +821,7 @@
         "Income and Employment Rank": 119,
         "Community and Environment Rank": 79,
         "Center": {
-            "coordinates": [
-                -86.660486111641,
-                34.701747172386874
-            ]
+            "coordinates": [-86.660486111641, 34.701747172386874]
         }
     },
     {
@@ -1057,10 +832,7 @@
         "Income and Employment Rank": 177,
         "Community and Environment Rank": 131,
         "Center": {
-            "coordinates": [
-                -86.13349895455572,
-                39.78000713560255
-            ]
+            "coordinates": [-86.13349895455572, 39.78000713560255]
         }
     },
     {
@@ -1071,10 +843,7 @@
         "Income and Employment Rank": 16,
         "Community and Environment Rank": 12,
         "Center": {
-            "coordinates": [
-                -117.77348556688496,
-                33.68655832625786
-            ]
+            "coordinates": [-117.77348556688496, 33.68655832625786]
         }
     },
     {
@@ -1085,10 +854,7 @@
         "Income and Employment Rank": 55,
         "Community and Environment Rank": 98,
         "Center": {
-            "coordinates": [
-                -96.96148439182448,
-                32.8628969307762
-            ]
+            "coordinates": [-96.96148439182448, 32.8628969307762]
         }
     },
     {
@@ -1099,10 +865,7 @@
         "Income and Employment Rank": 159,
         "Community and Environment Rank": 174,
         "Center": {
-            "coordinates": [
-                -90.19335891093262,
-                32.31039275208606
-            ]
+            "coordinates": [-90.19335891093262, 32.31039275208606]
         }
     },
     {
@@ -1113,10 +876,7 @@
         "Income and Employment Rank": 109,
         "Community and Environment Rank": 36,
         "Center": {
-            "coordinates": [
-                -81.68401010459738,
-                30.345483221944846
-            ]
+            "coordinates": [-81.68401010459738, 30.345483221944846]
         }
     },
     {
@@ -1127,10 +887,7 @@
         "Income and Employment Rank": 170,
         "Community and Environment Rank": 20,
         "Center": {
-            "coordinates": [
-                -74.06877004866183,
-                40.71528977634721
-            ]
+            "coordinates": [-74.06877004866183, 40.71528977634721]
         }
     },
     {
@@ -1141,10 +898,7 @@
         "Income and Employment Rank": 14,
         "Community and Environment Rank": 179,
         "Center": {
-            "coordinates": [
-                -134.212840942268,
-                58.389089515870914
-            ]
+            "coordinates": [-134.212840942268, 58.389089515870914]
         }
     },
     {
@@ -1155,10 +909,7 @@
         "Income and Employment Rank": 128,
         "Community and Environment Rank": 166,
         "Center": {
-            "coordinates": [
-                -94.57641468493655,
-                39.09210466363703
-            ]
+            "coordinates": [-94.57641468493655, 39.09210466363703]
         }
     },
     {
@@ -1169,10 +920,7 @@
         "Income and Employment Rank": 59,
         "Community and Environment Rank": 94,
         "Center": {
-            "coordinates": [
-                -83.92541044321122,
-                35.95869447717736
-            ]
+            "coordinates": [-83.92541044321122, 35.95869447717736]
         }
     },
     {
@@ -1183,10 +931,7 @@
         "Income and Employment Rank": 50,
         "Community and Environment Rank": 165,
         "Center": {
-            "coordinates": [
-                -99.54103270379723,
-                27.555569405236454
-            ]
+            "coordinates": [-99.54103270379723, 27.555569405236454]
         }
     },
     {
@@ -1197,10 +942,7 @@
         "Income and Employment Rank": 118,
         "Community and Environment Rank": 156,
         "Center": {
-            "coordinates": [
-                -106.8196757775298,
-                32.33792737639872
-            ]
+            "coordinates": [-106.8196757775298, 32.33792737639872]
         }
     },
     {
@@ -1211,10 +953,7 @@
         "Income and Employment Rank": 169,
         "Community and Environment Rank": 95,
         "Center": {
-            "coordinates": [
-                -115.24346656119872,
-                36.25533380329736
-            ]
+            "coordinates": [-115.24346656119872, 36.25533380329736]
         }
     },
     {
@@ -1225,10 +964,7 @@
         "Income and Employment Rank": 12,
         "Community and Environment Rank": 78,
         "Center": {
-            "coordinates": [
-                -70.16983171005747,
-                44.086448305925884
-            ]
+            "coordinates": [-70.16983171005747, 44.086448305925884]
         }
     },
     {
@@ -1239,10 +975,7 @@
         "Income and Employment Rank": 121,
         "Community and Environment Rank": 144,
         "Center": {
-            "coordinates": [
-                -84.47203664825614,
-                38.028590479262434
-            ]
+            "coordinates": [-84.47203664825614, 38.028590479262434]
         }
     },
     {
@@ -1253,10 +986,7 @@
         "Income and Employment Rank": 67,
         "Community and Environment Rank": 104,
         "Center": {
-            "coordinates": [
-                -96.69090496978158,
-                40.79707952854071
-            ]
+            "coordinates": [-96.69090496978158, 40.79707952854071]
         }
     },
     {
@@ -1267,10 +997,7 @@
         "Income and Employment Rank": 133,
         "Community and Environment Rank": 106,
         "Center": {
-            "coordinates": [
-                -92.33634303048345,
-                34.72388468747896
-            ]
+            "coordinates": [-92.33634303048345, 34.72388468747896]
         }
     },
     {
@@ -1281,10 +1008,7 @@
         "Income and Employment Rank": 142,
         "Community and Environment Rank": 101,
         "Center": {
-            "coordinates": [
-                -118.15622997226593,
-                33.78812461624805
-            ]
+            "coordinates": [-118.15622997226593, 33.78812461624805]
         }
     },
     {
@@ -1295,10 +1019,7 @@
         "Income and Employment Rank": 85,
         "Community and Environment Rank": 128,
         "Center": {
-            "coordinates": [
-                -118.41275937095247,
-                33.99868953925297
-            ]
+            "coordinates": [-118.41275937095247, 33.99868953925297]
         }
     },
     {
@@ -1309,10 +1030,7 @@
         "Income and Employment Rank": 151,
         "Community and Environment Rank": 111,
         "Center": {
-            "coordinates": [
-                -85.6767948092361,
-                38.188930840356136
-            ]
+            "coordinates": [-85.6767948092361, 38.188930840356136]
         }
     },
     {
@@ -1323,10 +1041,7 @@
         "Income and Employment Rank": 23,
         "Community and Environment Rank": 168,
         "Center": {
-            "coordinates": [
-                -101.89077965516343,
-                33.57825667721164
-            ]
+            "coordinates": [-101.89077965516343, 33.57825667721164]
         }
     },
     {
@@ -1337,10 +1052,7 @@
         "Income and Employment Rank": 11,
         "Community and Environment Rank": 19,
         "Center": {
-            "coordinates": [
-                -89.4094674132579,
-                43.08514750418427
-            ]
+            "coordinates": [-89.4094674132579, 43.08514750418427]
         }
     },
     {
@@ -1351,10 +1063,7 @@
         "Income and Employment Rank": 129,
         "Community and Environment Rank": 57,
         "Center": {
-            "coordinates": [
-                -71.44440753157232,
-                42.97115735317178
-            ]
+            "coordinates": [-71.44440753157232, 42.97115735317178]
         }
     },
     {
@@ -1365,10 +1074,7 @@
         "Income and Employment Rank": 181,
         "Community and Environment Rank": 172,
         "Center": {
-            "coordinates": [
-                -89.97328332371997,
-                35.12949610408414
-            ]
+            "coordinates": [-89.97328332371997, 35.12949610408414]
         }
     },
     {
@@ -1379,10 +1085,7 @@
         "Income and Employment Rank": 77,
         "Community and Environment Rank": 64,
         "Center": {
-            "coordinates": [
-                -111.73771158838835,
-                33.395598219189225
-            ]
+            "coordinates": [-111.73771158838835, 33.395598219189225]
         }
     },
     {
@@ -1393,10 +1096,7 @@
         "Income and Employment Rank": 52,
         "Community and Environment Rank": 142,
         "Center": {
-            "coordinates": [
-                -80.22951435318262,
-                25.782445020342653
-            ]
+            "coordinates": [-80.22951435318262, 25.782445020342653]
         }
     },
     {
@@ -1407,10 +1107,7 @@
         "Income and Employment Rank": 152,
         "Community and Environment Rank": 113,
         "Center": {
-            "coordinates": [
-                -87.96724510804638,
-                43.05674687784647
-            ]
+            "coordinates": [-87.96724510804638, 43.05674687784647]
         }
     },
     {
@@ -1421,10 +1118,7 @@
         "Income and Employment Rank": 20,
         "Community and Environment Rank": 80,
         "Center": {
-            "coordinates": [
-                -93.26160571278642,
-                44.97071992015914
-            ]
+            "coordinates": [-93.26160571278642, 44.97071992015914]
         }
     },
     {
@@ -1435,10 +1129,7 @@
         "Income and Employment Rank": 40,
         "Community and Environment Rank": 28,
         "Center": {
-            "coordinates": [
-                -114.01266853684234,
-                46.87105708221079
-            ]
+            "coordinates": [-114.01266853684234, 46.87105708221079]
         }
     },
     {
@@ -1449,10 +1140,7 @@
         "Income and Employment Rank": 172,
         "Community and Environment Rank": 124,
         "Center": {
-            "coordinates": [
-                -88.08912860039251,
-                30.70198297492132
-            ]
+            "coordinates": [-88.08912860039251, 30.70198297492132]
         }
     },
     {
@@ -1463,10 +1151,7 @@
         "Income and Employment Rank": 42,
         "Community and Environment Rank": 92,
         "Center": {
-            "coordinates": [
-                -120.99887456211758,
-                37.616790314813315
-            ]
+            "coordinates": [-120.99887456211758, 37.616790314813315]
         }
     },
     {
@@ -1477,10 +1162,7 @@
         "Income and Employment Rank": 180,
         "Community and Environment Rank": 161,
         "Center": {
-            "coordinates": [
-                -86.24621796193749,
-                32.343918141035324
-            ]
+            "coordinates": [-86.24621796193749, 32.343918141035324]
         }
     },
     {
@@ -1491,10 +1173,7 @@
         "Income and Employment Rank": 116,
         "Community and Environment Rank": 26,
         "Center": {
-            "coordinates": [
-                -117.19244078270877,
-                33.921934893901465
-            ]
+            "coordinates": [-117.19244078270877, 33.921934893901465]
         }
     },
     {
@@ -1505,10 +1184,7 @@
         "Income and Employment Rank": 99,
         "Community and Environment Rank": 39,
         "Center": {
-            "coordinates": [
-                -116.5589441271828,
-                43.58973182106376
-            ]
+            "coordinates": [-116.5589441271828, 43.58973182106376]
         }
     },
     {
@@ -1519,10 +1195,7 @@
         "Income and Employment Rank": 104,
         "Community and Environment Rank": 35,
         "Center": {
-            "coordinates": [
-                -71.49689619567634,
-                42.75288592458973
-            ]
+            "coordinates": [-71.49689619567634, 42.75288592458973]
         }
     },
     {
@@ -1533,10 +1206,7 @@
         "Income and Employment Rank": 107,
         "Community and Environment Rank": 74,
         "Center": {
-            "coordinates": [
-                -86.78593041265674,
-                36.18694272900107
-            ]
+            "coordinates": [-86.78593041265674, 36.18694272900107]
         }
     },
     {
@@ -1547,10 +1217,7 @@
         "Income and Employment Rank": 115,
         "Community and Environment Rank": 178,
         "Center": {
-            "coordinates": [
-                -72.9292910934635,
-                41.29842813840929
-            ]
+            "coordinates": [-72.9292910934635, 41.29842813840929]
         }
     },
     {
@@ -1561,10 +1228,7 @@
         "Income and Employment Rank": 111,
         "Community and Environment Rank": 146,
         "Center": {
-            "coordinates": [
-                -89.88303695404912,
-                30.032725376713703
-            ]
+            "coordinates": [-89.88303695404912, 30.032725376713703]
         }
     },
     {
@@ -1575,10 +1239,7 @@
         "Income and Employment Rank": 164,
         "Community and Environment Rank": 51,
         "Center": {
-            "coordinates": [
-                -73.98055584759153,
-                40.69712561401624
-            ]
+            "coordinates": [-73.98055584759153, 40.69712561401624]
         }
     },
     {
@@ -1589,10 +1250,7 @@
         "Income and Employment Rank": 182,
         "Community and Environment Rank": 73,
         "Center": {
-            "coordinates": [
-                -74.18211539950862,
-                40.73071515370951
-            ]
+            "coordinates": [-74.18211539950862, 40.73071515370951]
         }
     },
     {
@@ -1603,10 +1261,7 @@
         "Income and Employment Rank": 174,
         "Community and Environment Rank": 72,
         "Center": {
-            "coordinates": [
-                -76.50412358391907,
-                37.07576322548476
-            ]
+            "coordinates": [-76.50412358391907, 37.07576322548476]
         }
     },
     {
@@ -1617,10 +1272,7 @@
         "Income and Employment Rank": 167,
         "Community and Environment Rank": 96,
         "Center": {
-            "coordinates": [
-                -76.26088052278617,
-                36.895290715611246
-            ]
+            "coordinates": [-76.26088052278617, 36.895290715611246]
         }
     },
     {
@@ -1631,10 +1283,7 @@
         "Income and Employment Rank": 175,
         "Community and Environment Rank": 61,
         "Center": {
-            "coordinates": [
-                -115.0854454571246,
-                36.26042685440224
-            ]
+            "coordinates": [-115.0854454571246, 36.26042685440224]
         }
     },
     {
@@ -1645,10 +1294,7 @@
         "Income and Employment Rank": 105,
         "Community and Environment Rank": 87,
         "Center": {
-            "coordinates": [
-                -122.23535613909259,
-                37.75961252846381
-            ]
+            "coordinates": [-122.23535613909259, 37.75961252846381]
         }
     },
     {
@@ -1659,10 +1305,7 @@
         "Income and Employment Rank": 110,
         "Community and Environment Rank": 53,
         "Center": {
-            "coordinates": [
-                -117.33828490672056,
-                33.216358294046834
-            ]
+            "coordinates": [-117.33828490672056, 33.216358294046834]
         }
     },
     {
@@ -1673,10 +1316,7 @@
         "Income and Employment Rank": 135,
         "Community and Environment Rank": 82,
         "Center": {
-            "coordinates": [
-                -97.47867669065089,
-                35.483237767429536
-            ]
+            "coordinates": [-97.47867669065089, 35.483237767429536]
         }
     },
     {
@@ -1687,10 +1327,7 @@
         "Income and Employment Rank": 79,
         "Community and Environment Rank": 56,
         "Center": {
-            "coordinates": [
-                -96.0698073204913,
-                41.292170486623725
-            ]
+            "coordinates": [-96.0698073204913, 41.292170486623725]
         }
     },
     {
@@ -1701,10 +1338,7 @@
         "Income and Employment Rank": 64,
         "Community and Environment Rank": 32,
         "Center": {
-            "coordinates": [
-                -117.60355856494122,
-                34.034360390027054
-            ]
+            "coordinates": [-117.60355856494122, 34.034360390027054]
         }
     },
     {
@@ -1715,10 +1349,7 @@
         "Income and Employment Rank": 19,
         "Community and Environment Rank": 108,
         "Center": {
-            "coordinates": [
-                -81.36817631106496,
-                28.481071693165887
-            ]
+            "coordinates": [-81.36817631106496, 28.481071693165887]
         }
     },
     {
@@ -1729,10 +1360,7 @@
         "Income and Employment Rank": 54,
         "Community and Environment Rank": 13,
         "Center": {
-            "coordinates": [
-                -94.68450829409471,
-                38.916558142589345
-            ]
+            "coordinates": [-94.68450829409471, 38.916558142589345]
         }
     },
     {
@@ -1743,10 +1371,7 @@
         "Income and Employment Rank": 132,
         "Community and Environment Rank": 10,
         "Center": {
-            "coordinates": [
-                -119.22454118792672,
-                34.19027312005193
-            ]
+            "coordinates": [-119.22454118792672, 34.19027312005193]
         }
     },
     {
@@ -1757,10 +1382,7 @@
         "Income and Employment Rank": 148,
         "Community and Environment Rank": 22,
         "Center": {
-            "coordinates": [
-                -157.96162961509802,
-                21.400583734957163
-            ]
+            "coordinates": [-157.96162961509802, 21.400583734957163]
         }
     },
     {
@@ -1771,10 +1393,7 @@
         "Income and Employment Rank": 125,
         "Community and Environment Rank": 15,
         "Center": {
-            "coordinates": [
-                -80.3281325021792,
-                26.0265901998722
-            ]
+            "coordinates": [-80.3281325021792, 26.0265901998722]
         }
     },
     {
@@ -1785,10 +1404,7 @@
         "Income and Employment Rank": 58,
         "Community and Environment Rank": 16,
         "Center": {
-            "coordinates": [
-                -112.32521907790627,
-                33.75305986566564
-            ]
+            "coordinates": [-112.32521907790627, 33.75305986566564]
         }
     },
     {
@@ -1799,10 +1415,7 @@
         "Income and Employment Rank": 146,
         "Community and Environment Rank": 75,
         "Center": {
-            "coordinates": [
-                -75.1183865118936,
-                40.002595197748434
-            ]
+            "coordinates": [-75.1183865118936, 40.002595197748434]
         }
     },
     {
@@ -1813,10 +1426,7 @@
         "Income and Employment Rank": 106,
         "Community and Environment Rank": 169,
         "Center": {
-            "coordinates": [
-                -112.12547622063813,
-                33.60455986005836
-            ]
+            "coordinates": [-112.12547622063813, 33.60455986005836]
         }
     },
     {
@@ -1827,10 +1437,7 @@
         "Income and Employment Rank": 29,
         "Community and Environment Rank": 41,
         "Center": {
-            "coordinates": [
-                -79.98074187547064,
-                40.43141791816457
-            ]
+            "coordinates": [-79.98074187547064, 40.43141791816457]
         }
     },
     {
@@ -1841,10 +1448,7 @@
         "Income and Employment Rank": 48,
         "Community and Environment Rank": 24,
         "Center": {
-            "coordinates": [
-                -96.73658036932919,
-                33.06155756938107
-            ]
+            "coordinates": [-96.73658036932919, 33.06155756938107]
         }
     },
     {
@@ -1855,10 +1459,7 @@
         "Income and Employment Rank": 65,
         "Community and Environment Rank": 14,
         "Center": {
-            "coordinates": [
-                -80.36287595187832,
-                27.29004374568392
-            ]
+            "coordinates": [-80.36287595187832, 27.29004374568392]
         }
     },
     {
@@ -1869,10 +1470,7 @@
         "Income and Employment Rank": 10,
         "Community and Environment Rank": 150,
         "Center": {
-            "coordinates": [
-                -70.16190871826844,
-                43.63617251684725
-            ]
+            "coordinates": [-70.16190871826844, 43.63617251684725]
         }
     },
     {
@@ -1883,10 +1481,7 @@
         "Income and Employment Rank": 21,
         "Community and Environment Rank": 88,
         "Center": {
-            "coordinates": [
-                -122.65535610302696,
-                45.54314450443665
-            ]
+            "coordinates": [-122.65535610302696, 45.54314450443665]
         }
     },
     {
@@ -1897,10 +1492,7 @@
         "Income and Employment Rank": 25,
         "Community and Environment Rank": 47,
         "Center": {
-            "coordinates": [
-                -71.42317481279906,
-                41.81711788679703
-            ]
+            "coordinates": [-71.42317481279906, 41.81711788679703]
         }
     },
     {
@@ -1911,10 +1503,7 @@
         "Income and Employment Rank": 71,
         "Community and Environment Rank": 63,
         "Center": {
-            "coordinates": [
-                -78.64528843955027,
-                35.83962540760338
-            ]
+            "coordinates": [-78.64528843955027, 35.83962540760338]
         }
     },
     {
@@ -1925,10 +1514,7 @@
         "Income and Employment Rank": 36,
         "Community and Environment Rank": 48,
         "Center": {
-            "coordinates": [
-                -117.5579219862144,
-                34.12426557075187
-            ]
+            "coordinates": [-117.5579219862144, 34.12426557075187]
         }
     },
     {
@@ -1939,10 +1525,7 @@
         "Income and Employment Rank": 27,
         "Community and Environment Rank": 76,
         "Center": {
-            "coordinates": [
-                -103.18230581827454,
-                44.06594585588865
-            ]
+            "coordinates": [-103.18230581827454, 44.06594585588865]
         }
     },
     {
@@ -1953,10 +1536,7 @@
         "Income and Employment Rank": 37,
         "Community and Environment Rank": 143,
         "Center": {
-            "coordinates": [
-                -119.84711867845341,
-                39.551332982121444
-            ]
+            "coordinates": [-119.84711867845341, 39.551332982121444]
         }
     },
     {
@@ -1967,10 +1547,7 @@
         "Income and Employment Rank": 176,
         "Community and Environment Rank": 133,
         "Center": {
-            "coordinates": [
-                -77.49335059326263,
-                37.524636761604945
-            ]
+            "coordinates": [-77.49335059326263, 37.524636761604945]
         }
     },
     {
@@ -1981,10 +1558,7 @@
         "Income and Employment Rank": 28,
         "Community and Environment Rank": 125,
         "Center": {
-            "coordinates": [
-                -117.39907443889977,
-                33.94603640683423
-            ]
+            "coordinates": [-117.39907443889977, 33.94603640683423]
         }
     },
     {
@@ -1995,10 +1569,7 @@
         "Income and Employment Rank": 114,
         "Community and Environment Rank": 139,
         "Center": {
-            "coordinates": [
-                -77.61651417700946,
-                43.18571638474527
-            ]
+            "coordinates": [-77.61651417700946, 43.18571638474527]
         }
     },
     {
@@ -2009,10 +1580,7 @@
         "Income and Employment Rank": 30,
         "Community and Environment Rank": 49,
         "Center": {
-            "coordinates": [
-                -121.46160027252832,
-                38.56158137870616
-            ]
+            "coordinates": [-121.46160027252832, 38.56158137870616]
         }
     },
     {
@@ -2023,10 +1591,7 @@
         "Income and Employment Rank": 41,
         "Community and Environment Rank": 175,
         "Center": {
-            "coordinates": [
-                -123.02922091983814,
-                44.93397375230297
-            ]
+            "coordinates": [-123.02922091983814, 44.93397375230297]
         }
     },
     {
@@ -2037,10 +1602,7 @@
         "Income and Employment Rank": 33,
         "Community and Environment Rank": 116,
         "Center": {
-            "coordinates": [
-                -111.92114638175667,
-                40.77679894405458
-            ]
+            "coordinates": [-111.92114638175667, 40.77679894405458]
         }
     },
     {
@@ -2051,10 +1613,7 @@
         "Income and Employment Rank": 88,
         "Community and Environment Rank": 160,
         "Center": {
-            "coordinates": [
-                -98.51879246623535,
-                29.458825198575607
-            ]
+            "coordinates": [-98.51879246623535, 29.458825198575607]
         }
     },
     {
@@ -2065,10 +1624,7 @@
         "Income and Employment Rank": 137,
         "Community and Environment Rank": 140,
         "Center": {
-            "coordinates": [
-                -117.28412675065483,
-                34.14055740260975
-            ]
+            "coordinates": [-117.28412675065483, 34.14055740260975]
         }
     },
     {
@@ -2079,10 +1635,7 @@
         "Income and Employment Rank": 18,
         "Community and Environment Rank": 25,
         "Center": {
-            "coordinates": [
-                -117.10842311794755,
-                32.82467301716282
-            ]
+            "coordinates": [-117.10842311794755, 32.82467301716282]
         }
     },
     {
@@ -2093,10 +1646,7 @@
         "Income and Employment Rank": 1,
         "Community and Environment Rank": 44,
         "Center": {
-            "coordinates": [
-                -122.44920883592657,
-                37.81908946178486
-            ]
+            "coordinates": [-122.44920883592657, 37.81908946178486]
         }
     },
     {
@@ -2107,10 +1657,7 @@
         "Income and Employment Rank": 6,
         "Community and Environment Rank": 55,
         "Center": {
-            "coordinates": [
-                -121.81793558270668,
-                37.29707937020562
-            ]
+            "coordinates": [-121.81793558270668, 37.29707937020562]
         }
     },
     {
@@ -2121,10 +1668,7 @@
         "Income and Employment Rank": 31,
         "Community and Environment Rank": 86,
         "Center": {
-            "coordinates": [
-                -117.88717827417923,
-                33.737846652456525
-            ]
+            "coordinates": [-117.88717827417923, 33.737846652456525]
         }
     },
     {
@@ -2135,10 +1679,7 @@
         "Income and Employment Rank": 100,
         "Community and Environment Rank": 29,
         "Center": {
-            "coordinates": [
-                -118.49614708828045,
-                34.41883020359732
-            ]
+            "coordinates": [-118.49614708828045, 34.41883020359732]
         }
     },
     {
@@ -2149,10 +1690,7 @@
         "Income and Employment Rank": 22,
         "Community and Environment Rank": 105,
         "Center": {
-            "coordinates": [
-                -122.67450487061832,
-                38.45253179997884
-            ]
+            "coordinates": [-122.67450487061832, 38.45253179997884]
         }
     },
     {
@@ -2163,10 +1701,7 @@
         "Income and Employment Rank": 43,
         "Community and Environment Rank": 6,
         "Center": {
-            "coordinates": [
-                -111.85873833324547,
-                33.6742589739763
-            ]
+            "coordinates": [-111.85873833324547, 33.6742589739763]
         }
     },
     {
@@ -2177,10 +1712,7 @@
         "Income and Employment Rank": 2,
         "Community and Environment Rank": 99,
         "Center": {
-            "coordinates": [
-                -122.34234924672262,
-                47.60762892579588
-            ]
+            "coordinates": [-122.34234924672262, 47.60762892579588]
         }
     },
     {
@@ -2191,10 +1723,7 @@
         "Income and Employment Rank": 173,
         "Community and Environment Rank": 71,
         "Center": {
-            "coordinates": [
-                -93.81397154583894,
-                32.46134998130499
-            ]
+            "coordinates": [-93.81397154583894, 32.46134998130499]
         }
     },
     {
@@ -2205,10 +1734,7 @@
         "Income and Employment Rank": 74,
         "Community and Environment Rank": 27,
         "Center": {
-            "coordinates": [
-                -96.74605180647436,
-                43.54094106176476
-            ]
+            "coordinates": [-96.74605180647436, 43.54094106176476]
         }
     },
     {
@@ -2219,10 +1745,7 @@
         "Income and Employment Rank": 56,
         "Community and Environment Rank": 181,
         "Center": {
-            "coordinates": [
-                -73.22746845908007,
-                44.467414955007875
-            ]
+            "coordinates": [-73.22746845908007, 44.467414955007875]
         }
     },
     {
@@ -2233,10 +1756,7 @@
         "Income and Employment Rank": 7,
         "Community and Environment Rank": 129,
         "Center": {
-            "coordinates": [
-                -117.4541761923873,
-                47.67288583972977
-            ]
+            "coordinates": [-117.4541761923873, 47.67288583972977]
         }
     },
     {
@@ -2247,10 +1767,7 @@
         "Income and Employment Rank": 44,
         "Community and Environment Rank": 103,
         "Center": {
-            "coordinates": [
-                -93.29600556278508,
-                37.182944277523404
-            ]
+            "coordinates": [-93.29600556278508, 37.182944277523404]
         }
     },
     {
@@ -2261,10 +1778,7 @@
         "Income and Employment Rank": 160,
         "Community and Environment Rank": 149,
         "Center": {
-            "coordinates": [
-                -90.2425554961847,
-                38.65335650005696
-            ]
+            "coordinates": [-90.2425554961847, 38.65335650005696]
         }
     },
     {
@@ -2275,10 +1789,7 @@
         "Income and Employment Rank": 96,
         "Community and Environment Rank": 121,
         "Center": {
-            "coordinates": [
-                -93.10614633723462,
-                44.93969370894895
-            ]
+            "coordinates": [-93.10614633723462, 44.93969370894895]
         }
     },
     {
@@ -2289,10 +1800,7 @@
         "Income and Employment Rank": 35,
         "Community and Environment Rank": 134,
         "Center": {
-            "coordinates": [
-                -82.6549624327138,
-                27.778816331234818
-            ]
+            "coordinates": [-82.6549624327138, 27.778816331234818]
         }
     },
     {
@@ -2303,10 +1811,7 @@
         "Income and Employment Rank": 150,
         "Community and Environment Rank": 137,
         "Center": {
-            "coordinates": [
-                -121.30163645906762,
-                37.97330843805437
-            ]
+            "coordinates": [-121.30163645906762, 37.97330843805437]
         }
     },
     {
@@ -2317,10 +1822,7 @@
         "Income and Employment Rank": 98,
         "Community and Environment Rank": 93,
         "Center": {
-            "coordinates": [
-                -122.45536120490155,
-                47.24294520617024
-            ]
+            "coordinates": [-122.45536120490155, 47.24294520617024]
         }
     },
     {
@@ -2331,10 +1833,7 @@
         "Income and Employment Rank": 8,
         "Community and Environment Rank": 45,
         "Center": {
-            "coordinates": [
-                -84.25414612805606,
-                30.467028381336082
-            ]
+            "coordinates": [-84.25414612805606, 30.467028381336082]
         }
     },
     {
@@ -2345,10 +1844,7 @@
         "Income and Employment Rank": 38,
         "Community and Environment Rank": 60,
         "Center": {
-            "coordinates": [
-                -82.42045178304562,
-                27.99640999839829
-            ]
+            "coordinates": [-82.42045178304562, 27.99640999839829]
         }
     },
     {
@@ -2359,10 +1855,7 @@
         "Income and Employment Rank": 17,
         "Community and Environment Rank": 50,
         "Center": {
-            "coordinates": [
-                -111.92797304719471,
-                33.39192994280445
-            ]
+            "coordinates": [-111.92797304719471, 33.39192994280445]
         }
     },
     {
@@ -2373,10 +1866,7 @@
         "Income and Employment Rank": 171,
         "Community and Environment Rank": 127,
         "Center": {
-            "coordinates": [
-                -83.57456587720273,
-                41.65662106010465
-            ]
+            "coordinates": [-83.57456587720273, 41.65662106010465]
         }
     },
     {
@@ -2387,10 +1877,7 @@
         "Income and Employment Rank": 66,
         "Community and Environment Rank": 148,
         "Center": {
-            "coordinates": [
-                -110.88353415337001,
-                32.156406936950845
-            ]
+            "coordinates": [-110.88353415337001, 32.156406936950845]
         }
     },
     {
@@ -2401,10 +1888,7 @@
         "Income and Employment Rank": 117,
         "Community and Environment Rank": 138,
         "Center": {
-            "coordinates": [
-                -95.87849892103537,
-                36.15246135873617
-            ]
+            "coordinates": [-95.87849892103537, 36.15246135873617]
         }
     },
     {
@@ -2415,10 +1899,7 @@
         "Income and Employment Rank": 49,
         "Community and Environment Rank": 147,
         "Center": {
-            "coordinates": [
-                -122.61970749772317,
-                45.640339635905185
-            ]
+            "coordinates": [-122.61970749772317, 45.640339635905185]
         }
     },
     {
@@ -2429,10 +1910,7 @@
         "Income and Employment Rank": 120,
         "Community and Environment Rank": 18,
         "Center": {
-            "coordinates": [
-                -76.0306898242246,
-                36.790494720790754
-            ]
+            "coordinates": [-76.0306898242246, 36.790494720790754]
         }
     },
     {
@@ -2443,10 +1921,7 @@
         "Income and Employment Rank": 62,
         "Community and Environment Rank": 90,
         "Center": {
-            "coordinates": [
-                -71.43787248534768,
-                41.698893428012326
-            ]
+            "coordinates": [-71.43787248534768, 41.698893428012326]
         }
     },
     {
@@ -2457,10 +1932,7 @@
         "Income and Employment Rank": 57,
         "Community and Environment Rank": 182,
         "Center": {
-            "coordinates": [
-                -77.0147318043942,
-                38.89384630919986
-            ]
+            "coordinates": [-77.0147318043942, 38.89384630919986]
         }
     },
     {
@@ -2471,10 +1943,7 @@
         "Income and Employment Rank": 82,
         "Community and Environment Rank": 85,
         "Center": {
-            "coordinates": [
-                -112.00880442078059,
-                40.679028101982794
-            ]
+            "coordinates": [-112.00880442078059, 40.679028101982794]
         }
     },
     {
@@ -2485,10 +1954,7 @@
         "Income and Employment Rank": 127,
         "Community and Environment Rank": 130,
         "Center": {
-            "coordinates": [
-                -97.44418685641024,
-                37.66485621656138
-            ]
+            "coordinates": [-97.44418685641024, 37.66485621656138]
         }
     },
     {
@@ -2499,10 +1965,7 @@
         "Income and Employment Rank": 126,
         "Community and Environment Rank": 77,
         "Center": {
-            "coordinates": [
-                -75.52965347723183,
-                39.73055180258401
-            ]
+            "coordinates": [-75.52965347723183, 39.73055180258401]
         }
     },
     {
@@ -2513,10 +1976,7 @@
         "Income and Employment Rank": 94,
         "Community and Environment Rank": 97,
         "Center": {
-            "coordinates": [
-                -80.24370046081104,
-                36.10758436831174
-            ]
+            "coordinates": [-80.24370046081104, 36.10758436831174]
         }
     },
     {
@@ -2527,10 +1987,7 @@
         "Income and Employment Rank": 139,
         "Community and Environment Rank": 126,
         "Center": {
-            "coordinates": [
-                -71.80771959769469,
-                42.27563865543509
-            ]
+            "coordinates": [-71.80771959769469, 42.27563865543509]
         }
     },
     {
@@ -2541,10 +1998,7 @@
         "Income and Employment Rank": 163,
         "Community and Environment Rank": 102,
         "Center": {
-            "coordinates": [
-                -73.86489328033404,
-                40.944448748486316
-            ]
+            "coordinates": [-73.86489328033404, 40.944448748486316]
         }
     }
 ]

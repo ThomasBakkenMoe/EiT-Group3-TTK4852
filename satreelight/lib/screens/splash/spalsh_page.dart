@@ -64,6 +64,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             onSelected: (int index) {
               ref.read(schemeProvider).setThemeModeIndex(index);
             },
+            initialValue:
+                FlexScheme.values.indexOf(ref.read(schemeProvider).scheme),
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
               for (int i = 0; i < FlexColor.schemesList.length; i++)
                 PopupMenuItem<int>(
@@ -121,12 +123,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                       shadows: [
                         const Shadow(
                           offset: Offset(1, 1),
-                          blurRadius: 4,
+                          blurRadius: 0,
                         ),
                       ],
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Theme.of(context).primaryColorDark
-                          : null,
+                      color: const Color.fromRGBO(84, 130, 53, 1),
                     ),
                   ),
                   Align(

@@ -26,7 +26,6 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
     with TickerProviderStateMixin {
   bool mapReady = false;
   bool inBackground = true;
-  bool enabled = true;
   double initZoom = 3;
   double endZoom = 4;
   final LatLng usaCenter = LatLng(38, -97);
@@ -134,115 +133,82 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
 
     return Stack(
       children: [
-        FlutterMap(
-          mapController: mapController,
-          options: MapOptions(
-            interactiveFlags: enabled && !inBackground
-                ? InteractiveFlag.all
-                : InteractiveFlag.none,
-            enableScrollWheel: enabled && !inBackground,
-            center: usaCenter,
-            zoom: initZoom,
-            maxZoom: 18.25,
-            plugins: [
-              MarkerClusterPlugin(),
-            ],
-            slideOnBoundaries: true,
-          ),
-          children: [
-            TileLayerWidget(
-              options: TileLayerOptions(
-                urlTemplate:
-                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                subdomains: ['a', 'b', 'c'],
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                tilesContainerBuilder: (context, tilesContainer, tiles) =>
-                    ThemedTilesContainer(tilesContainer: tilesContainer),
+        LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return FlutterMap(
+              mapController: mapController,
+              options: MapOptions(
+                interactiveFlags: !inBackground
+                    ? InteractiveFlag.all & ~InteractiveFlag.rotate
+                    : InteractiveFlag.none,
+                enableScrollWheel: !inBackground,
+                center: usaCenter,
+                zoom: initZoom,
+                maxZoom: 18.25,
+                plugins: [
+                  MarkerClusterPlugin(),
+                ],
+                slideOnBoundaries: true,
               ),
-            ),
-            if (enabled && !inBackground)
-              MarkerClusterLayerWidget(
-                options: MarkerClusterLayerOptions(
-                  showPolygon: false,
-                  maxClusterRadius: 120,
-                  size: Size(MediaQuery.of(context).textScaleFactor * 55,
-                      MediaQuery.of(context).textScaleFactor * 30),
-                  markers: markers,
-                  builder: (context, localMarkers) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                      child: Center(
-                        child: Text(localMarkers.length.toString(),
-                            style: Theme.of(context).textTheme.headline6),
-                      ),
-                    );
-                  },
-                  fitBoundsOptions: const FitBoundsOptions(
-                    padding: EdgeInsets.all(200),
+              children: [
+                TileLayerWidget(
+                  options: TileLayerOptions(
+                    urlTemplate:
+                        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    subdomains: ['a', 'b', 'c'],
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    tilesContainerBuilder: (context, tilesContainer, tiles) =>
+                        ThemedTilesContainer(tilesContainer: tilesContainer),
                   ),
-                  zoomToBoundsOnClick: true,
-                  centerMarkerOnClick: true,
-                  onMarkerTap: (marker) async {
-                    City city = widget.cities[markers.indexOf(marker)];
-                    await city.loadData();
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: WillPopScope(
-                            onWillPop: () async {
-                              setState(() {
-                                enabled = true;
-                              });
-                              return enabled;
-                            },
-                            child: SimpleDialog(
-                              title: Row(
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: city.name + '\n',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
-                                      children: [
-                                        TextSpan(
-                                          text: city.stateLong,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  CloseButton(
-                                    onPressed: (() {
-                                      setState(() {
-                                        enabled = true;
-                                      });
-                                      Navigator.of(context).pop();
-                                    }),
-                                  ),
-                                ],
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                              ),
-                              children: [StatPopup(city: city)],
-                            ),
+                ),
+                if (!inBackground)
+                  MarkerClusterLayerWidget(
+                    options: MarkerClusterLayerOptions(
+                      showPolygon: false,
+                      maxClusterRadius: 120,
+                      size: Size(MediaQuery.of(context).textScaleFactor * 55,
+                          MediaQuery.of(context).textScaleFactor * 30),
+                      markers: markers,
+                      builder: (context, localMarkers) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          child: Center(
+                            child: Text(localMarkers.length.toString(),
+                                style: Theme.of(context).textTheme.headline6),
                           ),
                         );
                       },
-                    );
-                    setState(() {
-                      enabled = false;
-                    });
-                  },
-                ),
-              ),
-          ],
+                      fitBoundsOptions: FitBoundsOptions(
+                        padding: EdgeInsets.symmetric(
+                          vertical: constraints.biggest.height * 0.2,
+                          horizontal: constraints.biggest.width * 0.2,
+                        ),
+                      ),
+                      zoomToBoundsOnClick: true,
+                      centerMarkerOnClick: true,
+                      onMarkerTap: (marker) async {
+                        City city = widget.cities[markers.indexOf(marker)];
+                        await city.loadData();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                              child: StatPopup(
+                                city: city,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
         const Align(
           alignment: Alignment.bottomRight,

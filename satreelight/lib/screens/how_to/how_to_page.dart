@@ -34,34 +34,7 @@ class HowToPage extends StatelessWidget {
                   builder: (context) {
                     return BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                      child: SimpleDialog(
-                        backgroundColor:
-                            Theme.of(context).dialogBackgroundColor,
-                        title: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                text: city.name + '\n',
-                                style: Theme.of(context).textTheme.headline4,
-                                children: [
-                                  TextSpan(
-                                    text: city.stateLong,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            CloseButton(
-                              onPressed: (() {
-                                Navigator.of(context).pop();
-                              }),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ),
-                        children: [StatPopup(city: city)],
-                      ),
+                      child: StatPopup(city: city),
                     );
                   },
                 );

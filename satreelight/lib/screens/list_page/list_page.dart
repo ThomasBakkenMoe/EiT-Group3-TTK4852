@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:satreelight/constants/size_breakpoints.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:satreelight/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,62 @@ class _ListPageState extends State<ListPage> {
             )
             .toList();
 
+    final textSearch = TextField(
+      onChanged: (value) => setState(
+        () {
+          searchString = value;
+        },
+      ),
+      controller: searchController,
+      maxLines: 1,
+      maxLength: 27,
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            color: Colors.white,
+          ),
+      cursorColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.white
+          : null,
+      decoration: InputDecoration(
+        label: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.search,
+            ),
+            Text(
+              'Search',
+              style: Theme.of(context).brightness == Brightness.light
+                  ? Theme.of(context).primaryTextTheme.bodyLarge
+                  : null,
+            ),
+          ],
+        ),
+        fillColor: Theme.of(context).brightness == Brightness.light
+            ? Theme.of(context).primaryColor
+            : null,
+        counterText: '',
+        constraints: const BoxConstraints(maxWidth: 300),
+        suffixIcon: searchString != ''
+            ? IconButton(
+                onPressed: () {
+                  searchController.clear();
+                  setState(() {
+                    searchString = '';
+                  });
+                },
+                icon: const Icon(
+                  Icons.close,
+                ),
+                splashRadius: 20,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).primaryIconTheme.color
+                    : null,
+              )
+            : null,
+      ),
+      textAlignVertical: TextAlignVertical.top,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -91,61 +148,40 @@ class _ListPageState extends State<ListPage> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8),
-            child: TextField(
-              onChanged: (value) => setState(
-                () {
-                  searchString = value;
-                },
-              ),
-              controller: searchController,
-              maxLines: 1,
-              maxLength: 27,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Colors.white,
-                  ),
-              cursorColor: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : null,
-              decoration: InputDecoration(
-                label: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                    ),
-                    Text(
-                      'Search',
-                      style: Theme.of(context).brightness == Brightness.light
-                          ? Theme.of(context).primaryTextTheme.bodyLarge
-                          : null,
-                    ),
-                  ],
-                ),
-                fillColor: Theme.of(context).brightness == Brightness.light
-                    ? Theme.of(context).primaryColor
-                    : null,
-                counterText: '',
-                constraints: const BoxConstraints(maxWidth: 300),
-                suffixIcon: searchString != ''
-                    ? IconButton(
+            child: MediaQuery.of(context).size.width < slimWidthBreakpoint + 30
+                ? Row(
+                    children: [
+                      IconButton(
                         onPressed: () {
-                          searchController.clear();
-                          setState(() {
-                            searchString = '';
-                          });
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SimpleDialog(
+                                  backgroundColor:
+                                      Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Theme.of(context).primaryColor
+                                          : null,
+                                  children: [
+                                    textSearch,
+                                  ],
+                                );
+                              });
                         },
-                        icon: const Icon(
-                          Icons.close,
-                        ),
-                        splashRadius: 20,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Theme.of(context).primaryIconTheme.color
-                            : null,
-                      )
-                    : null,
-              ),
-              textAlignVertical: TextAlignVertical.top,
-            ),
+                        icon: const Icon(Icons.search),
+                      ),
+                      if (searchString != '')
+                        IconButton(
+                            onPressed: () {
+                              searchController.clear();
+                              setState(() {
+                                searchString = '';
+                              });
+                            },
+                            icon: const Icon(Icons.search_off))
+                    ],
+                  )
+                : textSearch,
           ),
           Padding(
             padding: const EdgeInsets.all(8),
@@ -233,30 +269,9 @@ class _ListPageState extends State<ListPage> {
                 builder: (context) {
                   return BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                    child: SimpleDialog(
-                      title: Row(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: city.name + '\n',
-                              style: Theme.of(context).textTheme.headline4,
-                              children: [
-                                TextSpan(
-                                  text: city.stateLong,
-                                  style: Theme.of(context).textTheme.headline5,
-                                ),
-                              ],
-                            ),
-                          ),
-                          CloseButton(
-                            onPressed: (() {
-                              Navigator.of(context).pop();
-                            }),
-                          ),
-                        ],
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      ),
-                      children: [StatPopup(city: city)],
+                    child: StatPopup(
+                      city: city,
+                      cities: _cities,
                     ),
                   );
                 },

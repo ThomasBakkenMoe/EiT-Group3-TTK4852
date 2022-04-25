@@ -196,67 +196,67 @@ class _StatPopupState extends State<StatPopup> {
                     ),
                   ),
                 ),
-                if (widget.cities.isNotEmpty)
-                  Row(
-                    children: [
-                      if (cityIndex > 0)
-                        IconButton(
-                          onPressed: () async {
-                            if (!loading) {
-                              loading = true;
-                              cityIndex--;
-                              city = widget.cities[cityIndex];
-                              await city.loadData();
-                              Navigator.of(context).pop();
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return BackdropFilter(
-                                    filter:
-                                        ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                                    child: StatPopup(
-                                      city: city,
-                                      cities: widget.cities,
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          icon: const Icon(Icons.keyboard_arrow_left),
-                        ),
-                      if (cityIndex < widget.cities.length - 1)
-                        IconButton(
-                          onPressed: () async {
-                            if (!loading) {
-                              loading = true;
-                              cityIndex++;
-                              city = widget.cities[cityIndex];
-                              await city.loadData();
-                              Navigator.of(context).pop();
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return BackdropFilter(
-                                    filter:
-                                        ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                                    child: StatPopup(
-                                      city: city,
-                                      cities: widget.cities,
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          icon: const Icon(Icons.keyboard_arrow_right),
-                        ),
-                      const SizedBox(
-                        width: 16,
+                Row(
+                  children: [
+                    if (cityIndex > 0 && widget.cities.isNotEmpty)
+                      IconButton(
+                        onPressed: () async {
+                          if (!loading) {
+                            loading = true;
+                            cityIndex--;
+                            city = widget.cities[cityIndex];
+                            await city.loadData();
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                                  child: StatPopup(
+                                    city: city,
+                                    cities: widget.cities,
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                        icon: const Icon(Icons.keyboard_arrow_left),
                       ),
-                      const CloseButton()
-                    ],
-                  ),
+                    if (cityIndex < widget.cities.length - 1 &&
+                        widget.cities.isNotEmpty)
+                      IconButton(
+                        onPressed: () async {
+                          if (!loading) {
+                            loading = true;
+                            cityIndex++;
+                            city = widget.cities[cityIndex];
+                            await city.loadData();
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                                  child: StatPopup(
+                                    city: city,
+                                    cities: widget.cities,
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                        icon: const Icon(Icons.keyboard_arrow_right),
+                      ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    const CloseButton()
+                  ],
+                ),
               ],
             ),
             layout,

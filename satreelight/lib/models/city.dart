@@ -104,7 +104,7 @@ class City {
     );
   }
 
-  Future<void> loadData() async {
+  Future<City> loadWithData() async {
     if (!loaded) {
       final manifest = await rootBundle.loadString('AssetManifest.json');
       Map<String, dynamic> assetMap = jsonDecode(manifest);
@@ -150,6 +150,7 @@ class City {
       }
       loaded = true;
     }
+    return this;
   }
 
   Map<String, dynamic> toMap() {

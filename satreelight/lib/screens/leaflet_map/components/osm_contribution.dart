@@ -24,12 +24,9 @@ class OSMContribution extends StatelessWidget {
                   text: '© ', style: Theme.of(context).textTheme.bodySmall),
               TextSpan(
                   text: 'OpenStreetMap',
-                  style: Theme.of(context).textTheme.bodySmall
-                    ?..copyWith(
-                      decoration: TextDecoration.lineThrough,
-                      decorationColor: Colors.white,
-                      decorationThickness: 10,
-                    ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async {
                       const url = 'https://www.openstreetmap.org/copyright';

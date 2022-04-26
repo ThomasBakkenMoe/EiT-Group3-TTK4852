@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:ui';
 
-import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:satreelight/main.dart';
+import 'package:satreelight/screens/leaflet_map/components/city_pin.dart';
+import 'package:satreelight/screens/leaflet_map/components/city_pin_cluster.dart';
 import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
 import 'package:satreelight/screens/leaflet_map/components/themed_tiles_container.dart';
-import 'package:satreelight/widgets/stat_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -68,28 +67,15 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
   }
 
   void setMarkers() {
-    for (final city in widget.cities) {
-      double markerSize = 40;
-      final marker = Marker(
-        point: city.center,
+    markers = List.generate(cities.length, (index) {
+      return Marker(
+        point: cities[index].center,
         anchorPos: AnchorPos.align(AnchorAlign.center),
-        height: markerSize,
-        width: markerSize,
-        builder: (context) => DecoratedIcon(
-          Icons.pin_drop,
-          color: Theme.of(context).primaryColor,
-          size: markerSize,
-          shadows: [
-            Shadow(
-              offset: const Offset(1, 1),
-              blurRadius:
-                  Theme.of(context).brightness == Brightness.dark ? 2 : 1,
-            ),
-          ],
-        ),
+        height: 110,
+        width: 110,
+        builder: (context) => CityPin(city: cities[index], size: 40),
       );
-      markers.add(marker);
-    }
+    });
   }
 
   void toBackground() {
@@ -170,15 +156,8 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
                           MediaQuery.of(context).textScaleFactor * 30),
                       markers: markers,
                       builder: (context, localMarkers) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          child: Center(
-                            child: Text(localMarkers.length.toString(),
-                                style: Theme.of(context).textTheme.headline6),
-                          ),
+                        return CityPinCluster(
+                          count: localMarkers.length,
                         );
                       },
                       fitBoundsOptions: FitBoundsOptions(
@@ -189,21 +168,6 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
                       ),
                       zoomToBoundsOnClick: true,
                       centerMarkerOnClick: true,
-                      onMarkerTap: (marker) async {
-                        City city = widget.cities[markers.indexOf(marker)];
-                        await city.loadData();
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                              child: StatPopup(
-                                city: city,
-                              ),
-                            );
-                          },
-                        );
-                      },
                     ),
                   ),
               ],

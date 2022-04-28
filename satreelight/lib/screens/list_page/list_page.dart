@@ -143,7 +143,7 @@ class _ListPageState extends State<ListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'City List',
+          'Cities',
         ),
         actions: [
           Padding(

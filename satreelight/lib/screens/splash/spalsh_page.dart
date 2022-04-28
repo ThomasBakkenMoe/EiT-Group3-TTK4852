@@ -36,9 +36,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     final mapInBackground = ref.watch(mapInBackgroundProvider).mapInBackground;
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: !mapInBackground ? const Text('Map') : const Text('Home Page'),
+        title: !mapInBackground ? const Text('Map') : const Text('Home'),
         leading: !mapInBackground
             ? BackButton(onPressed: () {
                 ref.read(mapInBackgroundProvider).setMapInBackground(true);
@@ -179,7 +177,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                               message: 'Browse a sortable list of cities',
                               waitDuration: const Duration(milliseconds: 250),
                               child: ListTile(
-                                title: const Text('City list'),
+                                title: const Text('Cities'),
                                 leading: const Icon(Icons.list_alt),
                                 onTap: () => Navigator.push(
                                   context,

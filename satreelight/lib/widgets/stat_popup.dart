@@ -14,9 +14,14 @@ import 'package:satreelight/widgets/components/vegetation_gauge.dart';
 class StatPopup extends StatefulWidget {
   final List<City> cities;
   final City city;
+  final int? numberOfCities;
 
-  const StatPopup({required this.city, this.cities = const [], Key? key})
-      : super(key: key);
+  const StatPopup({
+    required this.city,
+    this.cities = const [],
+    this.numberOfCities,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StatPopup> createState() => _StatPopupState();
@@ -113,7 +118,9 @@ class _StatPopupState extends State<StatPopup> {
                         padding: const EdgeInsets.all(8),
                         child: HappinessRanks(
                           city: city,
-                          numberOfCities: widget.cities.length,
+                          numberOfCities: widget.cities.isNotEmpty
+                              ? widget.cities.length
+                              : widget.numberOfCities,
                         ),
                       ),
                     ),

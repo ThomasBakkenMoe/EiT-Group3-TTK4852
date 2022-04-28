@@ -3,8 +3,8 @@ import 'package:satreelight/models/city.dart';
 
 class HappinessRanks extends StatelessWidget {
   final City city;
-  final int numberOfCities;
-  const HappinessRanks({Key? key, required this.city, this.numberOfCities = 0})
+  final int? numberOfCities;
+  const HappinessRanks({Key? key, required this.city, this.numberOfCities})
       : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class HappinessRanks extends StatelessWidget {
                   .subtitle1
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
-            if (numberOfCities > 0)
+            if (numberOfCities != null)
               Text(
                 ' of ' + numberOfCities.toString(),
                 style: Theme.of(context)

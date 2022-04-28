@@ -7,10 +7,16 @@ import 'package:satreelight/widgets/stat_popup.dart';
 
 class CityPin extends StatefulWidget {
   final City city;
+  final int? numberOfCities;
   final double size;
   final TextStyle? textStyle;
-  const CityPin({Key? key, required this.city, this.size = 40, this.textStyle})
-      : super(key: key);
+  const CityPin({
+    Key? key,
+    required this.city,
+    this.numberOfCities,
+    this.size = 40,
+    this.textStyle,
+  }) : super(key: key);
 
   @override
   State<CityPin> createState() => _CityPinState();
@@ -27,6 +33,7 @@ class _CityPinState extends State<CityPin> {
           filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
           child: StatPopup(
             city: widget.city,
+            numberOfCities: widget.numberOfCities,
           ),
         );
       },

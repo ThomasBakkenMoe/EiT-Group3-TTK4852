@@ -67,13 +67,17 @@ class _LeafletMapState extends ConsumerState<LeafletMap>
   }
 
   void setMarkers() {
-    markers = List.generate(cities.length, (index) {
+    markers = List.generate(widget.cities.length, (index) {
       return Marker(
-        point: cities[index].center,
+        point: widget.cities[index].center,
         anchorPos: AnchorPos.align(AnchorAlign.center),
         height: 110,
         width: 110,
-        builder: (context) => CityPin(city: cities[index], size: 40),
+        builder: (context) => CityPin(
+          city: widget.cities[index],
+          size: 40,
+          numberOfCities: widget.cities.length,
+        ),
       );
     });
   }

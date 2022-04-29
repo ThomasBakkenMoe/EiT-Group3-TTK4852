@@ -29,6 +29,11 @@ class CreditsPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline1,
               textAlign: TextAlign.center,
             ),
+            Text(
+              'TTK4852 - NTNU, Spring 2022',
+              style: Theme.of(context).textTheme.headline5,
+              textAlign: TextAlign.center,
+            ),
             divider,
             Text(
               'Team members:',

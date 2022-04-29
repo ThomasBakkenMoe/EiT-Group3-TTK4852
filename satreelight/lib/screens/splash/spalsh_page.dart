@@ -104,7 +104,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          LeafletMap(cities: cities),
+          LeafletMap(cities: widget.cities),
           if (mapInBackground)
             BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
@@ -163,8 +163,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => HowToPage(
-                                      city: cities.firstWhere((element) =>
-                                          element.name == "Los Angeles"),
+                                      city: widget.cities.firstWhere(
+                                          (element) =>
+                                              element.name == "Los Angeles"),
+                                      numberOfCities: widget.cities.length,
                                     ),
                                   ),
                                 ),
@@ -183,7 +185,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ListPage(cities: cities),
+                                        ListPage(cities: widget.cities),
                                   ),
                                 ),
                               ),

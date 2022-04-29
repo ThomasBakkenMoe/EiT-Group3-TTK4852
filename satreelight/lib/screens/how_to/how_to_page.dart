@@ -4,7 +4,9 @@ import 'package:satreelight/screens/leaflet_map/components/city_pin.dart';
 
 class HowToPage extends StatelessWidget {
   final City city;
-  const HowToPage({required this.city, Key? key}) : super(key: key);
+  final int? numberOfCities;
+  const HowToPage({required this.city, this.numberOfCities, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class HowToPage extends StatelessWidget {
             const SizedBox(height: 100),
             CityPin(
               city: city,
+              numberOfCities: numberOfCities,
               size: 60,
               textStyle: Theme.of(context).primaryTextTheme.bodyText1,
             ),

@@ -26,23 +26,17 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   );
 
   @override
-  void initState() {
-    super.initState();
-    ref.read(themeModeProvider);
-  }
-
-  @override
   Widget build(BuildContext context) {
     final mapInBackground = ref.watch(mapInBackgroundProvider).mapInBackground;
     return Scaffold(
       appBar: AppBar(
-        title: !mapInBackground ? const Text('Map') : const Text('Home'),
-        leading: !mapInBackground
-            ? BackButton(onPressed: () {
+        title: mapInBackground ? const Text('Home') : const Text('Map'),
+        leading: mapInBackground
+            ? null
+            : BackButton(onPressed: () {
                 ref.read(mapInBackgroundProvider).setMapInBackground(true);
                 ref.read(mapZoomOutProvider).start();
-              })
-            : null,
+              }),
         actions: [
           IconButton(
             padding: const EdgeInsets.all(8),
@@ -60,21 +54,25 @@ class _SplashPageState extends ConsumerState<SplashPage> {
           ),
           PopupMenuButton<int>(
             onSelected: (int index) {
-              ref.read(schemeProvider).setThemeModeIndex(index);
+              ref.read(colorSchemeProvider).setThemeModeIndex(index);
             },
             initialValue:
-                FlexScheme.values.indexOf(ref.read(schemeProvider).scheme),
+                FlexScheme.values.indexOf(ref.read(colorSchemeProvider).scheme),
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
-              for (int i = 0; i < FlexColor.schemesList.length; i++)
+              for (int colorSchemeIndex = 0;
+                  colorSchemeIndex < FlexColor.schemesList.length;
+                  colorSchemeIndex++)
                 PopupMenuItem<int>(
-                  value: i,
+                  value: colorSchemeIndex,
                   child: ListTile(
                     leading: Icon(Icons.lens,
                         color: Theme.of(context).brightness == Brightness.light
-                            ? FlexColor.schemesList[i].light.primary
-                            : FlexColor.schemesList[i].dark.primary,
+                            ? FlexColor
+                                .schemesList[colorSchemeIndex].light.primary
+                            : FlexColor
+                                .schemesList[colorSchemeIndex].dark.primary,
                         size: 35),
-                    title: Text(FlexColor.schemesList[i].name),
+                    title: Text(FlexColor.schemesList[colorSchemeIndex].name),
                   ),
                 )
             ],
@@ -136,7 +134,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                         shrinkWrap: true,
                         children: [
                           Card(
-                            elevation: 10,
+                            elevation: 8,
                             child: Tooltip(
                               message: 'Open and explore the map',
                               waitDuration: const Duration(milliseconds: 250),
@@ -152,7 +150,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                             ),
                           ),
                           Card(
-                            elevation: 10,
+                            elevation: 8,
                             child: Tooltip(
                               message: 'How to use the app',
                               waitDuration: const Duration(milliseconds: 250),
@@ -174,7 +172,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                             ),
                           ),
                           Card(
-                            elevation: 10,
+                            elevation: 8,
                             child: Tooltip(
                               message: 'Browse a sortable list of cities',
                               waitDuration: const Duration(milliseconds: 250),
@@ -192,7 +190,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                             ),
                           ),
                           Card(
-                            elevation: 10,
+                            elevation: 8,
                             child: Tooltip(
                               message: 'View the honourable contributors',
                               waitDuration: const Duration(milliseconds: 250),
@@ -208,12 +206,12 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 50),
-                          ),
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 50,
                   ),
                 ],
               ),

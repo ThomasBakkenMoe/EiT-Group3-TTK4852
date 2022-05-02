@@ -42,11 +42,14 @@ class HappinessRanks extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(right: 6.0),
+            Padding(
+              padding: const EdgeInsets.only(right: 6.0),
               child: ImageIcon(
-                AssetImage(
-                    'assets/graphics/Emotional and Physical Well-Being.png'),
+                Image.asset(
+                  'assets/graphics/Emotional and Physical Well-Being.png',
+                  cacheHeight: 100,
+                  cacheWidth: 100,
+                ).image,
                 size: 35,
               ),
             ),
@@ -67,10 +70,14 @@ class HappinessRanks extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(right: 6.0),
+            Padding(
+              padding: const EdgeInsets.only(right: 6.0),
               child: ImageIcon(
-                AssetImage('assets/graphics/Income and Employer.png'),
+                Image.asset(
+                  'assets/graphics/Income and Employer.png',
+                  cacheHeight: 100,
+                  cacheWidth: 100,
+                ).image,
                 size: 35,
               ),
             ),
@@ -91,10 +98,14 @@ class HappinessRanks extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(right: 6.0),
+            Padding(
+              padding: const EdgeInsets.only(right: 6.0),
               child: ImageIcon(
-                AssetImage('assets/graphics/Community and Environment.png'),
+                Image.asset(
+                  'assets/graphics/Community and Environment.png',
+                  cacheHeight: 100,
+                  cacheWidth: 100,
+                ).image,
                 size: 35,
               ),
             ),

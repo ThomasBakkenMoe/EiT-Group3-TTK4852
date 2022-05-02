@@ -1,11 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:satreelight/constants/size_breakpoints.dart';
 import 'package:satreelight/models/city.dart';
-import 'package:flutter/material.dart';
-
 import 'package:satreelight/widgets/components/city_map.dart';
 import 'package:satreelight/widgets/components/happiness_indicator.dart';
 import 'package:satreelight/widgets/components/happiness_ranks.dart';
@@ -45,6 +43,18 @@ class _StatPopupState extends State<StatPopup> {
     Color cardColor = Theme.of(context).dividerColor;
     var screenSize = MediaQuery.of(context).size;
 
+    final loadingDialog = Dialog(
+      insetPadding: EdgeInsets.symmetric(
+        vertical: screenSize.width < mediumWidthBreakpoint
+            ? screenSize.height * 0.03
+            : screenSize.height * 0.1,
+        horizontal: screenSize.width * 0.1,
+      ),
+      child: const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    );
+
     return FutureBuilder<City>(
       future: city.loadWithData(),
       initialData: city,
@@ -52,40 +62,14 @@ class _StatPopupState extends State<StatPopup> {
         city = snapshot.data ?? city;
 
         if (!city.loaded) {
-          return Dialog(
-            insetPadding: EdgeInsets.symmetric(
-              vertical: screenSize.width < mediumWidthBreakpoint
-                  ? screenSize.height * 0.03
-                  : screenSize.height * 0.1,
-              horizontal: screenSize.width * 0.1,
-            ),
-            child: Center(
-              child: LoadingAnimationWidget.discreteCircle(
-                color: Theme.of(context).primaryColor,
-                size: 60,
-              ),
-            ),
-          );
+          return loadingDialog;
         } else {
           return FutureBuilder<OverlayImage>(
             future: city.getImage(),
             initialData: null,
             builder: (BuildContext context, AsyncSnapshot imageSnapshot) {
               if (imageSnapshot.data == null) {
-                return Dialog(
-                  insetPadding: EdgeInsets.symmetric(
-                    vertical: screenSize.width < mediumWidthBreakpoint
-                        ? screenSize.height * 0.03
-                        : screenSize.height * 0.1,
-                    horizontal: screenSize.width * 0.1,
-                  ),
-                  child: Center(
-                    child: LoadingAnimationWidget.discreteCircle(
-                      color: Theme.of(context).primaryColor,
-                      size: 60,
-                    ),
-                  ),
-                );
+                return loadingDialog;
               } else {
                 final dataWidgets = <Widget>[
                   Card(
@@ -204,7 +188,6 @@ class _StatPopupState extends State<StatPopup> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: ListView(
-                            shrinkWrap: true,
                             children: widgets,
                             physics: mapHover
                                 ? const NeverScrollableScrollPhysics()

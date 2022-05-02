@@ -29,9 +29,10 @@ class OSMContribution extends StatelessWidget {
                       ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async {
-                      const url = 'https://www.openstreetmap.org/copyright';
-                      if (await canLaunch(url)) {
-                        launch(url);
+                      final url =
+                          Uri.parse('https://www.openstreetmap.org/copyright');
+                      if (await canLaunchUrl(url)) {
+                        launchUrl(url);
                       }
                     }),
               TextSpan(

@@ -87,9 +87,10 @@ class CreditsPage extends StatelessWidget {
                           ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () async {
-                          const url = 'https://www.openstreetmap.org/copyright';
-                          if (await canLaunch(url)) {
-                            launch(url);
+                          final url = Uri.parse(
+                              'https://www.openstreetmap.org/copyright');
+                          if (await canLaunchUrl(url)) {
+                            launchUrl(url);
                           }
                         }),
                   TextSpan(
@@ -120,10 +121,10 @@ class CreditsPage extends StatelessWidget {
                         ?.copyWith(decoration: TextDecoration.underline),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () async {
-                        const url =
-                            'https://web.archive.org/web/20220302040616/https://wallethub.com/edu/happiest-places-to-live/32619';
-                        if (await canLaunch(url)) {
-                          launch(url);
+                        final url = Uri.parse(
+                            'https://web.archive.org/web/20220302040616/https://wallethub.com/edu/happiest-places-to-live/32619');
+                        if (await canLaunchUrl(url)) {
+                          launchUrl(url);
                         }
                       },
                   ),
@@ -142,11 +143,13 @@ class CreditsPage extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LicensePage(
+                      builder: (context) => LicensePage(
                         applicationName: 'SaTreeLight',
                         applicationIcon: Image(
-                          image: AssetImage(
-                              'assets/graphics/satreelight_logo.png'),
+                          image: Image.asset(
+                            'assets/graphics/satreelight_logo.png',
+                            cacheHeight: 420,
+                          ).image,
                         ),
                         applicationVersion: '1.0',
                       ),

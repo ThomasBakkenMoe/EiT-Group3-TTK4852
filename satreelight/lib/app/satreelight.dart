@@ -1,10 +1,10 @@
-import 'package:satreelight/main.dart';
-import 'package:satreelight/models/city.dart';
-import 'package:satreelight/screens/splash/spalsh_page.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:satreelight/main.dart';
+import 'package:satreelight/models/city.dart';
+import 'package:satreelight/screens/splash/spalsh_page.dart';
 
 class SaTreeLight extends ConsumerWidget {
   SaTreeLight({Key? key, required this.cities}) : super(key: key);
@@ -86,7 +86,7 @@ class SaTreeLight extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final FlexScheme scheme = ref.watch(schemeProvider).scheme;
+    final FlexScheme scheme = ref.watch(colorSchemeProvider).scheme;
     final ThemeMode themeMode = ref.watch(themeModeProvider).themeMode;
 
     return MaterialApp(

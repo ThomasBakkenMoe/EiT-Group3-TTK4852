@@ -11,7 +11,7 @@ class ThemeModeNotifier extends ChangeNotifier {
   }
 }
 
-class SchemeNotifier extends ChangeNotifier {
+class ColorSchemeNotifier extends ChangeNotifier {
   FlexScheme _scheme = FlexScheme.green;
   FlexScheme get scheme => _scheme;
 
@@ -30,8 +30,8 @@ class MapBackgroundNotifier extends ChangeNotifier {
   bool _mapInBackground = true;
   bool get mapInBackground => _mapInBackground;
 
-  void setMapInBackground(bool inBG) {
-    _mapInBackground = inBG;
+  void setMapInBackground(bool value) {
+    _mapInBackground = value;
     notifyListeners();
   }
 }

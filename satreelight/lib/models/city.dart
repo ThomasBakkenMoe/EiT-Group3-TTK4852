@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:satreelight/constants/us_states_map.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:satreelight/constants/us_states_map.dart';
 
 class City {
   final String nameAndState;
@@ -202,112 +201,4 @@ String getDataString(List<City> cities) {
   }
   const encoder = JsonEncoder.withIndent('    ');
   return encoder.convert(jsonMap);
-}
-
-Future<List<City>> loadAllCities() async {
-  final dataFile = await rootBundle.loadString('assets/city_data.json');
-  List<dynamic> data = await jsonDecode(dataFile);
-
-  List<City> cities = [];
-  final manifest = await rootBundle.loadString('AssetManifest.json');
-
-  Map<String, dynamic> assetMap = jsonDecode(manifest);
-
-  if (kDebugMode) {
-    const int citiesToRead = 182;
-    Map<String, dynamic> newMap = {};
-    newMap.addEntries(
-      assetMap.entries
-          .where(
-            (element) => element.key.contains('american_cities'),
-          )
-          .takeWhile(
-            (value) => newMap.length < citiesToRead,
-          ),
-    );
-    assetMap = newMap;
-  }
-
-  for (String file in assetMap.keys.where(
-    (element) => element.contains('american_cities'),
-  )) {
-    final path = file.replaceAll('%20', ' ');
-    final nameAndState =
-        path.split('american_cities/').last.split('.json').first;
-    for (Map<String, dynamic> cityData in data) {
-      if (cityData['City'] == nameAndState) {
-        final polygonString = await rootBundle.loadString(path);
-        final Map<String, dynamic> jsonMap = jsonDecode(polygonString);
-        List<dynamic> polygonList = [];
-        if (jsonMap.containsKey('geometries')) {
-          polygonList = jsonMap['geometries'][0]['coordinates'];
-        } else {
-          polygonList = jsonMap['coordinates'];
-        }
-        List<List<LatLng>> polygonsPoints = [];
-        Map<int, List<List<LatLng>>> polygonHolesPoints = {};
-        List<LatLng> combinedPolygonPoints = [];
-
-        int index = 0;
-        for (List polygon in polygonList) {
-          List polygonPoints = [];
-          int subIndex = 0;
-          for (List points in polygon) {
-            polygonPoints.addAll(points);
-
-            List<LatLng> polygonLatLngs = List.generate(
-              polygonPoints.length,
-              (index) {
-                final point = polygonPoints[index];
-                double lat = point[1].toDouble();
-                double lon = point[0].toDouble();
-                return LatLng(lat, lon);
-              },
-            );
-            if (subIndex == 0) {
-              polygonsPoints.add(polygonLatLngs);
-            } else {
-              polygonHolesPoints.update(
-                index,
-                (value) => [...value, polygonLatLngs],
-                ifAbsent: () => [polygonLatLngs],
-              );
-            }
-            combinedPolygonPoints.addAll(polygonLatLngs);
-            subIndex++;
-          }
-          index++;
-        }
-        final center = cityData['Center']['coordinates'];
-        final city = City(
-          nameAndState: nameAndState,
-          vegFrac: cityData['Vegetation Fraction'],
-          happyScore: cityData['Happiness Score'].toDouble(),
-          emoPhysRank: cityData['Emotional and Physical Well-Being Rank'],
-          incomeEmpRank: cityData['Income and Employment Rank'],
-          communityEnvRank: cityData['Community and Environment Rank'],
-          center: LatLng(center.last, center.first),
-        );
-        city.combinedPolygonPoints = combinedPolygonPoints;
-        city.polygonsPoints = polygonsPoints;
-        city.polygonHolesPoints = polygonHolesPoints;
-        city.loaded = true;
-
-        cities.add(city);
-        break;
-      }
-    }
-  }
-  cities.sort(
-    (a, b) => b.happyScore.compareTo(a.happyScore),
-  );
-
-  for (final city in cities) {
-    city.rank = cities.indexOf(city) + 1;
-  }
-
-  cities.sort(
-    (a, b) => a.name.compareTo(b.name),
-  );
-  return cities;
 }

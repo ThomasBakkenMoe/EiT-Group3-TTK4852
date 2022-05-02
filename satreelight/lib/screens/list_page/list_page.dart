@@ -1,9 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:satreelight/constants/size_breakpoints.dart';
 import 'package:satreelight/models/city.dart';
 import 'package:satreelight/widgets/stat_popup.dart';
-import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
   final List<City> cities;

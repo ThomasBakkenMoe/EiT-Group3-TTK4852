@@ -1,17 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:satreelight/models/city.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:map_controller/map_controller.dart';
 import 'package:satreelight/main.dart';
+import 'package:satreelight/models/city.dart';
 import 'package:satreelight/screens/leaflet_map/components/city_pin.dart';
 import 'package:satreelight/screens/leaflet_map/components/city_pin_cluster.dart';
 import 'package:satreelight/screens/leaflet_map/components/osm_contribution.dart';
 import 'package:satreelight/screens/leaflet_map/components/themed_tiles_container.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:map_controller/map_controller.dart';
 
 class LeafletMap extends ConsumerStatefulWidget {
   final List<City> cities;
